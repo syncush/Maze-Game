@@ -43,7 +43,7 @@ namespace MazeGUI {
             catch (Exception) {
                 return -1;
             }
-            
+
             return -1;
         }
 
@@ -57,8 +57,9 @@ namespace MazeGUI {
 
         private void ApplySetting(string key, string value) {
             try {
-                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var settings = configFile.AppSettings.Settings;
+                Configuration configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                KeyValueConfigurationCollection settings = configFile.AppSettings.Settings;
+                
                 if (settings[key] == null) {
                     settings.Add(key, value);
                 }
@@ -71,6 +72,16 @@ namespace MazeGUI {
             catch (ConfigurationErrorsException) {
                 Console.WriteLine("Error writing app settings");
             }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e) {
+            this.Close();
+        }
+
+        private void frmSettings_Closed(object sender, EventArgs e) {
+            MainWindow main = new MainWindow();
+            main.Show();
+            this.Close();
         }
     }
 }

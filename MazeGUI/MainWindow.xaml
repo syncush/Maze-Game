@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Button x:Name="btnSingle" Content="Singleplayer" HorizontalAlignment="Left" Margin="221,102,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnSettings" Content="Settings" HorizontalAlignment="Left" Margin="221,174,0,0" VerticalAlignment="Top" Width="75" Click="btnSettings_Click"/>
-        <Button x:Name="btnMultiplayer" Content="Multiplayer" HorizontalAlignment="Left" Margin="221,138,0,0" VerticalAlignment="Top" Width="75"/>
-        <Image x:Name="imageView" Source="mazeGame.png" HorizontalAlignment="Right" Margin="0,10,323,125" Width="184"/>
+        Title="MainWindow" Height="221.053" Width="245">
+    <Grid Margin="0,0,22,21">
+        <Button x:Name="btnSingle" Content="Singleplayer" HorizontalAlignment="Left" Margin="21,13,0,0" VerticalAlignment="Top" Width="75" Click="btnSingle_Click"/>
+        <Button x:Name="btnSettings" Content="Settings" HorizontalAlignment="Left" Margin="21,85,0,0" VerticalAlignment="Top" Width="75" Click="btnSettings_Click"/>
+        <Button x:Name="btnMultiplayer" Content="Multiplayer" HorizontalAlignment="Left" Margin="21,49,0,0" VerticalAlignment="Top" Width="75"/>
+        <Image HorizontalAlignment="Left" Source="mazeGame.png" Height="100" Margin="115,13,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>

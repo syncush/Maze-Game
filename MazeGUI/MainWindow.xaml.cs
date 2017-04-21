@@ -27,5 +27,12 @@ namespace MazeGUI {
             form.Show();
             this.Close();
         }
+
+        private void btnSingle_Click(object sender, RoutedEventArgs e)
+        {
+            SinglePlayerSettingsForm spsForm = new SinglePlayerSettingsForm();
+            spsForm.Show();
+            this.Close();
+        }
     }
 }
