@@ -83,5 +83,17 @@ namespace MazeGUI {
             main.Show();
             this.Close();
         }
+
+        private void txtbxCols_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+                e.Handled = true;
+        }
+
+        private void txtbxServerIP_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1) && e.Text != ".")
+                e.Handled = true;
+        }
     }
 }

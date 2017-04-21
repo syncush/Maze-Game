@@ -34,5 +34,12 @@ namespace MazeGUI {
             spsForm.Show();
             this.Close();
         }
+
+        private void btnMultiplayer_Click(object sender, RoutedEventArgs e)
+        {
+           MultiPlayerSettingsForm mpFormSettings = new MultiPlayerSettingsForm();
+            mpFormSettings.Show();
+            this.Close();
+        }
     }
 }
