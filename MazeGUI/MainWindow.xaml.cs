@@ -13,16 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MazeGUI
-{
+namespace MazeGUI {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
+    public partial class MainWindow : Window {
+        public MainWindow() {
             InitializeComponent();
+        }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e) {
+            SettingsForm form = new SettingsForm();
+            form.Show();
+            this.Close();
         }
     }
 }

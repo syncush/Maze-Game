@@ -5,6 +5,18 @@ VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeGUI", "MazeGUI\MazeGUI.csproj", "{92541831-F4B6-4A7B-9814-30AFFE986815}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{DFC7E688-616C-4513-9D7F-C624CEEF0778}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchAlgorithmsLib", "SearchAlgorithmsLib\SearchAlgorithmsLib.csproj", "{65307894-8812-41B9-98D4-973AC5BBF7B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{F7465CA0-6BDA-4A93-BE37-A74461C786A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C428495A-F817-4D64-B78D-E58AED23950C}"
+	ProjectSection(SolutionItems) = preProject
+		MazeGeneratorLib.dll = MazeGeneratorLib.dll
+		MazeLib.dll = MazeLib.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +27,18 @@ Global
 		{92541831-F4B6-4A7B-9814-30AFFE986815}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92541831-F4B6-4A7B-9814-30AFFE986815}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92541831-F4B6-4A7B-9814-30AFFE986815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFC7E688-616C-4513-9D7F-C624CEEF0778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC7E688-616C-4513-9D7F-C624CEEF0778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC7E688-616C-4513-9D7F-C624CEEF0778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC7E688-616C-4513-9D7F-C624CEEF0778}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65307894-8812-41B9-98D4-973AC5BBF7B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65307894-8812-41B9-98D4-973AC5BBF7B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65307894-8812-41B9-98D4-973AC5BBF7B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65307894-8812-41B9-98D4-973AC5BBF7B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7465CA0-6BDA-4A93-BE37-A74461C786A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7465CA0-6BDA-4A93-BE37-A74461C786A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7465CA0-6BDA-4A93-BE37-A74461C786A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7465CA0-6BDA-4A93-BE37-A74461C786A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
