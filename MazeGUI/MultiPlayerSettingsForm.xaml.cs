@@ -11,14 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MazeGUI.ViewModels;
 
 namespace MazeGUI {
     /// <summary>
     /// Interaction logic for MultiPlayerSettingsForm.xaml
     /// </summary>
     public partial class MultiPlayerSettingsForm : Window {
+        private MultiPlayerSettingsViewModel mpVP;
         public MultiPlayerSettingsForm() {
             InitializeComponent();
+            mpVP = new MultiPlayerSettingsViewModel();
+            mpVP.Intialize();
+            this.DataContext = mpVP;
+            
+
+
         }
 
         private void NumericTxtBox(object sender, TextCompositionEventArgs e) {
