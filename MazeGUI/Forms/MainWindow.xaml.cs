@@ -28,16 +28,14 @@ namespace MazeGUI {
             this.Close();
         }
 
-        private void btnSingle_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnSingle_Click(object sender, RoutedEventArgs e) {
             SinglePlayerSettingsForm spsForm = new SinglePlayerSettingsForm();
             spsForm.Show();
             this.Close();
         }
 
-        private void btnMultiplayer_Click(object sender, RoutedEventArgs e)
-        {
-           MultiPlayerSettingsForm mpFormSettings = new MultiPlayerSettingsForm();
+        private void btnMultiplayer_Click(object sender, RoutedEventArgs e) {
+            MultiPlayerSettingsForm mpFormSettings = new MultiPlayerSettingsForm();
             mpFormSettings.Show();
             this.Close();
         }

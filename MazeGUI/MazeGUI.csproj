@@ -34,8 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MazeGeneratorLib">
+      <HintPath>..\..\Maze3.0\Console\MazeGeneratorLib.dll</HintPath>
+    </Reference>
     <Reference Include="MazeLib">
-      <HintPath>C:\Users\sync\Source\Repos\Maze\MazeLib.dll</HintPath>
+      <HintPath>..\..\Maze3.0\Console\MazeLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -60,19 +63,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MultiPlayerSettingsForm.xaml.cs">
+    <Compile Include="DataSources\AppConfigDataSource.cs" />
+    <Compile Include="DataSources\IDataSource.cs" />
+    <Compile Include="Forms\MultiPlayerSettingsForm.xaml.cs">
       <DependentUpon>MultiPlayerSettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SettingsForm.xaml.cs">
+    <Compile Include="Forms\SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SinglePlayerForm.xaml.cs">
+    <Compile Include="Forms\SinglePlayerForm.xaml.cs">
       <DependentUpon>SinglePlayerForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SinglePlayerSettingsForm.xaml.cs">
+    <Compile Include="Forms\SinglePlayerSettingsForm.xaml.cs">
       <DependentUpon>SinglePlayerSettingsForm.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Page Include="Forms\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -80,23 +86,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Forms\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MultiPlayerSettingsForm.xaml">
+    <Page Include="Forms\MultiPlayerSettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsForm.xaml">
+    <Page Include="Forms\SettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SinglePlayerForm.xaml">
+    <Page Include="Forms\SinglePlayerForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SinglePlayerSettingsForm.xaml">
+    <Page Include="Forms\SinglePlayerSettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -130,5 +136,6 @@
   <ItemGroup>
     <Resource Include="mazeGame.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
