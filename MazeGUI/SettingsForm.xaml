@@ -8,17 +8,17 @@
         Title="Settings" Height="320" Width="261.053" Closed="frmSettings_Closed" >
     <Grid Margin="0,0,33,7">
         <Button x:Name="btnSaveSettings" Content="Save" HorizontalAlignment="Left" Margin="38,225,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveSettings_Click"/>
-        <TextBox x:Name="txtbxServerIP" HorizontalAlignment="Left" Height="23" Margin="86,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="txtbxServerIP_PreviewTextInput"/>
-        <TextBox x:Name="txtbxServerPort" HorizontalAlignment="Left" Height="23" Margin="86,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="txtbxCols_PreviewTextInput"/>
-        <TextBox x:Name="txtbxRows" HorizontalAlignment="Left" Height="23" Margin="86,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" PreviewTextInput="txtbxCols_PreviewTextInput"/>
-        <TextBox x:Name="txtbxCols" HorizontalAlignment="Left" Height="23" Margin="86,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" PreviewTextInput="txtbxCols_PreviewTextInput"/>
+        <TextBox x:Name="txtbxServerIP" Text="{Binding ServerAddress}" HorizontalAlignment="Left" Height="23" Margin="86,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="txtbxServerIP_PreviewTextInput"/>
+        <TextBox x:Name="txtbxServerPort" Text="{Binding ServerPort}" HorizontalAlignment="Left" Height="23" Margin="86,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="txtbxCols_PreviewTextInput"/>
+        <TextBox x:Name="txtbxRows" Text="{Binding MazeRows}"  HorizontalAlignment="Left" Height="23" Margin="86,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" PreviewTextInput="txtbxCols_PreviewTextInput"/>
+        <TextBox x:Name="txtbxCols" Text="{Binding MazeCols}" HorizontalAlignment="Left" Height="23" Margin="86,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" PreviewTextInput="txtbxCols_PreviewTextInput"/>
         <Label x:Name="lblServerIP" Content="Server I.P." HorizontalAlignment="Left" Margin="8,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.377"/>
         <Label x:Name="lblServerPort" Content="Server Port" HorizontalAlignment="Left" Margin="8,46,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.377"/>
         <Label x:Name="lblRows" Content="Rows" HorizontalAlignment="Left" Margin="8,86,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.377"/>
         <Label x:Name="lblCols" Content="Cols" HorizontalAlignment="Left" Margin="8,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.377"/>
         <Label x:Name="lblAlgo" Content="Algorithm" HorizontalAlignment="Left" Margin="8,169,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.377"/>
-        <ComboBox x:Name="cmbAlgo" HorizontalAlignment="Left" Margin="89,173,0,0" VerticalAlignment="Top" Width="72" SelectedIndex="0">
-            <ComboBoxItem Content="DFS"/>
+        <ComboBox SelectedIndex="{Binding Algorithm}" x:Name="cmbAlgo" HorizontalAlignment="Left" Margin="89,173,0,0" VerticalAlignment="Top" Width="72">
+            <ComboBoxItem  Content="DFS"/>
             <ComboBoxItem Content="BFS"/>
         </ComboBox>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="130,225,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>

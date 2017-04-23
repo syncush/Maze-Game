@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +19,6 @@ namespace MazeGUI {
     public partial class MultiPlayerSettingsForm : Window {
         public MultiPlayerSettingsForm() {
             InitializeComponent();
-            this.txtbxMazeRows.Text = ConfigurationManager.AppSettings["rows"];
-            this.txtbxMazeCols.Text = ConfigurationManager.AppSettings["cols"];
         }
 
         private void NumericTxtBox(object sender, TextCompositionEventArgs e) {
@@ -29,5 +26,6 @@ namespace MazeGUI {
                 e.Handled = true;
             }
         }
+
     }
 }

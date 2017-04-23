@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MazeGUI.DataSources {
+    public  enum Algorithm {
+        DFS = 0,BFS = 1, NONE = -1
+    }
     interface IDataSource {
         /// <summary>
         /// Gets or sets the server ip.
@@ -34,5 +37,18 @@ namespace MazeGUI.DataSources {
         /// The cols.
         /// </value>
         uint Cols { get; set; }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        void SaveSettings();
+
+        /// <summary>
+        /// Gets or sets the algorithm.
+        /// </summary>
+        /// <value>
+        /// The algorithm.
+        /// </value>
+        uint Algorithm { set; get; }
     }
 }

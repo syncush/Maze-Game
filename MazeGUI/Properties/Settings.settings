@@ -14,8 +14,8 @@
     <Setting Name="Cols" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
-    <Setting Name="Algorithm" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DFS</Value>
+    <Setting Name="Algorithm" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

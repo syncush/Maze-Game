@@ -35,10 +35,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MazeGeneratorLib">
-      <HintPath>..\..\Maze3.0\Console\MazeGeneratorLib.dll</HintPath>
+      <HintPath>C:\Users\sync\Source\Repos\Maze\MazeGeneratorLib.dll</HintPath>
     </Reference>
     <Reference Include="MazeLib">
       <HintPath>..\..\Maze3.0\Console\MazeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -65,44 +68,47 @@
     </ApplicationDefinition>
     <Compile Include="DataSources\AppConfigDataSource.cs" />
     <Compile Include="DataSources\IDataSource.cs" />
-    <Compile Include="Forms\MultiPlayerSettingsForm.xaml.cs">
+    <Compile Include="MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MultiPlayerSettingsForm.xaml.cs">
       <DependentUpon>MultiPlayerSettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SettingsForm.xaml.cs">
+    <Compile Include="SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SinglePlayerForm.xaml.cs">
+    <Compile Include="SinglePlayerForm.xaml.cs">
       <DependentUpon>SinglePlayerForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SinglePlayerSettingsForm.xaml.cs">
+    <Compile Include="SinglePlayerSettingsForm.xaml.cs">
       <DependentUpon>SinglePlayerSettingsForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SettingsModel.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ViewModels\MultiPlayerSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Page Include="Forms\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Forms\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Forms\MultiPlayerSettingsForm.xaml">
+    <Compile Include="ViewModels\SinglePlayerSettingsViewModel.cs" />
+    <Page Include="MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\SettingsForm.xaml">
+    <Page Include="MultiPlayerSettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\SinglePlayerForm.xaml">
+    <Page Include="SettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\SinglePlayerSettingsForm.xaml">
+    <Page Include="SinglePlayerForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SinglePlayerSettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +131,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -134,8 +141,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="mazeGame.png" />
+    <Resource Include="Resources\mazeGame.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Forms\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

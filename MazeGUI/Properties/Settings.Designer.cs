@@ -73,10 +73,10 @@ namespace MazeGUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DFS")]
-        public string Algorithm {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint Algorithm {
             get {
-                return ((string)(this["Algorithm"]));
+                return ((uint)(this["Algorithm"]));
             }
             set {
                 this["Algorithm"] = value;

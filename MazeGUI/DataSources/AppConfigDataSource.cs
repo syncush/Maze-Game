@@ -10,21 +10,10 @@ namespace MazeGUI.DataSources {
     /// <summary>
     /// 
     /// </summary>
-    class AppConfigDataSource : IDataSource
-    {
+    class AppConfigDataSource : IDataSource {
         public string ServerIP {
             get { return Properties.Settings.Default.ServerIP; }
-            set {
-                Regex regex = new Regex("^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-                                        "([01] ?\\d\\d ?| 2[0 - 4]\\d | 25[0 - 5])\\." +
-                                        "([01] ?\\d\\d ?| 2[0 - 4]\\d | 25[0 - 5])$");
-                if (regex.IsMatch(value)) {
-                    Properties.Settings.Default.ServerIP = value;
-                }
-                else {
-                    throw new Exception("Bad server ip arguement !");
-                }
-            }
+            set { Properties.Settings.Default.ServerIP = value; }
         }
 
         public uint ServerPort {
@@ -40,6 +29,15 @@ namespace MazeGUI.DataSources {
         public uint Cols {
             get { return Properties.Settings.Default.Cols; }
             set { Properties.Settings.Default.Cols = value; }
+        }
+
+        public void SaveSettings() {
+            Properties.Settings.Default.Save();
+        }
+
+        public uint Algorithm {
+            get { return Properties.Settings.Default.Algorithm; }
+            set { Properties.Settings.Default.Algorithm = value; }
         }
     }
 }

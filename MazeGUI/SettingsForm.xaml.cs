@@ -12,19 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Configuration;
+using MazeGUI.ViewModels;
 
-namespace MazeGUI {
+namespace MazeGUI{
     /// <summary>
     /// Interaction logic for SettingsForm.xaml
     /// </summary>
     public partial class SettingsForm : Window {
+        private SettingsViewModel settingsVM;
         public SettingsForm() {
             InitializeComponent();
-            this.txtbxRows.Text = ConfigurationManager.AppSettings["rows"];
-            this.txtbxCols.Text = ConfigurationManager.AppSettings["cols"];
-            this.txtbxServerIP.Text = ConfigurationManager.AppSettings["ip"];
-            this.txtbxServerPort.Text = ConfigurationManager.AppSettings["port"];
-            this.cmbAlgo.SelectedIndex = GetIndexOfAlgoValue(ConfigurationManager.AppSettings["algo"]);
+            this.settingsVM = new SettingsViewModel();
+            this.DataContext = settingsVM;
         }
 
         private int GetIndexOfAlgoValue(string value) {
@@ -48,38 +47,16 @@ namespace MazeGUI {
         }
 
         private void btnSaveSettings_Click(object sender, RoutedEventArgs e) {
-            ApplySetting("rows", this.txtbxRows.Text);
-            ApplySetting("cols", this.txtbxCols.Text);
-            ApplySetting("algo", this.cmbAlgo.SelectionBoxItem.ToString());
-            ApplySetting("ip", this.txtbxServerIP.Text);
-            ApplySetting("port", this.txtbxServerPort.Text);
+            this.settingsVM.SaveSettings();
         }
 
-        private void ApplySetting(string key, string value) {
-            try {
-                Configuration configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection settings = configFile.AppSettings.Settings;
-                
-                if (settings[key] == null) {
-                    settings.Add(key, value);
-                }
-                else {
-                    settings[key].Value = value;
-                }
-                configFile.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-            }
-            catch (ConfigurationErrorsException) {
-                Console.WriteLine("Error writing app settings");
-            }
-        }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e) {
             this.Close();
         }
 
         private void frmSettings_Closed(object sender, EventArgs e) {
-            MainWindow main = new MainWindow();
+            MainMenu main = new MainMenu();
             main.Show();
             this.Close();
         }
