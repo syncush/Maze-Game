@@ -53,6 +53,7 @@ namespace MazeGUI.ViewModels {
         }
 
         public Maze JoinMaze() {
+            Maze maze;
             TcpClient joinClient = new TcpClient();
             joinClient.Connect(ep);
             StreamWriter writer = new StreamWriter(joinClient.GetStream());
@@ -61,8 +62,11 @@ namespace MazeGUI.ViewModels {
             using (writer)
             using (reader) {
                 writer.WriteLine(string.Format("Start {0} {1} {2}", GameName, this.dataSource.Rows, this.dataSource.Cols));
-                
+                string answer = reader.ReadLine();
+                maze = Maze.FromJSON(answer);
+
             }
+            return maze;
         }
 
         [NotifyPropertyChangedInvocator]
