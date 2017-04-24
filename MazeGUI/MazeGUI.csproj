@@ -91,6 +91,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\SinglePlayerGameViewModel.cs" />
     <Compile Include="ViewModels\SinglePlayerSettingsViewModel.cs" />
     <Page Include="MainMenu.xaml">
       <SubType>Designer</SubType>
