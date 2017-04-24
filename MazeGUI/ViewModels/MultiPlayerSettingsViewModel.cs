@@ -33,26 +33,52 @@ namespace MazeGUI.ViewModels {
                 Convert.ToInt32(this.dataSource.ServerPort));
         }
 
-
-        public uint Rows {
+        #region Properties
+        public uint Rows
+        {
             get { return this.dataSource.Rows; }
             set { this.dataSource.Rows = value; }
         }
 
-        public uint Cols {
+        public uint Cols
+        {
             get { return this.dataSource.Cols; }
             set { this.dataSource.Cols = value; }
         }
 
-        public ObservableCollection<string> AvaiableGamesList {
+        public ObservableCollection<string> AvaiableGamesList
+        {
             get { return this.avaiableGames; }
-            set {
+            set
+            {
                 this.avaiableGames = value;
                 this.NotifyPropertyChanged("AvaiableGamesList");
             }
         }
+        public Boolean Stop
+        {
+            set { this.stop = value; }
+        }
 
-        public Maze JoinMaze() {
+
+
+        public string GameName
+        {
+            get { return this.gameName; }
+            set
+            {
+                this.gameName = value;
+                NotifyPropertyChanged("GameName");
+            }
+        }
+
+
+        #endregion Properties
+
+
+        #region Funcs
+        public Maze JoinMaze()
+        {
             Maze maze;
             TcpClient joinClient = new TcpClient();
             joinClient.Connect(ep);
@@ -60,7 +86,8 @@ namespace MazeGUI.ViewModels {
             StreamReader reader = new StreamReader(joinClient.GetStream());
             writer.AutoFlush = true;
             using (writer)
-            using (reader) {
+            using (reader)
+            {
                 writer.WriteLine(string.Format("Start {0} {1} {2}", GameName, this.dataSource.Rows, this.dataSource.Cols));
                 string answer = reader.ReadLine();
                 maze = Maze.FromJSON(answer);
@@ -70,53 +97,53 @@ namespace MazeGUI.ViewModels {
         }
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null) {
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public Boolean Stop {
-            set { this.stop = value; }
-        }
-
-        private string Read(StreamReader reader) {
-            string arr = "";
-            while (reader.Peek() > 0) {
-                arr += reader.ReadLine() + Environment.NewLine;
-            }
-            return arr;
-        }
-
-        public string GameName {
-            get { return this.gameName; }
-            set {
-                this.gameName = value;
-                NotifyPropertyChanged("GameName");
-            }
-        }
-
-        public void Intialize() {
+        public void Intialize()
+        {
             t = new Task(() => {
                 TcpClient client = new TcpClient();
                 client.Connect(ep);
                 StreamReader reader = new StreamReader(client.GetStream());
                 StreamWriter writer = new StreamWriter(client.GetStream());
                 writer.AutoFlush = true;
-                try {
-                    while (!stop) {
+                try
+                {
+                    while (!stop)
+                    {
                         writer.WriteLine("List");
                         string answer = reader.ReadLine();
-                        if (answer != "") {
+                        if (answer != "")
+                        {
                             this.AvaiableGamesList = JArray.Parse(answer).ToObject<ObservableCollection<string>>();
                         }
 
                         Thread.Sleep(5000);
                     }
                 }
-                catch (IOException) {
+                catch (IOException)
+                {
                     throw new Exception("Thread failed listening to games");
                 }
             });
             this.t.Start();
         }
+        private string Read(StreamReader reader)
+        {
+            string arr = "";
+            while (reader.Peek() > 0)
+            {
+                arr += reader.ReadLine() + Environment.NewLine;
+            }
+            return arr;
+        }
+        #endregion
+
+
+        
+
+
     }
 }

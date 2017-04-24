@@ -16,8 +16,10 @@ using MazeLib;
 namespace MazeGUI.ViewModels
 {
     class SinglePlayerSettingsViewModel : INotifyPropertyChanged {
+        #region DataMembers
         private IDataSource dataSource;
         private string gameName;
+        #endregion DataMembers
 
         public SinglePlayerSettingsViewModel() {
             dataSource = new SettingsModel();
