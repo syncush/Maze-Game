@@ -71,6 +71,9 @@
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MazeUserControl\MazeBoard.xaml.cs">
+      <DependentUpon>MazeBoard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MultiPlayerSettingsForm.xaml.cs">
       <DependentUpon>MultiPlayerSettingsForm.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,10 @@
     </Compile>
     <Compile Include="ViewModels\SinglePlayerSettingsViewModel.cs" />
     <Page Include="MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MazeUserControl\MazeBoard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
