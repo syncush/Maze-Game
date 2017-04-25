@@ -21,6 +21,7 @@ namespace MazeGUI.MazeUserControl {
     /// </summary>
     public partial class MazeBoard : UserControl {
         private int[,] maze;
+        private Dictionary<string, Label> lblDictionary;
         private BitmapImage wallImg;
         private BitmapImage playerImg;
         private BitmapImage exitImg;
@@ -32,42 +33,43 @@ namespace MazeGUI.MazeUserControl {
         public MazeBoard() {
             InitializeComponent();
             this.exitImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/exit.png"));
-            this.playerImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/walterWhite.jpeg"));
+            this.playerImg = new BitmapImage(
+                new Uri(@"pack://application:,,,/MazeGUI;component/Resources/walterWhite.jpeg"));
             this.wallImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/wall.png"));
             this.exitBrush = new ImageBrush(this.exitImg);
             this.playerBrush = new ImageBrush(this.playerImg);
             this.wallBrush = new ImageBrush(this.wallImg);
-            
-            this.freeSpace = new SolidColorBrush(Color.FromRgb(150, 213 , 150));
+            this.freeSpace = new SolidColorBrush(Color.FromRgb(150, 213, 150));
+            lblDictionary = new Dictionary<string, Label>();
         }
 
         public void Initialize(int[,] mazeB) {
             int rows = mazeB.GetLength(0);
             int cols = mazeB.GetLength(1);
-            int totalNumElements = rows * cols;
-            for (int i = 0; i < mazeB.GetLength(0); i++) {
+            for (int i = 0; i < rows; i++) {
                 RowDefinition row = new RowDefinition();
-                ColumnDefinition col = new ColumnDefinition();
                 row.Height = GridLength.Auto;
-                col.Width = GridLength.Auto;
                 this.grid.RowDefinitions.Add(row);
+            }
+            for (int i = 0; i < cols; i++) {
+                ColumnDefinition col = new ColumnDefinition();
+                col.Width = GridLength.Auto;
                 this.grid.ColumnDefinitions.Add(col);
             }
-            for (int i = rows - 1; i >= 0; i--) {
+            for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
                     Label rect = new Label();
                     rect.Background = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                     this.grid.Children.Add(rect);
                     Grid.SetRow(rect, i);
                     Grid.SetColumn(rect, j);
+                    lblDictionary.Add(string.Format("({0},{1})", i, j), rect);
                 }
             }
         }
 
         public string PlayerImage {
-            set {
-                this.RefreshImage(value, this.playerBrush);
-            }
+            set { this.RefreshImage(value, this.playerBrush); }
         }
 
         public string WallImage {
@@ -75,15 +77,16 @@ namespace MazeGUI.MazeUserControl {
         }
 
         public string ExitImage {
-            set { this.RefreshImage(value, this.exitBrush);}
+            set { this.RefreshImage(value, this.exitBrush); }
         }
 
         private void RefreshImage(string imgName, ImageBrush brush) {
-            brush = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/" + imgName)));
+            brush = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/" +
+                                                           imgName)));
             this.Maze = this.maze;
         }
-        
-        
+
+
         public int[,] Maze {
             get { return this.maze; }
             set {
@@ -91,9 +94,7 @@ namespace MazeGUI.MazeUserControl {
                 int cols = value.GetLength(1);
                 for (int i = 0; i < rows; i++) {
                     for (int j = 0; j < cols; j++) {
-                        var element = grid.Children.Cast<UIElement>()
-                            .FirstOrDefault(e => Grid.GetColumn(e) == i && Grid.GetRow(e) == j);
-                        Label rect = element as Label;
+                        Label rect = lblDictionary[string.Format("({0},{1})", i, j)];
                         switch (value[i, j]) {
                             case 0: {
                                 rect.Background = this.wallBrush;

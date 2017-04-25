@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlXml" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -68,6 +69,8 @@
     </ApplicationDefinition>
     <Compile Include="DataSources\AppConfigDataSource.cs" />
     <Compile Include="DataSources\IDataSource.cs" />
+    <Compile Include="GameLogic\IGameLogic.cs" />
+    <Compile Include="GameLogic\MazeGameLogic.cs" />
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>

@@ -76,8 +76,5 @@ namespace MazeGUI.ViewModels
         
 
         #endregion
-
-
-
     }
 }
