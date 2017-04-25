@@ -19,6 +19,8 @@ namespace Client {
     /// </summary>
     class Program {
         static void Main(string[] args) {
+
+            
             int port = int.Parse(ConfigurationManager.AppSettings["port"]);
             string ip = ConfigurationManager.AppSettings["ip"];
             Thread.Sleep(1000);
