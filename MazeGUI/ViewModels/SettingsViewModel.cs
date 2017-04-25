@@ -14,38 +14,52 @@ namespace MazeGUI.ViewModels {
             this.model = new SettingsModel();
         }
 
-        public string ServerAddress {
+        #region Properties
+        public string ServerAddress
+        {
             get { return this.model.ServerIP; }
-            set {
-                try {
+            set
+            {
+                try
+                {
                     this.model.ServerIP = value;
                 }
-                catch (Exception e) {
+                catch (Exception e)
+                {
                 }
             }
         }
 
-        public uint ServerPort {
+        public uint ServerPort
+        {
             set { this.model.ServerPort = value; }
             get { return this.model.ServerPort; }
         }
 
-        public uint MazeRows {
+        public uint MazeRows
+        {
             set { this.model.Rows = value; }
             get { return this.model.Rows; }
         }
 
-        public uint MazeCols {
+        public uint MazeCols
+        {
             set { this.model.Cols = value; }
             get { return this.model.Cols; }
         }
 
-        public uint Algorithm {
+        public uint Algorithm
+        {
             get { return this.model.Algorithm; }
             set { this.model.Algorithm = value; }
         }
-        public void SaveSettings() { 
+        public void SaveSettings()
+        {
             this.model.SaveSettings();
         }
+
+
+        #endregion Properties
+
     }
 }

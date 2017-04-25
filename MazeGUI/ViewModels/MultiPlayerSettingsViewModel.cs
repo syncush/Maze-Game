@@ -33,6 +33,7 @@ namespace MazeGUI.ViewModels {
                 Convert.ToInt32(this.dataSource.ServerPort));
         }
 
+        #region Properties
 
         public uint Rows {
             get { return this.dataSource.Rows; }
@@ -52,6 +53,24 @@ namespace MazeGUI.ViewModels {
             }
         }
 
+        public Boolean Stop {
+            set { this.stop = value; }
+        }
+
+
+        public string GameName {
+            get { return this.gameName; }
+            set {
+                this.gameName = value;
+                NotifyPropertyChanged("GameName");
+            }
+        }
+
+        #endregion Properties
+
+
+        #region Funcs
+
         public Maze JoinMaze() {
             Maze maze;
             TcpClient joinClient = new TcpClient();
@@ -61,10 +80,10 @@ namespace MazeGUI.ViewModels {
             writer.AutoFlush = true;
             using (writer)
             using (reader) {
-                writer.WriteLine(string.Format("Start {0} {1} {2}", GameName, this.dataSource.Rows, this.dataSource.Cols));
+                writer.WriteLine(string.Format("Start {0} {1} {2}", GameName, this.dataSource.Rows,
+                    this.dataSource.Cols));
                 string answer = reader.ReadLine();
                 maze = Maze.FromJSON(answer);
-
             }
             return maze;
         }
@@ -72,26 +91,6 @@ namespace MazeGUI.ViewModels {
         [NotifyPropertyChangedInvocator]
         protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public Boolean Stop {
-            set { this.stop = value; }
-        }
-
-        private string Read(StreamReader reader) {
-            string arr = "";
-            while (reader.Peek() > 0) {
-                arr += reader.ReadLine() + Environment.NewLine;
-            }
-            return arr;
-        }
-
-        public string GameName {
-            get { return this.gameName; }
-            set {
-                this.gameName = value;
-                NotifyPropertyChanged("GameName");
-            }
         }
 
         public void Intialize() {
@@ -118,5 +117,15 @@ namespace MazeGUI.ViewModels {
             });
             this.t.Start();
         }
+
+        private string Read(StreamReader reader) {
+            string arr = "";
+            while (reader.Peek() > 0) {
+                arr += reader.ReadLine() + Environment.NewLine;
+            }
+            return arr;
+        }
+
+        #endregion
     }
 }
