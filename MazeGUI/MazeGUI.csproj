@@ -88,6 +88,9 @@
     </Compile>
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Test.xaml.cs">
+      <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MultiPlayerSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -117,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SinglePlayerSettingsForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,6 +160,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Forms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\exit.png" />
+    <Resource Include="Resources\Player.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\thuglife.png" />
+    <Resource Include="Resources\walterWhite.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

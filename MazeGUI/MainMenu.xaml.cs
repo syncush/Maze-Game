@@ -43,5 +43,11 @@ namespace MazeGUI
         {
             MoveForm(new SettingsForm());
         }
+
+        private void windows_Loaded(object sender, RoutedEventArgs e)
+        {
+            Test lol = new Test();
+            lol.Show();
+        }
     }
 }

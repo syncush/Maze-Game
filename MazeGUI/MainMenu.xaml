@@ -1,16 +1,16 @@
-﻿<Window x:Class="MazeGUI.MainMenu"
+﻿<Window x:Name="windows" x:Class="MazeGUI.MainMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
         mc:Ignorable="d"
-        Title="MainMenu" Height="245.263" Width="300">
+        Title="MainMenu" Height="202.675" Width="284.226" Loaded="windows_Loaded">
     <Grid Margin="0,0,22,21">
-        <Button x:Name="btnSingle" Content="Singleplayer" HorizontalAlignment="Left" Margin="21,13,0,0" VerticalAlignment="Top" Width="75" Click="btnSingle_Click"/>
-        <Button x:Name="btnSettings" Content="Settings" HorizontalAlignment="Left" Margin="21,85,0,0" VerticalAlignment="Top" Width="75" Click="btnSettings_Click"/>
-        <Button x:Name="btnMultiplayer" Content="Multiplayer" HorizontalAlignment="Left" Margin="21,49,0,0" VerticalAlignment="Top" Width="75" Click="btnMultiplayer_Click"/>
-        <Image HorizontalAlignment="Left" Source="Resources/mazeGame.png" Height="225" Margin="115,13,0,0" VerticalAlignment="Top" Width="145"/>
+        <Button x:Name="btnSingle" Content="Singleplayer" Margin="21,13,135,105" Click="btnSingle_Click"/>
+        <Button x:Name="btnSettings" Content="Settings" Margin="21,85,135,33" Click="btnSettings_Click"/>
+        <Button x:Name="btnMultiplayer" Content="Multiplayer" Margin="21,49,135,69" Click="btnMultiplayer_Click"/>
+        <Image Source="Resources/mazeGame.png" Margin="115,13,10,10"/>
 
     </Grid>
 </Window>

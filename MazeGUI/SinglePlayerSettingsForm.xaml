@@ -15,6 +15,7 @@
         <TextBox Text="{Binding Cols}" Name="txtbxMazeRows" HorizontalAlignment="Left" Height="23" Margin="147,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
         <Button Name="btnStart" Content="OK" HorizontalAlignment="Left" Margin="50,204,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Name="btnMainMenu" Content="Main Menu" HorizontalAlignment="Left" Margin="147,204,0,0" VerticalAlignment="Top" Width="75"/>
+        
     </Grid>
 
 
