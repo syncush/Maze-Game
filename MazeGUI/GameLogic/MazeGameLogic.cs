@@ -32,12 +32,19 @@ namespace MazeGUI.GameLogic
                     break;
                 case Direction.Left:
                 {
+                    if (playerPosition.Col - 1 >= 0 && playerPosition.Col - 1 <= maze.Cols &&
+                        maze[playerPosition.Row, playerPosition.Col - 1] == CellType.Free) {
+                        return true;
+                    }
 
                 }
                     break;
                 case Direction.Up:
                 {
-                        
+                    if (playerPosition.Row + 1 >= 0 && playerPosition.Row + 1 <= maze.Rows - 1 &&
+                        maze[playerPosition.Row + 1, playerPosition.Col] == CellType.Free) {
+                        return true;
+                    }
 
                 }
                     break;

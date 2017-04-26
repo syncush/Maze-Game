@@ -23,10 +23,10 @@ namespace MazeGUI
             InitializeComponent();
             int[,] maze = { 
                 {0,0,0}, 
-                {1,0,3},
-                {2,0,1},
+                {0,0,0},
+                {2,0,0},
                 {0,1,2}, 
-                {3,3,3}
+                {2,0,3}
                  } ;
             this.mazeBoard.Initialize(maze);
             this.mazeBoard.Maze = maze;
