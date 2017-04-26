@@ -28,7 +28,7 @@ namespace MazeGUI
                 {0,1,2}, 
                 {2,0,3}
                  } ;
-            this.mazeBoard.Initialize(maze);
+            this.mazeBoard.Initialize();
             this.mazeBoard.Maze = maze;
         }
     }

@@ -25,6 +25,7 @@ namespace MazeGUI
             InitializeComponent();
             this.spGameVM = new SinglePlayerGameViewModel(rows, cols, gameName);
             this.DataContext = spGameVM;
+            this.mazeBoard.Maze = spGameVM.MazeOBJ;
         }
 
         private void window_KeyUp(object sender, KeyEventArgs e)
@@ -43,7 +44,13 @@ namespace MazeGUI
             {
                 this.spGameVM.MovePlayer("down");
             }
+            
 
+        }
+
+        private void btnRestart_Click(object sender, RoutedEventArgs e)
+        {
+            this.spGameVM.RestartGame();
         }
     }
 }

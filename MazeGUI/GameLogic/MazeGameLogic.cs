@@ -17,8 +17,8 @@ namespace MazeGUI.GameLogic {
         public bool IsLegitMove(Position playerPosition, Direction moveTo) {
             switch (moveTo) {
                 case Direction.Down: {
-                    if (playerPosition.Row - 1 >= 0 && playerPosition.Row - 1 <= maze.Rows - 1 &&
-                        maze[playerPosition.Row - 1, playerPosition.Col] == CellType.Free) {
+                    if (playerPosition.Row + 1 >= 0 && playerPosition.Row + 1 <= maze.Rows - 1 &&
+                        maze[playerPosition.Row + 1, playerPosition.Col] == CellType.Free) {
                         return true;
                     }
                 }
@@ -38,8 +38,8 @@ namespace MazeGUI.GameLogic {
                 }
                     break;
                 case Direction.Up: {
-                    if (playerPosition.Row + 1 >= 0 && playerPosition.Row + 1 <= maze.Rows - 1 &&
-                        maze[playerPosition.Row + 1, playerPosition.Col] == CellType.Free) {
+                    if (playerPosition.Row - 1 >= 0 && playerPosition.Row - 1 <= maze.Rows - 1 &&
+                        maze[playerPosition.Row - 1, playerPosition.Col] == CellType.Free) {
                         return true;
                     }
                 }

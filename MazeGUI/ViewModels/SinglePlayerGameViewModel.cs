@@ -26,7 +26,6 @@ namespace MazeGUI.ViewModels {
 
         public SinglePlayerGameViewModel(int rows, int cols, string mazeName) {
             this.model = new SinglePlayerGameModel();
-            this.mazeInts = new int[rows, cols];
             TcpClient client = new TcpClient();
             client.Connect(this.model.EndPoint);
             StreamWriter writer = new StreamWriter(client.GetStream());
@@ -42,9 +41,11 @@ namespace MazeGUI.ViewModels {
             Maze maze = Maze.FromJSON(answer);
             maze.Name = mazeName;
             this.model.Maze = maze;
+            this.PlayerPosition = maze.InitialPos;
+            this.mazeInts = new int[rows, cols];
         }
 
-        public int[,] MazeProp {
+        public int[,] MazeOBJ {
             get {
                 for (int i = 0; i < this.model.Maze.Rows; i++) {
                     for (int j = 0; j < this.model.Maze.Cols; j++) {
@@ -52,15 +53,20 @@ namespace MazeGUI.ViewModels {
                     }
                 }
                 mazeInts[this.model.PlayerPosition.Row, this.model.PlayerPosition.Col] = 3;
-                mazeInts[this.model.Maze.InitialPos.Row, this.model.Maze.InitialPos.Col] = 2;
+                mazeInts[this.model.Maze.GoalPos.Row, this.model.Maze.GoalPos.Col] = 2;
                 return mazeInts;
+                
+            }
+            set {
+                this.mazeInts = value;
+                this.NotifyPropertyChanged("MazeOBJ");
             }
         }
 
         public Position PlayerPosition {
-            get { return this.model.PlayerPosition; }
             set {
                 this.model.PlayerPosition = value;
+                this.NotifyPropertyChanged("MazeOBJ");
                 this.NotifyPropertyChanged("PlayerPosition");
             }
         }
@@ -106,6 +112,7 @@ namespace MazeGUI.ViewModels {
                     break;
             }
             this.PlayerPosition = this.model.Move(parseDirection);
+            this.NotifyPropertyChanged("MazeOBJ");
         }
 
         #endregion

@@ -29,9 +29,11 @@ namespace MazeGUI.MazeUserControl {
         private ImageBrush playerBrush;
         private ImageBrush wallBrush;
         private SolidColorBrush freeSpace;
+        private Boolean isInit;
 
         public MazeBoard() {
             InitializeComponent();
+            this.maze = new int[0, 0];
             this.exitImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/exit.png"));
             this.playerImg = new BitmapImage(
                 new Uri(@"pack://application:,,,/MazeGUI;component/Resources/walterWhite.jpeg"));
@@ -41,11 +43,12 @@ namespace MazeGUI.MazeUserControl {
             this.wallBrush = new ImageBrush(this.wallImg);
             this.freeSpace = new SolidColorBrush(Color.FromRgb(150, 213, 150));
             lblDictionary = new Dictionary<string, Label>();
+            this.isInit = false;
         }
 
-        public void Initialize(int[,] mazeB) {
-            int rows = mazeB.GetLength(0);
-            int cols = mazeB.GetLength(1);
+        public void Initialize() {
+            int rows = this.maze.GetLength(0);
+            int cols = this.maze.GetLength(1);
             for (int i = 0; i < rows; i++) {
                 RowDefinition row = new RowDefinition();
                 row.Height = GridLength.Auto;
@@ -66,7 +69,10 @@ namespace MazeGUI.MazeUserControl {
                     lblDictionary.Add(string.Format("({0},{1})", i, j), rect);
                 }
             }
+            isInit = true;
         }
+
+        #region Properties
 
         public string PlayerImage {
             set { this.RefreshImage(value, this.playerBrush); }
@@ -85,37 +91,63 @@ namespace MazeGUI.MazeUserControl {
                                                            imgName)));
             this.Maze = this.maze;
         }
-
-
-        public int[,] Maze {
+        public int[,] Maze
+        {
             get { return this.maze; }
             set {
-                int rows = value.GetLength(0);
-                int cols = value.GetLength(1);
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < cols; j++) {
-                        Label rect = lblDictionary[string.Format("({0},{1})", i, j)];
-                        switch (value[i, j]) {
-                            case 0: {
-                                rect.Background = this.wallBrush;
-                            }
-                                break;
-                            case 1: {
-                                rect.Background = this.freeSpace;
-                            }
-                                break;
-                            case 2: {
-                                rect.Background = this.exitBrush;
-                            }
-                                break;
-                            case 3: {
-                                rect.Background = this.playerBrush;
-                            }
-                                break;
+                this.maze = value;
+                this.DrawMaze();
+            }
+        }
+
+        #endregion
+
+
+
+        #region MazeDrawing
+        public static readonly DependencyProperty MazeProperty =
+            DependencyProperty.Register("Maze", typeof(int[,]), typeof(MazeBoard), new UIPropertyMetadata(MazeChanged));
+
+        private static void MazeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            MazeBoard board = (MazeBoard)d;
+            board.DrawMaze();
+        }
+        private void DrawMaze() {
+            if (!isInit) {
+                Initialize();
+            }
+            int rows = this.maze.GetLength(0);
+            int cols = this.maze.GetLength(1);
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    Label rect = lblDictionary[string.Format("({0},{1})", i, j)];
+                    switch (this.maze[i, j]) {
+                        case 0: {
+                            rect.Background = this.wallBrush;
                         }
+                            break;
+                        case 1: {
+                            rect.Background = this.freeSpace;
+                        }
+                            break;
+                        case 2: {
+                            rect.Background = this.exitBrush;
+                        }
+                            break;
+                        case 3: {
+                            rect.Background = this.playerBrush;
+                        }
+                            break;
                     }
                 }
             }
         }
+        #endregion
+
+
+       
+
+        
     }
 }
