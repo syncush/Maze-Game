@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
         mc:Ignorable="d"
-        Title="SinglePlayerForm" Height="382" Width="392">
+        Title="{Binding GameName}" Height="382" Width="392">
     <Grid Margin="0,0,2,-1">
         <Button x:Name="btnRestart" Content="Button" HorizontalAlignment="Left" Margin="61,21,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="btnSolve" Content="Button" HorizontalAlignment="Left" Margin="156,21,0,0" VerticalAlignment="Top" Width="75"/>
