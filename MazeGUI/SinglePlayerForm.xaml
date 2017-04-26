@@ -12,7 +12,7 @@
         <Button x:Name="btnSolve" Content="Solve" HorizontalAlignment="Left" Margin="172,10,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="btnMainMenu" Content="MainMenu" HorizontalAlignment="Left" Margin="271,10,0,0" VerticalAlignment="Top" Width="75"/>
 
-        <MazeUserControl:MazeBoard x:Name="mazeBoard" Maze="{Binding MazeOBJ}" Margin="0,45,14.4,0" HorizontalAlignment="Right" Width="396" Height="313" VerticalAlignment="Top"/>
+        <MazeUserControl:MazeBoard x:Name="mazeBoard" Margin="0,45,14.4,0" HorizontalAlignment="Right" Width="396" Height="313" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

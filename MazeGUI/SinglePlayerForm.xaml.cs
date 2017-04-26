@@ -26,6 +26,7 @@ namespace MazeGUI
             this.spGameVM = new SinglePlayerGameViewModel(rows, cols, gameName);
             this.DataContext = spGameVM;
             this.mazeBoard.Maze = spGameVM.MazeOBJ;
+            this.spGameVM.GameFinishedEvent += this.GameFinished;
         }
 
         private void window_KeyUp(object sender, KeyEventArgs e)
@@ -44,13 +45,24 @@ namespace MazeGUI
             {
                 this.spGameVM.MovePlayer("down");
             }
-            
+            this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
+
 
         }
 
         private void btnRestart_Click(object sender, RoutedEventArgs e)
         {
             this.spGameVM.RestartGame();
+        }
+
+        private void GameFinished() {
+            MessageBoxResult result = MessageBox.Show("You Finished The Maze!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (result == MessageBoxResult.OK)
+            {
+                MainMenu form = new MainMenu();
+                form.Show();
+                this.Close();
+            }
         }
     }
 }

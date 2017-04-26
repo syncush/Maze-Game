@@ -21,7 +21,8 @@ namespace MazeGUI.ViewModels {
         private int[,] mazeInts;
         private SinglePlayerGameModel model;
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public event GameFinishAction GameFinishedEvent;
+        public delegate void GameFinishAction();
         #endregion
 
         public SinglePlayerGameViewModel(int rows, int cols, string mazeName) {
@@ -112,6 +113,11 @@ namespace MazeGUI.ViewModels {
                     break;
             }
             this.PlayerPosition = this.model.Move(parseDirection);
+            if (this.model.PlayerPosition.Row == this.model.Maze.GoalPos.Row &&
+                this.model.PlayerPosition.Col == this.model.Maze.GoalPos.Col) {
+                GameFinishedEvent.Invoke();
+                
+            }
             this.NotifyPropertyChanged("MazeOBJ");
         }
 
