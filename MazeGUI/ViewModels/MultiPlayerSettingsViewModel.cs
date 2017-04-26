@@ -108,7 +108,7 @@ namespace MazeGUI.ViewModels {
                             this.AvaiableGamesList = JArray.Parse(answer).ToObject<ObservableCollection<string>>();
                         }
 
-                        Thread.Sleep(5000);
+                        Thread.Sleep(3000);
                     }
                 }
                 catch (IOException) {
@@ -116,14 +116,6 @@ namespace MazeGUI.ViewModels {
                 }
             });
             this.t.Start();
-        }
-
-        private string Read(StreamReader reader) {
-            string arr = "";
-            while (reader.Peek() > 0) {
-                arr += reader.ReadLine() + Environment.NewLine;
-            }
-            return arr;
         }
 
         #endregion

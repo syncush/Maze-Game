@@ -78,6 +78,9 @@
       <DependentUpon>MazeBoard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\SinglePlayerGameModel.cs" />
+    <Compile Include="MultiPlayerGameForm.xaml.cs">
+      <DependentUpon>MultiPlayerGameForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MultiPlayerSettingsForm.xaml.cs">
       <DependentUpon>MultiPlayerSettingsForm.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,7 @@
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\MultiPlayerGameViewModel.cs" />
     <Compile Include="ViewModels\MultiPlayerSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -108,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MazeUserControl\MazeBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MultiPlayerGameForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
