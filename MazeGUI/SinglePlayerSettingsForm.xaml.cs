@@ -28,5 +28,15 @@ namespace MazeGUI
             this.txtbxMazeCols.DataContext = settingsVM;
             this.txtbxMazeRows.DataContext = settingsVM;
         }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e) {
+            int rows = int.Parse(this.txtbxMazeRows.Text);
+            int cols = int.Parse(this.txtbxMazeCols.Text);
+            string gameName = this.txtbxMazeName.Text;
+            SinglePlayerForm form = new SinglePlayerForm(rows, cols, gameName);
+            form.Show();
+            this.Close();
+
+        }
     }
 }

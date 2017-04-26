@@ -1,15 +1,18 @@
-﻿<Window x:Class="MazeGUI.SinglePlayerForm"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
+        xmlns:MazeUserControl="clr-namespace:MazeGUI.MazeUserControl" x:Name="window" x:Class="MazeGUI.SinglePlayerForm"
         mc:Ignorable="d"
-        Title="{Binding GameName}" Height="382" Width="392">
+        Title="{Binding GameName}" Height="396.864" Width="424.7" KeyUp="window_KeyUp">
     <Grid Margin="0,0,2,-1">
-        <Button x:Name="btnRestart" Content="Button" HorizontalAlignment="Left" Margin="61,21,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnSolve" Content="Button" HorizontalAlignment="Left" Margin="156,21,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnMainMenu" Content="Button" HorizontalAlignment="Left" Margin="255,21,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnRestart" Content="Restart Game" HorizontalAlignment="Left" Margin="77,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnSolve" Content="Solve" HorizontalAlignment="Left" Margin="172,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnMainMenu" Content="MainMenu" HorizontalAlignment="Left" Margin="271,10,0,0" VerticalAlignment="Top" Width="75"/>
+
+        <MazeUserControl:MazeBoard x:Name="mazeBoard"  Margin="0,45,14.4,0" HorizontalAlignment="Right" Width="396" Height="313" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

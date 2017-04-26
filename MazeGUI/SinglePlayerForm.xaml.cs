@@ -26,5 +26,24 @@ namespace MazeGUI
             this.spGameVM = new SinglePlayerGameViewModel(rows, cols, gameName);
             this.DataContext = spGameVM;
         }
+
+        private void window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Up || e.Key == Key.W || e.Key == Key.NumPad8) {
+                this.spGameVM.MovePlayer("up");
+            }
+            if (e.Key == Key.Left || e.Key == Key.A || e.Key == Key.NumPad4) {
+                this.spGameVM.MovePlayer("left");
+            }
+            if (e.Key == Key.Right || e.Key == Key.D || e.Key == Key.NumPad6)
+            {
+                this.spGameVM.MovePlayer("right");
+            }
+            if (e.Key == Key.Down || e.Key == Key.S || e.Key == Key.NumPad3)
+            {
+                this.spGameVM.MovePlayer("down");
+            }
+
+        }
     }
 }

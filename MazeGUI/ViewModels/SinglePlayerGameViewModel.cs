@@ -117,10 +117,6 @@ namespace MazeGUI.ViewModels {
             get { return this.model.Maze.Name; }
         }
 
-        public Maze Game {
-            get { return this.model.Maze; }
-        }
-
         #endregion
     }
 }

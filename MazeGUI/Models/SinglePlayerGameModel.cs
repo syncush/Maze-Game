@@ -22,7 +22,7 @@ namespace MazeGUI.Models {
 
         public Position PlayerPosition {
             get { return this.playerPosition; }
-            set { }
+            set { this.playerPosition = value; }
         }
 
         public Position Move(Direction move) {

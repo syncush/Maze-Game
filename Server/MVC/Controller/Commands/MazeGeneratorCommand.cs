@@ -55,7 +55,7 @@ namespace ServerLib {
                 }
                 Maze maze = this.model.GenerateMaze(name, rows, col);
                 if (maze != null) {
-                    player.SendMessage(maze.ToJSON());
+                    player.SendMessage(maze.ToJSON().Replace("\r\n", ""));
                     player.CloseConnection();
                     return "shutdown";
                 }
