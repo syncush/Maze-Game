@@ -13,76 +13,64 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MazeGUI.ViewModels;
 
-namespace MazeGUI
-{
+namespace MazeGUI {
     /// <summary>
     /// Interaction logic for SinglePlayerForm.xaml
     /// </summary>
     public partial class SinglePlayerForm : Window {
         private SinglePlayerGameViewModel spGameVM;
-        public SinglePlayerForm(int rows, int cols, string gameName)
-        {
+
+        public SinglePlayerForm(int rows, int cols, string gameName) {
             InitializeComponent();
             this.spGameVM = new SinglePlayerGameViewModel(rows, cols, gameName);
             this.DataContext = spGameVM;
             this.mazeBoard.Maze = spGameVM.MazeOBJ;
             this.spGameVM.GameFinishedEvent += this.GameFinished;
-            
         }
 
-        private void window_KeyUp(object sender, KeyEventArgs e)
-        {
+        private void window_KeyUp(object sender, KeyEventArgs e) {
             if (e.Key == Key.Up || e.Key == Key.W || e.Key == Key.NumPad8) {
                 this.spGameVM.MovePlayer("up");
             }
             if (e.Key == Key.Left || e.Key == Key.A || e.Key == Key.NumPad4) {
                 this.spGameVM.MovePlayer("left");
             }
-            if (e.Key == Key.Right || e.Key == Key.D || e.Key == Key.NumPad6)
-            {
+            if (e.Key == Key.Right || e.Key == Key.D || e.Key == Key.NumPad6) {
                 this.spGameVM.MovePlayer("right");
             }
-            if (e.Key == Key.Down || e.Key == Key.S || e.Key == Key.NumPad3)
-            {
+            if (e.Key == Key.Down || e.Key == Key.S || e.Key == Key.NumPad3) {
                 this.spGameVM.MovePlayer("down");
             }
             this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
-
-
         }
 
-        private void btnRestart_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnRestart_Click(object sender, RoutedEventArgs e) {
             this.spGameVM.RestartGame();
             this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
         }
 
         private void GameFinished() {
-            MessageBoxResult result = MessageBox.Show("You Finished The Maze!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
-            if (result == MessageBoxResult.OK)
-            {
+            MessageBoxResult result = MessageBox.Show("You Finished The Maze!", "Confirmation", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            if (result == MessageBoxResult.OK) {
                 MainMenu form = new MainMenu();
                 form.Show();
                 this.Close();
             }
         }
 
-        private void btnSolve_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnSolve_Click(object sender, RoutedEventArgs e) {
             this.spGameVM.SolveMaze();
             this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
         }
 
-        
 
-        private void window_Closed(object sender, EventArgs e)
-        {
+        private void window_Closed(object sender, EventArgs e) {
             MainMenu form = new MainMenu();
             form.Show();
         }
 
-        private void btnMainMenu_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnMainMenu_Click(object sender, RoutedEventArgs e) {
             this.window_Closed(null, null);
         }
     }

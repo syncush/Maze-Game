@@ -31,6 +31,7 @@ namespace MazeGUI.ViewModels {
 
         public MultiPlayerGameViewModel(string gameName, int rows, int cols) {
             this.mpModel = new MultiPlayerModel(gameName, rows, cols);
+            this.mpModel.RivalMovedEvent += this.RivalMoved;
         }
 
         public MultiPlayerGameViewModel(string joinGame) {

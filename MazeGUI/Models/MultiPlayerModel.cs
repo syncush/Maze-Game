@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MazeGUI.DataSources;
 using MazeGUI.Utilities;
+using MazeGUI.ViewModels;
 using MazeLib;
 using Newtonsoft.Json.Linq;
 
@@ -43,6 +44,7 @@ namespace MazeGUI.Models {
             writer = new StreamWriter(client.GetStream());
             reader = new StreamReader(client.GetStream());
             writer.AutoFlush = true;
+           
         }
         public MultiPlayerModel(string gameName, int cols, int rows) {
             writer.WriteLine(string.Format("Start {0} {1} {2}", gameName, rows, cols));
@@ -116,6 +118,16 @@ namespace MazeGUI.Models {
                     }
 
                 }
+            }
+            catch (Exception) {
+                
+            }
+            
+        }
+
+        private void ClientMoved(Direction direct) {
+            try {
+                writer.WriteLine(string.Format("Play {1}", direct.ToString()));
             }
             catch (Exception) {
                 

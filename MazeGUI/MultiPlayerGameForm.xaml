@@ -4,14 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
-        xmlns:MazeUserControl="clr-namespace:MazeGUI.MazeUserControl" x:Class="MazeGUI.MultiPlayerGameForm"
+        xmlns:MazeUserControl="clr-namespace:MazeGUI.MazeUserControl" x:Name="window" x:Class="MazeGUI.MultiPlayerGameForm"
         mc:Ignorable="d"
-        Title="MultiPlayerGameForm" Height="317.705" Width="619.672">
-    <Grid HorizontalAlignment="Left" Width="282" Margin="10,18,0,0">
-        
-
-        
-
-
-    </Grid>
+        Title="MultiPlayerGameForm" Height="462.495" Width="695.713" KeyUp="window_KeyUp">
+    <Canvas HorizontalAlignment="Left" Height="430" VerticalAlignment="Top" Width="686">
+        <StackPanel Height="357" Orientation="Horizontal"  Canvas.Left="10" Canvas.Top="63" Width="666">
+            <MazeUserControl:MazeBoard Name="clientBoard" Maze="{Binding ClientMaze}" Width="316"/>
+            <MazeUserControl:MazeBoard Name="RivalBoard" Maze="{Binding RivalMaze}" Width="349"/>
+        </StackPanel>
+        <Label Content="My board" Canvas.Left="34" Canvas.Top="32" RenderTransformOrigin="0.361,0.045"/>
+        <Label Content="Rival board" Canvas.Left="541" Canvas.Top="32" RenderTransformOrigin="0.361,0.045"/>
+    </Canvas>
 </Window>

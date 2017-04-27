@@ -19,10 +19,35 @@ namespace MazeGUI {
     /// </summary>
     public partial class MultiPlayerGameForm : Window {
         private MultiPlayerGameViewModel mpgVM;
+
         public MultiPlayerGameForm(int rows, int cols, Boolean isStart, string gameName) {
             InitializeComponent();
-            this.mpgVM = new MultiPlayerGameViewModel(gameName, isStart, rows, cols);
+            if (isStart) {
+                this.mpgVM = new MultiPlayerGameViewModel(gameName, rows, cols);
+            }
+            else {
+                this.mpgVM = new MultiPlayerGameViewModel(gameName);
+            }
             this.DataContext = this.mpgVM;
+        }
+
+        private void window_KeyUp(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Up || e.Key == Key.W || e.Key == Key.NumPad8)
+            {
+                this.mpgVM.PlayerMoved("up");
+            }
+            if (e.Key == Key.Left || e.Key == Key.A || e.Key == Key.NumPad4)
+            {
+                this.mpgVM.PlayerMoved("left");
+            }
+            if (e.Key == Key.Right || e.Key == Key.D || e.Key == Key.NumPad6)
+            {
+                this.mpgVM.PlayerMoved("right");
+            }
+            if (e.Key == Key.Down || e.Key == Key.S || e.Key == Key.NumPad3)
+            {
+                this.mpgVM.PlayerMoved("down");
+            }
 
         }
     }
