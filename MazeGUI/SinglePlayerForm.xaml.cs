@@ -53,6 +53,7 @@ namespace MazeGUI
         private void btnRestart_Click(object sender, RoutedEventArgs e)
         {
             this.spGameVM.RestartGame();
+            this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
         }
 
         private void GameFinished() {
@@ -63,6 +64,23 @@ namespace MazeGUI
                 form.Show();
                 this.Close();
             }
+        }
+
+        private void btnSolve_Click(object sender, RoutedEventArgs e)
+        {
+            this.spGameVM.SolveMaze();
+            this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
+        }
+
+        private void btnMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void window_Closed(object sender, EventArgs e)
+        {
+            MainMenu form = new MainMenu();
+            form.Show();
         }
     }
 }

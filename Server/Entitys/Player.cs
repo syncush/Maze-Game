@@ -47,7 +47,7 @@ namespace ServerLib {
         /// </summary>
         /// <param name="message">The message.</param>
         public virtual void SendMessage(string message) {
-            writer.WriteLine(message);
+            writer.WriteLine(message.Replace("\r\n", ""));
         }
 
         /// <summary>

@@ -25,9 +25,11 @@ namespace MazeGUI.MazeUserControl {
         private BitmapImage wallImg;
         private BitmapImage playerImg;
         private BitmapImage exitImg;
+        private BitmapImage solImage;
         private ImageBrush exitBrush;
         private ImageBrush playerBrush;
         private ImageBrush wallBrush;
+        private ImageBrush solBrush;
         private SolidColorBrush freeSpace;
         private Boolean isInit;
 
@@ -38,6 +40,8 @@ namespace MazeGUI.MazeUserControl {
             this.playerImg = new BitmapImage(
                 new Uri(@"pack://application:,,,/MazeGUI;component/Resources/walterWhite.jpeg"));
             this.wallImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/wall.png"));
+            this.solImage = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/thisWay.png"));
+            this.solBrush = new ImageBrush(this.solImage);
             this.exitBrush = new ImageBrush(this.exitImg);
             this.playerBrush = new ImageBrush(this.playerImg);
             this.wallBrush = new ImageBrush(this.wallImg);
@@ -137,6 +141,10 @@ namespace MazeGUI.MazeUserControl {
                             break;
                         case 3: {
                             rect.Background = this.playerBrush;
+                        }
+                            break;
+                        case 4: {
+                            rect.Background = this.solBrush;
                         }
                             break;
                     }

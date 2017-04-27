@@ -45,5 +45,9 @@ namespace MazeGUI.Models {
             }
             get { return this.maze; }
         }
+
+        public int Algorithm {
+           get { return Convert.ToInt32(this.dataSource.Algorithm); }
+        }
     }
 }

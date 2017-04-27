@@ -19,7 +19,7 @@ namespace ServerLib {
                 foreach (string item in games) {
                     jobJArray.Add(item);
                 }
-                client.SendMessage(jobJArray.ToString().Replace("\r\n", ""));
+                client.SendMessage(jobJArray.ToString());
                 return "keep";
             }
         }

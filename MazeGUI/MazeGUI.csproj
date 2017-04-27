@@ -98,6 +98,7 @@
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Converter.cs" />
     <Compile Include="ViewModels\MultiPlayerGameViewModel.cs" />
     <Compile Include="ViewModels\MultiPlayerSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -183,6 +184,9 @@
   <ItemGroup>
     <Resource Include="Resources\thuglife.png" />
     <Resource Include="Resources\walterWhite.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\thisWay.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
