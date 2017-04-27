@@ -27,6 +27,7 @@ namespace MazeGUI
             this.DataContext = spGameVM;
             this.mazeBoard.Maze = spGameVM.MazeOBJ;
             this.spGameVM.GameFinishedEvent += this.GameFinished;
+            
         }
 
         private void window_KeyUp(object sender, KeyEventArgs e)
@@ -72,15 +73,17 @@ namespace MazeGUI
             this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
         }
 
-        private void btnMainMenu_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        
 
         private void window_Closed(object sender, EventArgs e)
         {
             MainMenu form = new MainMenu();
             form.Show();
+        }
+
+        private void btnMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            this.window_Closed(null, null);
         }
     }
 }

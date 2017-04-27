@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MazeGUI.Utilities;
 using MazeLib;
 using Image = System.Drawing.Image;
 
@@ -20,18 +21,33 @@ namespace MazeGUI.MazeUserControl {
     /// Interaction logic for MazeBoard.xaml
     /// </summary>
     public partial class MazeBoard : UserControl {
+        #region StaticMembers
+
+        public static int InitPosRep = 5;
+        public static int GoalRep = 2;
+        public static int PlayerRep = 3;
+        public static int SolutionBrickRep = 4;
+        public static int WallRep = 0;
+        public static int FreeSpaceRep = 1;
+        #endregion
+
+        #region DataMembers
         private int[,] maze;
         private Dictionary<string, Label> lblDictionary;
         private BitmapImage wallImg;
         private BitmapImage playerImg;
         private BitmapImage exitImg;
         private BitmapImage solImage;
+        private BitmapImage initImg;
+        private ImageBrush initBrush;
         private ImageBrush exitBrush;
         private ImageBrush playerBrush;
         private ImageBrush wallBrush;
         private ImageBrush solBrush;
         private SolidColorBrush freeSpace;
         private Boolean isInit;
+        #endregion
+
 
         public MazeBoard() {
             InitializeComponent();
@@ -40,7 +56,9 @@ namespace MazeGUI.MazeUserControl {
             this.playerImg = new BitmapImage(
                 new Uri(@"pack://application:,,,/MazeGUI;component/Resources/walterWhite.jpeg"));
             this.wallImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/wall.png"));
+            this.initImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/start.png"));
             this.solImage = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/thisWay.png"));
+            this.initBrush = new ImageBrush(this.initImg);
             this.solBrush = new ImageBrush(this.solImage);
             this.exitBrush = new ImageBrush(this.exitImg);
             this.playerBrush = new ImageBrush(this.playerImg);
@@ -145,6 +163,10 @@ namespace MazeGUI.MazeUserControl {
                             break;
                         case 4: {
                             rect.Background = this.solBrush;
+                        }
+                            break;
+                        case 5: {
+                            rect.Background = this.initBrush;
                         }
                             break;
                     }

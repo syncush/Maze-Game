@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MazeGUI.DataSources;
 using MazeLib;
+using MazeGUI.MazeUserControl;
 
 namespace MazeGUI.Utilities {
-    class Converter {
+    static class Converter {
+       
         public static  int AlgoToInt(Algorithm algo) {
             switch (algo) {
                 case Algorithm.BFS: {
@@ -118,7 +120,26 @@ namespace MazeGUI.Utilities {
                     break;
             }
             return Converter.FromDirectionToNewPosition(prev, direct);
+        }
 
+        public static int[,] MazeToRepresentation(int[,] convert, Maze maze, List<Position> solList, Position playerPosition) {
+            for (int i = 0; i <  maze.Rows; i++)
+            {
+                for (int j = 0; j < maze.Cols; j++)
+                {
+                    convert[i, j] = maze[i, j] == CellType.Free ? MazeBoard.FreeSpaceRep : MazeBoard.WallRep;
+                }
+            }
+            if (solList != null)
+            {
+                foreach (Position pos in solList)
+                {
+                    convert[pos.Row, pos.Col] = MazeBoard.SolutionBrickRep;
+                }
+            }
+            convert[playerPosition.Row, playerPosition.Col] = MazeBoard.PlayerRep;
+            convert[maze.GoalPos.Row, maze.GoalPos.Col] = MazeBoard.GoalRep;
+            return convert;
         }
     }
 }

@@ -56,19 +56,15 @@ namespace MazeGUI.ViewModels {
 
         public int[,] MazeOBJ {
             get {
-                for (int i = 0; i < this.model.Maze.Rows; i++) {
-                    for (int j = 0; j < this.model.Maze.Cols; j++) {
-                        mazeInts[i, j] = this.model.Maze[i, j] == CellType.Free ? 1 : 0;
-                    }
+                if (!shouldDrawSolution) {
+                    return Converter.MazeToRepresentation(this.mazeInts, this.model.Maze, null,
+                        this.model.PlayerPosition);
                 }
-                if (shouldDrawSolution) {
-                    foreach (Position pos in this.solutionPosList ) {
-                        this.mazeInts[pos.Row, pos.Col] = 4;
-                    }
+                else {
+                    return Converter.MazeToRepresentation(this.mazeInts, this.model.Maze, null,
+                        this.model.PlayerPosition);
                 }
-                mazeInts[this.model.PlayerPosition.Row, this.model.PlayerPosition.Col] = 3;
-                mazeInts[this.model.Maze.GoalPos.Row, this.model.Maze.GoalPos.Col] = 2;
-                return mazeInts;
+                
             }
             set {
                 this.mazeInts = value;
@@ -98,33 +94,7 @@ namespace MazeGUI.ViewModels {
         }
 
         public void MovePlayer(string direct) {
-            Direction parseDirection;
-            switch (direct) {
-                case "Up":
-                case "up": {
-                    parseDirection = Direction.Up;
-                }
-                    break;
-                case "Down":
-                case "down": {
-                    parseDirection = Direction.Down;
-                }
-                    break;
-                case "Left":
-                case "left": {
-                    parseDirection = Direction.Left;
-                }
-                    break;
-                case "Right":
-                case "right": {
-                    parseDirection = Direction.Right;
-                }
-                    break;
-                default: {
-                    parseDirection = Direction.Unknown;
-                }
-                    break;
-            }
+            Direction parseDirection = Converter.StringToDirection(direct);
             this.PlayerPosition = this.model.Move(parseDirection);
             if (this.model.PlayerPosition.Row == this.model.Maze.GoalPos.Row &&
                 this.model.PlayerPosition.Col == this.model.Maze.GoalPos.Col) {
