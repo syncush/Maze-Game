@@ -77,6 +77,7 @@
     <Compile Include="MazeUserControl\MazeBoard.xaml.cs">
       <DependentUpon>MazeBoard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\MultiPlayerModel.cs" />
     <Compile Include="Models\SinglePlayerGameModel.cs" />
     <Compile Include="MultiPlayerGameForm.xaml.cs">
       <DependentUpon>MultiPlayerGameForm.xaml</DependentUpon>
