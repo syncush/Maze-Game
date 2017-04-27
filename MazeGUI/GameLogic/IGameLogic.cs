@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MazeLib;
 
-namespace MazeGUI.GameLogic
-{
+namespace MazeGUI.GameLogic {
     interface IGameLogic {
         Boolean IsLegitMove(Position playerPosition, Direction moveTo);
         Position Move(Position playerPosition, Direction moveToDirection);
