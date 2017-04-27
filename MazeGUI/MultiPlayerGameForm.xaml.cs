@@ -11,17 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MazeGUI.ViewModels;
 
-namespace MazeGUI
-{
+namespace MazeGUI {
     /// <summary>
     /// Interaction logic for MultiPlayerGameForm.xaml
     /// </summary>
-    public partial class MultiPlayerGameForm : Window
-    {
-        public MultiPlayerGameForm()
-        {
+    public partial class MultiPlayerGameForm : Window {
+        private MultiPlayerGameViewModel mpgVM;
+        public MultiPlayerGameForm(int rows, int cols, Boolean isStart, string gameName) {
             InitializeComponent();
+            this.mpgVM = new MultiPlayerGameViewModel(gameName, isStart, rows, cols);
+            this.DataContext = this.mpgVM;
+
         }
     }
 }

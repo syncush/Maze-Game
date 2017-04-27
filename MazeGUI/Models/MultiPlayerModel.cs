@@ -23,52 +23,104 @@ namespace MazeGUI.Models {
 
         #endregion
 
+        #region CommunicationServer
+
+        private TcpClient client;
+        private StreamWriter writer;
+        private StreamReader reader;
+        
+
+        #endregion
         #region Events
 
         public event RivalMoved RivalMovedEvent;
         public delegate void RivalMoved();
         #endregion
-        public MultiPlayerModel(Maze game) {
+
+        private MultiPlayerModel() {
             this.dataSource = new AppConfigDataSource();
-            this.gameMaze = game;
-            this.clientPosition = game.InitialPos;
-            this.rivalPosition = game.InitialPos;
+            client.Connect(this.EndPoint);
+            writer = new StreamWriter(client.GetStream());
+            reader = new StreamReader(client.GetStream());
+            writer.AutoFlush = true;
+        }
+        public MultiPlayerModel(string gameName, int cols, int rows) {
+            writer.WriteLine(string.Format("Start {0} {1} {2}", gameName, rows, cols));
+            string answer = reader.ReadLine();
+            Maze maze = Maze.FromJSON(answer);
+            this.gameMaze = maze;
+            this.clientPosition = maze.InitialPos;
+            this.rivalPosition = maze.InitialPos;
+            Task t = new Task(()=> {
+                this.ListenToRivalMovement();
+            });
+        
         }
 
-        public IPEndPoint EndPoint {
-            get {
+        public MultiPlayerModel(string gameName):this() {
+            writer.WriteLine(string.Format("join {0}", gameName));
+            string answer = reader.ReadLine();
+            Maze maze = Maze.FromJSON(answer);
+            this.gameMaze = maze;
+            this.rivalPosition = maze.InitialPos;
+            this.clientPosition = maze.InitialPos;
+            Task t = new Task(() => {
+                this.ListenToRivalMovement();
+            });
+
+        }
+
+        #region Properties
+        public IPEndPoint EndPoint
+        {
+            get
+            {
                 return new IPEndPoint(IPAddress.Parse(this.dataSource.ServerIP),
                     Convert.ToInt32(this.dataSource.ServerPort));
             }
         }
 
-        public Position RivalPosition {
+        public Maze Maze
+        {
+            get { return this.gameMaze; }
+        }
+        public Position RivalPosition
+        {
             get { return this.rivalPosition; }
             set { this.rivalPosition = value; }
         }
 
-        public Position ClientPosition {
+        public Position ClientPosition
+        {
             get { return this.clientPosition; }
             set { this.clientPosition = value; }
         }
 
+
+
+        #endregion
+
         private void ListenToRivalMovement() {
-           TcpClient client = new TcpClient();
-            client.Connect(this.EndPoint);
-            StreamWriter writer = new StreamWriter(client.GetStream());
-            StreamReader reader = new StreamReader(client.GetStream());
-            using (client.GetStream())
-            using (reader)
-            using (writer) {
-                while (true) {
-                    string answer = reader.ReadLine();
-                    JObject jobj = JObject.Parse(answer);
-                    this.rivalPosition = Converter.FromDirectionToNewPosition(this.rivalPosition,
-                        Converter.StringToDirection(jobj["Direction"].Value<string>()));
-                    this.RivalMovedEvent.Invoke();
+            try {
+                using (client.GetStream())
+                using (reader)
+                using (writer)
+                {
+                    while (true)
+                    {
+                        string answer = reader.ReadLine();
+                        JObject jobj = JObject.Parse(answer);
+                        this.rivalPosition = Converter.FromDirectionToNewPosition(this.rivalPosition,
+                            Converter.StringToDirection(jobj["Direction"].Value<string>()));
+                        this.RivalMovedEvent.Invoke();
+                    }
+
                 }
-  
             }
+            catch (Exception) {
+                
+            }
+            
         }
     }
 }

@@ -35,5 +35,21 @@ namespace MazeGUI {
             }
         }
 
+        private void CreateMultiGame(Boolean isStart) {
+            if (isStart) {
+                MultiPlayerGameForm form = new MultiPlayerGameForm(this.mpVP.Rows, this.mpVP.Cols);
+                
+            }
+        }
+
+        private void btnStartGame_Click(object sender, RoutedEventArgs e)
+        {
+            this.CreateMultiGame(true);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.CreateMultiGame(false);
+        }
     }
 }

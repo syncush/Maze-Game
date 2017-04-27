@@ -141,5 +141,10 @@ namespace MazeGUI.Utilities {
             convert[maze.GoalPos.Row, maze.GoalPos.Col] = MazeBoard.GoalRep;
             return convert;
         }
+
+        public static int[,] MazeToRepresentation(Maze maze, Position playerPosition) {
+            int[,] temp = new int[maze.Rows, maze.Cols];
+            return MazeToRepresentation(temp, maze, null, playerPosition);
+        }
     }
 }

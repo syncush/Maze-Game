@@ -29,9 +29,11 @@ namespace MazeGUI.MazeUserControl {
         public static int SolutionBrickRep = 4;
         public static int WallRep = 0;
         public static int FreeSpaceRep = 1;
+
         #endregion
 
         #region DataMembers
+
         private int[,] maze;
         private Dictionary<string, Label> lblDictionary;
         private BitmapImage wallImg;
@@ -46,6 +48,7 @@ namespace MazeGUI.MazeUserControl {
         private ImageBrush solBrush;
         private SolidColorBrush freeSpace;
         private Boolean isInit;
+
         #endregion
 
 
@@ -94,6 +97,7 @@ namespace MazeGUI.MazeUserControl {
             isInit = true;
         }
 
+
         #region Properties
 
         public string PlayerImage {
@@ -113,8 +117,8 @@ namespace MazeGUI.MazeUserControl {
                                                            imgName)));
             this.Maze = this.maze;
         }
-        public int[,] Maze
-        {
+
+        public int[,] Maze {
             get { return this.maze; }
             set {
                 this.maze = value;
@@ -122,19 +126,20 @@ namespace MazeGUI.MazeUserControl {
             }
         }
 
+
         #endregion
 
 
-
         #region MazeDrawing
+
         public static readonly DependencyProperty MazeProperty =
             DependencyProperty.Register("Maze", typeof(int[,]), typeof(MazeBoard), new UIPropertyMetadata(MazeChanged));
 
-        private static void MazeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            MazeBoard board = (MazeBoard)d;
+        private static void MazeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            MazeBoard board = (MazeBoard) d;
             board.DrawMaze();
         }
+
         private void DrawMaze() {
             if (!isInit) {
                 Initialize();
@@ -173,11 +178,7 @@ namespace MazeGUI.MazeUserControl {
                 }
             }
         }
+
         #endregion
-
-
-       
-
-        
     }
 }
