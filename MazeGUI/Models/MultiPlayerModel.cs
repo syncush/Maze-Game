@@ -36,23 +36,29 @@ namespace MazeGUI.Models {
 
         public event RivalMoved RivalMovedEvent;
         public delegate void RivalMoved();
+
+        public delegate void GameStarted();
+
+        public event GameStarted GameStartedEvent;
         #endregion
 
         private MultiPlayerModel() {
             this.dataSource = new AppConfigDataSource();
-            client.Connect(this.EndPoint);
-            writer = new StreamWriter(client.GetStream());
-            reader = new StreamReader(client.GetStream());
-            writer.AutoFlush = true;
+            this.client = new TcpClient();
+            this.client.Connect(this.EndPoint);
+            this.writer = new StreamWriter(client.GetStream());
+            this.reader = new StreamReader(client.GetStream());
+            this.writer.AutoFlush = true;
            
         }
-        public MultiPlayerModel(string gameName, int cols, int rows) {
+        public MultiPlayerModel(string gameName, int cols, int rows) : this() {
             writer.WriteLine(string.Format("Start {0} {1} {2}", gameName, rows, cols));
             string answer = reader.ReadLine();
             Maze maze = Maze.FromJSON(answer);
             this.gameMaze = maze;
             this.clientPosition = maze.InitialPos;
             this.rivalPosition = maze.InitialPos;
+            
             Task t = new Task(()=> {
                 this.ListenToRivalMovement();
             });
@@ -66,6 +72,7 @@ namespace MazeGUI.Models {
             this.gameMaze = maze;
             this.rivalPosition = maze.InitialPos;
             this.clientPosition = maze.InitialPos;
+            
             Task t = new Task(() => {
                 this.ListenToRivalMovement();
             });
@@ -125,7 +132,7 @@ namespace MazeGUI.Models {
             
         }
 
-        private void ClientMoved(Direction direct) {
+        public void ClientMoved(Direction direct) {
             try {
                 writer.WriteLine(string.Format("Play {1}", direct.ToString()));
             }

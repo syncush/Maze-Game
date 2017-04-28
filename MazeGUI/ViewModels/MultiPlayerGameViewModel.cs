@@ -20,6 +20,10 @@ namespace MazeGUI.ViewModels {
 
         public delegate void GameMovement(Direction p);
 
+        public delegate void MazeChanged();
+
+        public event MazeChanged MazeChangedEvent;
+
         #endregion
 
         #region DataMembers
@@ -58,12 +62,19 @@ namespace MazeGUI.ViewModels {
 
         public void PlayerMoved(string direction) {
             Direction direct = Converter.StringToDirection(direction);
-            this.GameClientMovement.Invoke(direct);
+            this.mpModel.ClientMoved(direct);
+            MazeChangedEvent.Invoke();
             this.OnPropertyChanged("ClientMaze");
         }
 
         public void RivalMoved() {
+
+            MazeChangedEvent.Invoke();
             this.OnPropertyChanged("RivalMaze");
+        }
+
+        public void GameStartedFunc() {
+           this.MazeChangedEvent.Invoke();
         }
     }
 }

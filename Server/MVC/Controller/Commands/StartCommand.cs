@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System.Threading;
 using MazeLib;
 using Server;
 using Server.Exceptions;
@@ -40,6 +41,12 @@ namespace ServerLib {
                     int cols = int.Parse(args[2]);
                     //Start a multiplayer session.
                     Maze maze = this.model.Start(name, rows, cols, player);
+                    while (this.model.GetGame(name).Guest == null)
+                    {
+                        Thread.Sleep(500);
+
+                    }
+                    player.SendMessage(maze.ToJSON());
                     return "keep";
                 }
             }

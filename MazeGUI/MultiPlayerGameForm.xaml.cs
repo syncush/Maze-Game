@@ -29,6 +29,16 @@ namespace MazeGUI {
                 this.mpgVM = new MultiPlayerGameViewModel(gameName);
             }
             this.DataContext = this.mpgVM;
+            this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
+            this.MazeChangedFunc();
+        }
+
+        public MultiPlayerGameForm(string gameName) {
+            InitializeComponent();
+            this.mpgVM = new MultiPlayerGameViewModel(gameName);
+            this.DataContext = mpgVM;
+            this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
+            this.MazeChangedFunc();
         }
 
         private void window_KeyUp(object sender, KeyEventArgs e) {
@@ -49,6 +59,10 @@ namespace MazeGUI {
                 this.mpgVM.PlayerMoved("down");
             }
 
+        }
+        private void MazeChangedFunc() {
+            this.clientBoard.Maze = this.mpgVM.ClientMaze;
+            this.RivalBoard.Maze = this.mpgVM.RivalMaze;
         }
     }
 }

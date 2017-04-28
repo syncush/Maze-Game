@@ -36,8 +36,9 @@ namespace ServerLib {
                 //Assign the plaer to the game.
                 MultiPlayerInfoPackage mpPack = this.model.Join(name, player);
                 if (mpPack != null) { //Found an active game with the player
+   
                     player.SendMessage(mpPack.Maze.ToJSON());
-                    mpPack.Host.SendMessage(mpPack.Maze.ToJSON());
+                    //mpPack.Host.SendMessage(mpPack.Maze.ToJSON());
                     return "keep";
                 }
                 else { //Could not find an active game with the player.

@@ -37,8 +37,16 @@ namespace MazeGUI {
 
         private void CreateMultiGame(Boolean isStart) {
             if (isStart) {
-                MultiPlayerGameForm form = new MultiPlayerGameForm(this.mpVP.Rows, this.mpVP.Cols);
-                
+                MultiPlayerGameForm form = new MultiPlayerGameForm(Convert.ToInt32(this.mpVP.Rows),
+                    Convert.ToInt32(this.mpVP.Cols), true, this.mpVP.GameName);
+                form.Show();
+                this.Close();
+
+            }
+            else {
+                MultiPlayerGameForm form = new MultiPlayerGameForm(this.cmbxGames.SelectedValue.ToString());
+                form.Show();
+                this.Close();
             }
         }
 

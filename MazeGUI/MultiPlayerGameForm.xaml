@@ -9,8 +9,8 @@
         Title="MultiPlayerGameForm" Height="462.495" Width="695.713" KeyUp="window_KeyUp">
     <Canvas HorizontalAlignment="Left" Height="430" VerticalAlignment="Top" Width="686">
         <StackPanel Height="357" Orientation="Horizontal"  Canvas.Left="10" Canvas.Top="63" Width="666">
-            <MazeUserControl:MazeBoard Name="clientBoard" Maze="{Binding ClientMaze}" Width="316"/>
-            <MazeUserControl:MazeBoard Name="RivalBoard" Maze="{Binding RivalMaze}" Width="349"/>
+            <MazeUserControl:MazeBoard x:Name="clientBoard" Maze="{Binding ClientMaze}" Width="316"/>
+            <MazeUserControl:MazeBoard x:Name="RivalBoard" Maze="{Binding RivalMaze}" Width="349"/>
         </StackPanel>
         <Label Content="My board" Canvas.Left="34" Canvas.Top="32" RenderTransformOrigin="0.361,0.045"/>
         <Label Content="Rival board" Canvas.Left="541" Canvas.Top="32" RenderTransformOrigin="0.361,0.045"/>

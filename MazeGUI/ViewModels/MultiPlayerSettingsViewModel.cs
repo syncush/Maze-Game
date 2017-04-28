@@ -108,11 +108,13 @@ namespace MazeGUI.ViewModels {
                             this.AvaiableGamesList = JArray.Parse(answer).ToObject<ObservableCollection<string>>();
                         }
 
-                        Thread.Sleep(3000);
+                        Thread.Sleep(10000);
                     }
                 }
                 catch (IOException) {
-                    throw new Exception("Thread failed listening to games");
+                    client.GetStream().Dispose();
+                    writer.Dispose();
+                    reader.Dispose();
                 }
             });
             this.t.Start();
