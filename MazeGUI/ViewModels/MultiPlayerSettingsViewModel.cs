@@ -111,7 +111,7 @@ namespace MazeGUI.ViewModels {
                         Thread.Sleep(10000);
                     }
                 }
-                catch (IOException) {
+                catch (IOException e) {
                     client.GetStream().Dispose();
                     writer.Dispose();
                     reader.Dispose();
@@ -119,7 +119,6 @@ namespace MazeGUI.ViewModels {
             });
             this.t.Start();
         }
-
         #endregion
     }
 }

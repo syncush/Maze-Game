@@ -68,8 +68,6 @@ namespace MazeGUI.ViewModels {
         }
 
         public void RivalMoved() {
-
-            MazeChangedEvent.Invoke();
             this.OnPropertyChanged("RivalMaze");
         }
 

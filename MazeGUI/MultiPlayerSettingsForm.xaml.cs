@@ -40,12 +40,14 @@ namespace MazeGUI {
                 MultiPlayerGameForm form = new MultiPlayerGameForm(Convert.ToInt32(this.mpVP.Rows),
                     Convert.ToInt32(this.mpVP.Cols), true, this.mpVP.GameName);
                 form.Show();
+                this.mpVP.Stop = true;
                 this.Close();
 
             }
             else {
                 MultiPlayerGameForm form = new MultiPlayerGameForm(this.cmbxGames.SelectedValue.ToString());
                 form.Show();
+                this.mpVP.Stop = true;
                 this.Close();
             }
         }
