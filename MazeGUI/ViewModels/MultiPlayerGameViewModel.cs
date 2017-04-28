@@ -24,6 +24,10 @@ namespace MazeGUI.ViewModels {
 
         public delegate void MazeChanged();
 
+        public delegate void GameFinished(bool iWon);
+
+        public event GameFinished GameFinishedEvent;
+
         public event MazeChanged MazeChangedEvent;
 
         #endregion
@@ -38,11 +42,13 @@ namespace MazeGUI.ViewModels {
         public MultiPlayerGameViewModel(string gameName, int rows, int cols) {
             this.mpModel = new MultiPlayerModel(gameName, rows, cols);
             this.mpModel.RivalMovedEvent += this.RivalMoved;
+            this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
         }
 
         public MultiPlayerGameViewModel(string joinGame) {
             this.mpModel = new MultiPlayerModel(joinGame);
             this.mpModel.RivalMovedEvent += this.RivalMoved;
+            this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
         }
 
 
@@ -76,6 +82,10 @@ namespace MazeGUI.ViewModels {
 
         public void GameStartedFunc() {
            this.MazeChangedEvent.Invoke();
+        }
+
+        public void GameFinishedFunc(bool iWon) {
+            this.GameFinishedEvent.Invoke(iWon);
         }
     }
 }

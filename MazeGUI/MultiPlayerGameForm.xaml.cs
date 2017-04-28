@@ -30,6 +30,7 @@ namespace MazeGUI {
             }
             this.DataContext = this.mpgVM;
             this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
+            this.mpgVM.GameFinishedEvent += this.GameFinishedHandler;
             this.MazeChangedFunc();
         }
 
@@ -38,35 +39,56 @@ namespace MazeGUI {
             this.mpgVM = new MultiPlayerGameViewModel(gameName);
             this.DataContext = mpgVM;
             this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
+            this.mpgVM.GameFinishedEvent += this.GameFinishedHandler;
             this.MazeChangedFunc();
         }
 
         private void window_KeyUp(object sender, KeyEventArgs e) {
-            if (e.Key == Key.Up || e.Key == Key.W || e.Key == Key.NumPad8)
-            {
+            if (e.Key == Key.Up || e.Key == Key.W || e.Key == Key.NumPad8) {
                 this.mpgVM.PlayerMoved("up");
             }
-            if (e.Key == Key.Left || e.Key == Key.A || e.Key == Key.NumPad4)
-            {
+            if (e.Key == Key.Left || e.Key == Key.A || e.Key == Key.NumPad4) {
                 this.mpgVM.PlayerMoved("left");
             }
-            if (e.Key == Key.Right || e.Key == Key.D || e.Key == Key.NumPad6)
-            {
+            if (e.Key == Key.Right || e.Key == Key.D || e.Key == Key.NumPad6) {
                 this.mpgVM.PlayerMoved("right");
             }
-            if (e.Key == Key.Down || e.Key == Key.S || e.Key == Key.NumPad3)
-            {
+            if (e.Key == Key.Down || e.Key == Key.S || e.Key == Key.NumPad3) {
                 this.mpgVM.PlayerMoved("down");
             }
 
         }
+
         private void MazeChangedFunc() {
-            this.Dispatcher.Invoke(() =>
-            {
+            this.Dispatcher.Invoke(() => {
                 this.clientBoard.Maze = this.mpgVM.ClientMaze;
                 this.RivalBoard.Maze = this.mpgVM.RivalMaze;
             });
-            
+
+        }
+
+        private void GameFinishedHandler(bool iWon) {
+            this.Dispatcher.Invoke(() => {
+                if (iWon) {
+                    MessageBoxResult result = MessageBox.Show("You Won The Game!", "We Have A Winner!",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    if (result == MessageBoxResult.OK) {
+                        MainMenu form = new MainMenu();
+                        form.Show();
+                        this.Close();
+                    }
+                }
+                else {
+                    MessageBoxResult result = MessageBox.Show("You Are A Loser!", "What A Loser", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    if (result == MessageBoxResult.OK) {
+                        MainMenu form = new MainMenu();
+                        form.Show();
+                        this.Close();
+                    }
+                }
+            });
         }
     }
 }

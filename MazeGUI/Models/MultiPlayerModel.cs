@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MazeGUI.DataSources;
 using MazeGUI.GameLogic;
@@ -42,6 +43,10 @@ namespace MazeGUI.Models {
         public delegate void RivalMoved();
 
         public delegate void GameStarted();
+
+        public delegate void GameFinished(bool iWon);
+
+        public event GameFinished GameFinishedEvent;
 
         public event GameStarted GameStartedEvent;
 
@@ -114,10 +119,16 @@ namespace MazeGUI.Models {
                 while (true) {
                     string answer = reader.ReadLine();
                     if (answer != null) {
-                        JObject jobj = JObject.Parse(answer);
-                        this.rivalPosition = Converter.FromDirectionToNewPosition(this.rivalPosition,
-                            Converter.StringToDirection(jobj["Direction"].Value<string>()));
-                        this.RivalMovedEvent.Invoke();
+                        if (answer.Contains("{}")) {
+                            this.GameFinishedEvent.Invoke(false);
+                        }
+                        else {
+                            JObject jobj = JObject.Parse(answer);
+                            this.rivalPosition = Converter.FromDirectionToNewPosition(this.rivalPosition,
+                                Converter.StringToDirection(jobj["Direction"].Value<string>()));
+                            this.RivalMovedEvent.Invoke();
+                        }
+                        
                     }
                     else {
                         break;
@@ -133,7 +144,16 @@ namespace MazeGUI.Models {
             try {
                 if (gameLogic.IsLegitMove(this.clientPosition, direct)) {
                     this.clientPosition = this.gameLogic.Move(this.clientPosition, direct);
-                    writer.WriteLine(string.Format("Play {0}", direct.ToString()));
+                    if (this.gameMaze.GoalPos.Row == this.clientPosition.Row &&
+                        this.gameMaze.GoalPos.Col == this.clientPosition.Col) {
+                        writer.WriteLine(string.Format("Play {0}", direct.ToString()));
+                        Thread.Sleep(20);
+                        writer.WriteLine(string.Format("Close {0}", this.gameMaze.Name));
+                        this.GameFinishedEvent.Invoke(true);
+                    }
+                    else {
+                        writer.WriteLine(string.Format("Play {0}", direct.ToString()));
+                    }
                 }
             }
             catch (Exception e) {
