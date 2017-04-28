@@ -61,8 +61,12 @@ namespace MazeGUI {
 
         }
         private void MazeChangedFunc() {
-            this.clientBoard.Maze = this.mpgVM.ClientMaze;
-            this.RivalBoard.Maze = this.mpgVM.RivalMaze;
+            this.Dispatcher.Invoke(() =>
+            {
+                this.clientBoard.Maze = this.mpgVM.ClientMaze;
+                this.RivalBoard.Maze = this.mpgVM.RivalMaze;
+            });
+            
         }
     }
 }

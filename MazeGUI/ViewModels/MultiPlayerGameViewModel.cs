@@ -7,6 +7,8 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Threading;
 using MazeGUI.Annotations;
 using MazeGUI.Models;
 using MazeGUI.Utilities;
@@ -68,6 +70,7 @@ namespace MazeGUI.ViewModels {
         }
 
         public void RivalMoved() {
+            this.MazeChangedEvent.Invoke();
             this.OnPropertyChanged("RivalMaze");
         }
 
