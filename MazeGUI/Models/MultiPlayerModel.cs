@@ -16,6 +16,9 @@ using MazeLib;
 using Newtonsoft.Json.Linq;
 
 namespace MazeGUI.Models {
+    /// <summary>
+    /// 
+    /// </summary>
     class MultiPlayerModel {
         #region DataMembers
 
@@ -52,6 +55,9 @@ namespace MazeGUI.Models {
 
         #endregion
 
+        /// <summary>
+        /// Prevents a default instance of the <see cref="MultiPlayerModel"/> class from being created.
+        /// </summary>
         private MultiPlayerModel() {
             this.dataSource = new AppConfigDataSource();
             this.client = new TcpClient();
@@ -62,6 +68,12 @@ namespace MazeGUI.Models {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultiPlayerModel"/> class.
+        /// </summary>
+        /// <param name="gameName">Name of the game.</param>
+        /// <param name="cols">The cols.</param>
+        /// <param name="rows">The rows.</param>
         public MultiPlayerModel(string gameName, int cols, int rows) : this() {
             writer.WriteLine(string.Format("Start {0} {1} {2}", gameName, rows, cols));
             string answer = reader.ReadLine();
@@ -75,6 +87,10 @@ namespace MazeGUI.Models {
             t.Start();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultiPlayerModel"/> class.
+        /// </summary>
+        /// <param name="gameName">Name of the game.</param>
         public MultiPlayerModel(string gameName) : this() {
             writer.WriteLine(string.Format("join {0}", gameName));
             string answer = reader.ReadLine();
@@ -91,6 +107,12 @@ namespace MazeGUI.Models {
 
         #region Properties
 
+        /// <summary>
+        /// Gets the end point.
+        /// </summary>
+        /// <value>
+        /// The end point.
+        /// </value>
         public IPEndPoint EndPoint {
             get {
                 return new IPEndPoint(IPAddress.Parse(this.dataSource.ServerIP),
@@ -98,15 +120,33 @@ namespace MazeGUI.Models {
             }
         }
 
+        /// <summary>
+        /// Gets the maze.
+        /// </summary>
+        /// <value>
+        /// The maze.
+        /// </value>
         public Maze Maze {
             get { return this.gameMaze; }
         }
 
+        /// <summary>
+        /// Gets or sets the rival position.
+        /// </summary>
+        /// <value>
+        /// The rival position.
+        /// </value>
         public Position RivalPosition {
             get { return this.rivalPosition; }
             set { this.rivalPosition = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the client position.
+        /// </summary>
+        /// <value>
+        /// The client position.
+        /// </value>
         public Position ClientPosition {
             get { return this.clientPosition; }
             set { this.clientPosition = value; }
@@ -114,6 +154,9 @@ namespace MazeGUI.Models {
 
         #endregion
 
+        /// <summary>
+        /// Listens to rival movement.
+        /// </summary>
         private void ListenToRivalMovement() {
             try {
                 while (true) {
@@ -140,6 +183,10 @@ namespace MazeGUI.Models {
             }
         }
 
+        /// <summary>
+        /// Clients the moved.
+        /// </summary>
+        /// <param name="direct">The direct.</param>
         public void ClientMoved(Direction direct) {
             try {
                 if (gameLogic.IsLegitMove(this.clientPosition, direct)) {

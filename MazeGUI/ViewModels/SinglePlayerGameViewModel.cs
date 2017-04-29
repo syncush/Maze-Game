@@ -17,6 +17,10 @@ using MazeLib;
 using Newtonsoft.Json.Linq;
 
 namespace MazeGUI.ViewModels {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     class SinglePlayerGameViewModel : INotifyPropertyChanged {
         #region DataMembers
 
@@ -31,6 +35,12 @@ namespace MazeGUI.ViewModels {
 
         #endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SinglePlayerGameViewModel"/> class.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        /// <param name="cols">The cols.</param>
+        /// <param name="mazeName">Name of the maze.</param>
         public SinglePlayerGameViewModel(int rows, int cols, string mazeName) {
             this.model = new SinglePlayerGameModel();
             this.shouldDrawSolution = false;
@@ -54,6 +64,12 @@ namespace MazeGUI.ViewModels {
             this.mazeInts = new int[rows, cols];
         }
 
+        /// <summary>
+        /// Gets or sets the maze object.
+        /// </summary>
+        /// <value>
+        /// The maze object.
+        /// </value>
         public int[,] MazeOBJ {
             get {
                 if (!shouldDrawSolution) {
@@ -72,6 +88,12 @@ namespace MazeGUI.ViewModels {
             }
         }
 
+        /// <summary>
+        /// Sets the player position.
+        /// </summary>
+        /// <value>
+        /// The player position.
+        /// </value>
         public Position PlayerPosition {
             set {
                 this.model.PlayerPosition = value;
@@ -82,17 +104,28 @@ namespace MazeGUI.ViewModels {
 
         #region Funcs
 
+        /// <summary>
+        /// Notifies the property changed.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
         [NotifyPropertyChangedInvocator]
         protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 
+        /// <summary>
+        /// Restarts the game.
+        /// </summary>
         public void RestartGame() {
             this.model.PlayerPosition = this.model.Maze.InitialPos;
             this.shouldDrawSolution = false;
         }
 
+        /// <summary>
+        /// Moves the player.
+        /// </summary>
+        /// <param name="direct">The direct.</param>
         public void MovePlayer(string direct) {
             Direction parseDirection = Converter.StringToDirection(direct);
             this.PlayerPosition = this.model.Move(parseDirection);
@@ -103,6 +136,9 @@ namespace MazeGUI.ViewModels {
             this.NotifyPropertyChanged("MazeOBJ");
         }
 
+        /// <summary>
+        /// Solves the maze.
+        /// </summary>
         public void SolveMaze() {
             TcpClient client = new TcpClient();
             string answer;
@@ -119,6 +155,10 @@ namespace MazeGUI.ViewModels {
             this.DrawSolvedMaze(answer);
         }
 
+        /// <summary>
+        /// Draws the solved maze.
+        /// </summary>
+        /// <param name="solution">The solution.</param>
         public void DrawSolvedMaze(string solution) {
             JObject obj = JObject.Parse(solution);
             string list = obj.GetValue("Solution").Value<String>();
@@ -136,6 +176,12 @@ namespace MazeGUI.ViewModels {
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the name of the game.
+        /// </summary>
+        /// <value>
+        /// The name of the game.
+        /// </value>
         public string GameName {
             set { this.model.Maze.Name = value; }
             get { return this.model.Maze.Name; }

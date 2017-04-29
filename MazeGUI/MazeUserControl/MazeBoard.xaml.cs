@@ -16,6 +16,9 @@ using MazeGUI.Utilities;
 using MazeLib;
 using Image = System.Drawing.Image;
 
+/// <summary>
+/// 
+/// </summary>
 namespace MazeGUI.MazeUserControl {
     /// <summary>
     /// Interaction logic for MazeBoard.xaml
@@ -52,6 +55,9 @@ namespace MazeGUI.MazeUserControl {
         #endregion
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MazeBoard"/> class.
+        /// </summary>
         public MazeBoard() {
             InitializeComponent();
             this.maze = new int[0, 0];
@@ -71,6 +77,9 @@ namespace MazeGUI.MazeUserControl {
             this.isInit = false;
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public void Initialize() {
             int rows = this.maze.GetLength(0);
             int cols = this.maze.GetLength(1);
@@ -100,24 +109,53 @@ namespace MazeGUI.MazeUserControl {
 
         #region Properties
 
+        /// <summary>
+        /// Sets the player image.
+        /// </summary>
+        /// <value>
+        /// The player image.
+        /// </value>
         public string PlayerImage {
             set { this.RefreshImage(value, this.playerBrush); }
         }
 
+        /// <summary>
+        /// Sets the wall image.
+        /// </summary>
+        /// <value>
+        /// The wall image.
+        /// </value>
         public string WallImage {
             set { this.RefreshImage(value, this.wallBrush); }
         }
 
+        /// <summary>
+        /// Sets the exit image.
+        /// </summary>
+        /// <value>
+        /// The exit image.
+        /// </value>
         public string ExitImage {
             set { this.RefreshImage(value, this.exitBrush); }
         }
 
+        /// <summary>
+        /// Refreshes the image.
+        /// </summary>
+        /// <param name="imgName">Name of the img.</param>
+        /// <param name="brush">The brush.</param>
         private void RefreshImage(string imgName, ImageBrush brush) {
             brush = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/" +
                                                            imgName)));
             this.Maze = this.maze;
         }
 
+        /// <summary>
+        /// Gets or sets the maze.
+        /// </summary>
+        /// <value>
+        /// The maze.
+        /// </value>
         public int[,] Maze {
             get { return this.maze; }
             set {
@@ -132,14 +170,25 @@ namespace MazeGUI.MazeUserControl {
 
         #region MazeDrawing
 
+        /// <summary>
+        /// The maze property
+        /// </summary>
         public static readonly DependencyProperty MazeProperty =
             DependencyProperty.Register("Maze", typeof(int[,]), typeof(MazeBoard), new UIPropertyMetadata(MazeChanged));
 
+        /// <summary>
+        /// Mazes the changed.
+        /// </summary>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void MazeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             MazeBoard board = (MazeBoard) d;
             board.DrawMaze();
         }
 
+        /// <summary>
+        /// Draws the maze.
+        /// </summary>
         private void DrawMaze() {
             if (!isInit) {
                 Initialize();

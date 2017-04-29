@@ -15,6 +15,10 @@ using MazeGUI.Utilities;
 using MazeLib;
 
 namespace MazeGUI.ViewModels {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     class MultiPlayerGameViewModel : INotifyPropertyChanged {
         #region Events
 
@@ -39,12 +43,22 @@ namespace MazeGUI.ViewModels {
 
         #endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultiPlayerGameViewModel"/> class.
+        /// </summary>
+        /// <param name="gameName">Name of the game.</param>
+        /// <param name="rows">The rows.</param>
+        /// <param name="cols">The cols.</param>
         public MultiPlayerGameViewModel(string gameName, int rows, int cols) {
             this.mpModel = new MultiPlayerModel(gameName, rows, cols);
             this.mpModel.RivalMovedEvent += this.RivalMoved;
             this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultiPlayerGameViewModel"/> class.
+        /// </summary>
+        /// <param name="joinGame">The join game.</param>
         public MultiPlayerGameViewModel(string joinGame) {
             this.mpModel = new MultiPlayerModel(joinGame);
             this.mpModel.RivalMovedEvent += this.RivalMoved;
@@ -52,10 +66,22 @@ namespace MazeGUI.ViewModels {
         }
 
 
+        /// <summary>
+        /// Gets the client maze.
+        /// </summary>
+        /// <value>
+        /// The client maze.
+        /// </value>
         public int[,] ClientMaze {
             get { return Converter.MazeToRepresentation(this.mpModel.Maze, this.mpModel.ClientPosition); }
         }
 
+        /// <summary>
+        /// Gets the rival maze.
+        /// </summary>
+        /// <value>
+        /// The rival maze.
+        /// </value>
         public int[,] RivalMaze {
             get { return Converter.MazeToRepresentation(this.mpModel.Maze, this.mpModel.RivalPosition); }
         }
@@ -63,11 +89,19 @@ namespace MazeGUI.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Called when [property changed].
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Players the moved.
+        /// </summary>
+        /// <param name="direction">The direction.</param>
         public void PlayerMoved(string direction) {
             Direction direct = Converter.StringToDirection(direction);
             this.mpModel.ClientMoved(direct);
@@ -75,15 +109,25 @@ namespace MazeGUI.ViewModels {
             this.OnPropertyChanged("ClientMaze");
         }
 
+        /// <summary>
+        /// Rivals the moved.
+        /// </summary>
         public void RivalMoved() {
             this.MazeChangedEvent.Invoke();
             this.OnPropertyChanged("RivalMaze");
         }
 
+        /// <summary>
+        /// Games the started function.
+        /// </summary>
         public void GameStartedFunc() {
            this.MazeChangedEvent.Invoke();
         }
 
+        /// <summary>
+        /// Games the finished function.
+        /// </summary>
+        /// <param name="iWon">if set to <c>true</c> [i won].</param>
         public void GameFinishedFunc(bool iWon) {
             this.GameFinishedEvent.Invoke(iWon);
         }

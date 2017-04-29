@@ -15,26 +15,49 @@ using MazeLib;
 
 namespace MazeGUI.ViewModels
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     class SinglePlayerSettingsViewModel : INotifyPropertyChanged {
         #region DataMembers
         private IDataSource dataSource;
         private string gameName;
         #endregion DataMembers
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SinglePlayerSettingsViewModel"/> class.
+        /// </summary>
         public SinglePlayerSettingsViewModel() {
             dataSource = new SettingsModel();
         }
 
+        /// <summary>
+        /// Gets or sets the rows.
+        /// </summary>
+        /// <value>
+        /// The rows.
+        /// </value>
         public uint Rows {
             get { return this.dataSource.Rows; }
             set { this.dataSource.Rows = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the cols.
+        /// </summary>
+        /// <value>
+        /// The cols.
+        /// </value>
         public uint Cols {
             get { return this.dataSource.Cols; }
             set { this.dataSource.Cols = value; }
         }
 
+        /// <summary>
+        /// Generates the maze.
+        /// </summary>
+        /// <returns></returns>
         public Maze GenerateMaze() {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(this.dataSource.ServerIP), Convert.ToInt32(this.dataSource.ServerPort));
             TcpClient client = new TcpClient();
@@ -55,6 +78,12 @@ namespace MazeGUI.ViewModels
             return maze;
         }
 
+        /// <summary>
+        /// Gets or sets the name of the game.
+        /// </summary>
+        /// <value>
+        /// The name of the game.
+        /// </value>
         public string GameName {
             get { return this.gameName; }
             set {
@@ -64,6 +93,10 @@ namespace MazeGUI.ViewModels
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Notifies the property changed.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
         [NotifyPropertyChangedInvocator]
         protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

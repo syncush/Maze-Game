@@ -8,8 +8,16 @@ using MazeLib;
 using MazeGUI.MazeUserControl;
 
 namespace MazeGUI.Utilities {
+    /// <summary>
+    /// Converts premitive type to object
+    /// </summary>
     static class Converter {
-       
+
+        /// <summary>
+        /// Algoes to int.
+        /// </summary>
+        /// <param name="algo">The algo.</param>
+        /// <returns></returns>
         public static  int AlgoToInt(Algorithm algo) {
             switch (algo) {
                 case Algorithm.BFS: {
@@ -24,7 +32,13 @@ namespace MazeGUI.Utilities {
             return -1;
         }
 
-        public  static Position FromDirectionToNewPosition(Position pos, Direction direct) {
+        /// <summary>
+        /// Froms the direction to new position.
+        /// </summary>
+        /// <param name="pos">The position.</param>
+        /// <param name="direct">The direct.</param>
+        /// <returns></returns>
+        public static Position FromDirectionToNewPosition(Position pos, Direction direct) {
             switch (direct) {
                 case Direction.Up: {
                     return new Position(pos.Row - 1, pos.Col);
@@ -52,8 +66,13 @@ namespace MazeGUI.Utilities {
             }
             return pos;
         }
-    
 
+
+        /// <summary>
+        /// Strings to direction.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <returns></returns>
         public static Direction StringToDirection(string str) {
             Direction parseDirection;
             switch (str) {
@@ -85,6 +104,12 @@ namespace MazeGUI.Utilities {
             return parseDirection;
         }
 
+        /// <summary>
+        /// Characters to position.
+        /// </summary>
+        /// <param name="prev">The previous.</param>
+        /// <param name="num">The number.</param>
+        /// <returns></returns>
         public static Position CharToPosition(Position prev,char num) {
             Direction direct;
             switch (num)
@@ -122,6 +147,14 @@ namespace MazeGUI.Utilities {
             return Converter.FromDirectionToNewPosition(prev, direct);
         }
 
+        /// <summary>
+        /// Mazes to representation.
+        /// </summary>
+        /// <param name="convert">The convert.</param>
+        /// <param name="maze">The maze.</param>
+        /// <param name="solList">The sol list.</param>
+        /// <param name="playerPosition">The player position.</param>
+        /// <returns></returns>
         public static int[,] MazeToRepresentation(int[,] convert, Maze maze, List<Position> solList, Position playerPosition) {
             for (int i = 0; i <  maze.Rows; i++)
             {
@@ -142,6 +175,12 @@ namespace MazeGUI.Utilities {
             return convert;
         }
 
+        /// <summary>
+        /// Mazes to representation.
+        /// </summary>
+        /// <param name="maze">The maze.</param>
+        /// <param name="playerPosition">The player position.</param>
+        /// <returns></returns>
         public static int[,] MazeToRepresentation(Maze maze, Position playerPosition) {
             int[,] temp = new int[maze.Rows, maze.Cols];
             return MazeToRepresentation(temp, maze, null, playerPosition);

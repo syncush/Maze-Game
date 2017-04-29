@@ -19,16 +19,28 @@ namespace MazeGUI
     /// </summary>
     public partial class MainMenu : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainMenu"/> class.
+        /// </summary>
         public MainMenu()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnSingle control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnSingle_Click(object sender, RoutedEventArgs e)
         {
             MoveForm(new SinglePlayerSettingsForm());
         }
 
+        /// <summary>
+        /// Moves the form.
+        /// </summary>
+        /// <param name="w">The w.</param>
         private void MoveForm(Window w) {
             w.Show();
             this.Close();
@@ -39,6 +51,11 @@ namespace MazeGUI
             MoveForm(new MultiPlayerSettingsForm());
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnSettings control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
             MoveForm(new SettingsForm());
