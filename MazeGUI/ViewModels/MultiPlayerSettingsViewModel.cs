@@ -27,12 +27,16 @@ namespace MazeGUI.ViewModels {
     class MultiPlayerSettingsViewModel : INotifyPropertyChanged {
         private IDataSource dataSource;
         private IPEndPoint ep;
-        private ObservableCollection<String> avaiableGames;
+        private ObservableCollection<string> avaiableGames;
         private string gameName;
         public event PropertyChangedEventHandler PropertyChanged;
         private bool stop;
         private Task t;
+        private int selectedIndex;
 
+        public delegate void BadArguments(string message);
+
+        public event BadArguments BadArgumentsEvent;
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPlayerSettingsViewModel"/> class.
         /// </summary>
@@ -41,6 +45,7 @@ namespace MazeGUI.ViewModels {
             this.avaiableGames = new ObservableCollection<string>();
             ep = new IPEndPoint(IPAddress.Parse(this.dataSource.ServerIP),
                 Convert.ToInt32(this.dataSource.ServerPort));
+            this.selectedIndex = 0;
         }
 
         #region Properties
@@ -77,6 +82,12 @@ namespace MazeGUI.ViewModels {
             get { return this.avaiableGames; }
             set {
                 this.avaiableGames = value;
+                if (selectedIndex == 0 && value.Count > 0) {
+                    this.IndexSelected = 1;
+                }
+                if (value.Count == 0) {
+                    this.selectedIndex = 0;
+                }
                 this.NotifyPropertyChanged("AvaiableGamesList");
             }
         }
@@ -116,20 +127,27 @@ namespace MazeGUI.ViewModels {
         /// </summary>
         /// <returns></returns>
         public Maze JoinMaze() {
-            Maze maze;
-            TcpClient joinClient = new TcpClient();
-            joinClient.Connect(ep);
-            StreamWriter writer = new StreamWriter(joinClient.GetStream());
-            StreamReader reader = new StreamReader(joinClient.GetStream());
-            writer.AutoFlush = true;
-            using (writer)
-            using (reader) {
-                writer.WriteLine(string.Format("Start {0} {1} {2}", GameName, this.dataSource.Rows,
-                    this.dataSource.Cols));
-                string answer = reader.ReadLine();
-                maze = Maze.FromJSON(answer);
+            if (!string.IsNullOrEmpty(this.gameName)) {
+                Maze maze;
+                TcpClient joinClient = new TcpClient();
+                joinClient.Connect(ep);
+                StreamWriter writer = new StreamWriter(joinClient.GetStream());
+                StreamReader reader = new StreamReader(joinClient.GetStream());
+                writer.AutoFlush = true;
+                using (writer)
+                using (reader) {
+                    writer.WriteLine(String.Format("Start {0} {1} {2}", GameName, this.dataSource.Rows,
+                        this.dataSource.Cols));
+                    string answer = reader.ReadLine();
+                    maze = Maze.FromJSON(answer);
+                }
+                return maze;
             }
-            return maze;
+            else {
+                this.BadArgumentsEvent.Invoke("No game name was given! Please enter a maze name.");
+                return null;
+            }
+            
         }
 
         /// <summary>
@@ -169,6 +187,14 @@ namespace MazeGUI.ViewModels {
                 }
             });
             this.t.Start();
+        }
+
+        public int IndexSelected {
+            get { return this.selectedIndex; }
+            set {
+                this.selectedIndex = value;
+                this.NotifyPropertyChanged("IndexSelected");
+            }
         }
         #endregion
     }

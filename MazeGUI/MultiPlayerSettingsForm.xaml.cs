@@ -24,7 +24,8 @@ namespace MazeGUI {
             mpVP = new MultiPlayerSettingsViewModel();
             mpVP.Intialize();
             this.DataContext = mpVP;
-            
+            this.mpVP.BadArgumentsEvent += this.BadArgsHandler;
+
 
 
         }
@@ -60,6 +61,12 @@ namespace MazeGUI {
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.CreateMultiGame(false);
+        }
+
+        private void BadArgsHandler(string message) {
+            MessageBoxResult result = MessageBox.Show(message, "Bad Arguments",
+                       MessageBoxButton.OK,
+                       MessageBoxImage.Error);
         }
     }
 }

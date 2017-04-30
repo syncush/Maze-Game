@@ -14,7 +14,7 @@
             <Label Content="Maze Cols" HorizontalAlignment="Left" Margin="20,180,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="txtbxMazeName" Text ="{Binding GameName}"  HorizontalAlignment="Left" Height="23" Margin="117,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <TextBox Text="{Binding Rows}" x:Name="txtbxMazeRows" HorizontalAlignment="Left" Height="23" Margin="117,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" PreviewTextInput="NumericTxtBox"/>
-            <ComboBox Name="cmbxGames" ItemsSource="{Binding Path=AvaiableGamesList}" SelectedValue="{Binding Path=AvaiableGamesList}" HorizontalAlignment="Left" Margin="117,30,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="1"/>
+            <ComboBox Name="cmbxGames" ItemsSource="{Binding Path=AvaiableGamesList}"  SelectedValue="{Binding Path=AvaiableGamesList}" HorizontalAlignment="Left" Margin="117,30,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="{Binding IndexSelected}" Cursor=""/>
             <Button Content="Join Game" HorizontalAlignment="Left" Margin="117,79,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.145,0.508" Click="Button_Click"/>
             <TextBox Text="{Binding Cols}" x:Name="txtbxMazeCols" HorizontalAlignment="Left" Height="23" Margin="117,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" PreviewTextInput="NumericTxtBox"/>
             <Button x:Name="btnStartGame" Content="Start" HorizontalAlignment="Left" Margin="117,224,0,0" VerticalAlignment="Top" Width="64" RenderTransformOrigin="0.145,0.508" Click="btnStartGame_Click"/>

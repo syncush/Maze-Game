@@ -174,7 +174,7 @@ namespace MazeGUI.MazeUserControl {
         /// The maze property
         /// </summary>
         public static readonly DependencyProperty MazeProperty =
-            DependencyProperty.Register("Maze", typeof(int[,]), typeof(MazeBoard), new UIPropertyMetadata(MazeChanged));
+            DependencyProperty.Register("Maze", typeof(string), typeof(MazeBoard), new UIPropertyMetadata(MazeChanged));
 
         /// <summary>
         /// Mazes the changed.
