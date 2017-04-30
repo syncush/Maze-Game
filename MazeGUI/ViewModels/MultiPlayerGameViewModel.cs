@@ -98,23 +98,43 @@ namespace MazeGUI.ViewModels {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public string ClientPos {
+            get { return this.mpModel.ClientPosition.Row+","+this.mpModel.ClientPosition.Col; }
+            set {
+                string[] args = value.Split(',');
+                this.mpModel.ClientPosition = new Position(Convert.ToInt32(args[0]), Convert.ToInt32(args[1]));
+                this.OnPropertyChanged("ClientPos");
+            }
+            
+        }
+        public string RivalPos
+        {
+            get { return this.mpModel.RivalPosition.Row + "," + this.mpModel.RivalPosition.Col; }
+            set {
+                string[] args = value.Split(',');
+                this.mpModel.RivalPosition = new Position(Convert.ToInt32(args[0]), Convert.ToInt32(args[1]));
+                this.OnPropertyChanged("RivalPos");
+            }
+
+        }
+
         /// <summary>
         /// Players the moved.
         /// </summary>
         /// <param name="direction">The direction.</param>
         public void PlayerMoved(string direction) {
             Direction direct = Converter.StringToDirection(direction);
-            this.mpModel.ClientMoved(direct);
-            //MazeChangedEvent.Invoke();
-            this.OnPropertyChanged("ClientMaze");
+            Position clientPos = this.mpModel.ClientMoved(direct);
+            this.ClientPos = clientPos.Row + "," + clientPos.Col;
+
         }
 
         /// <summary>
         /// Rivals the moved.
         /// </summary>
-        public void RivalMoved() {
-            //this.MazeChangedEvent.Invoke();
-            this.OnPropertyChanged("RivalMaze");
+        public void RivalMoved(Position movedTo) {
+            this.RivalPos = movedTo.Row +","+ movedTo.Col ;
+            
         }
 
         /// <summary>

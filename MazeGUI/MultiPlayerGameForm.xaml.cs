@@ -30,6 +30,8 @@ namespace MazeGUI {
                 this.mpgVM = new MultiPlayerGameViewModel(gameName);
             }
             this.DataContext = this.mpgVM;
+            this.ClientBoard.DataContext = this.mpgVM;
+            this.RivalBoard.DataContext = this.mpgVM;
             //this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
             this.mpgVM.GameFinishedEvent += this.GameFinishedHandler;
             //this.MazeChangedFunc();
@@ -39,7 +41,9 @@ namespace MazeGUI {
             InitializeComponent();
             this.mpgVM = new MultiPlayerGameViewModel(gameName);
             this.DataContext = mpgVM;
-           // this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
+            this.ClientBoard.DataContext = this.mpgVM;
+            this.RivalBoard.DataContext = this.mpgVM;
+            // this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
             this.mpgVM.GameFinishedEvent += this.GameFinishedHandler;
             //this.MazeChangedFunc();
         }

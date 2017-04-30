@@ -61,7 +61,7 @@ namespace MazeGUI.ViewModels {
             Maze maze = Maze.FromJSON(answer);
             maze.Name = mazeName;
             this.model.Maze = maze;
-            this.PlayerPosition = maze.InitialPos;
+            this.model.PlayerPosition = maze.InitialPos;
             this.mazeString = new String[rows, cols];
         }
 
@@ -73,12 +73,12 @@ namespace MazeGUI.ViewModels {
         /// </value>
         public string MazeOrder {
             get {
-                if (!shouldDrawSolution) {
-                    return Converter.MazeToRepresentation(this.mazeString,this.model.Maze, null,
+                if (shouldDrawSolution) {
+                    return Converter.MazeToRepresentation(this.mazeString,this.model.Maze, this.solutionPosList,
                         this.model.PlayerPosition);
                 }
                 else {
-                    return Converter.MazeToRepresentation(this.mazeString,this.model.Maze, this.solutionPosList,
+                    return Converter.MazeToRepresentation(this.mazeString,this.model.Maze, null,
                         this.model.PlayerPosition);
                 }
                 
@@ -86,17 +86,19 @@ namespace MazeGUI.ViewModels {
    
         }
 
+
         /// <summary>
         /// Sets the player position.
         /// </summary>
         /// <value>
         /// The player position.
         /// </value>
-        public Position PlayerPosition {
+        public string PlayerPos
+        {
+            get { return this.model.PlayerPosition.Row + "," + this.model.PlayerPosition.Col; }
             set {
-                this.model.PlayerPosition = value;
-                this.NotifyPropertyChanged("MazeOrder");
-                this.NotifyPropertyChanged("PlayerPosition");
+                this.model.PlayerPosition = new Position(Convert.ToInt32(value.Split(',')[0]), Convert.ToInt32(value.Split(',')[1]));
+                this.NotifyPropertyChanged("PlayerPos");
             }
         }
 
@@ -117,6 +119,7 @@ namespace MazeGUI.ViewModels {
         /// </summary>
         public void RestartGame() {
             this.model.PlayerPosition = this.model.Maze.InitialPos;
+            this.solutionPosList = null;
             this.shouldDrawSolution = false;
         }
 
@@ -126,12 +129,13 @@ namespace MazeGUI.ViewModels {
         /// <param name="direct">The direct.</param>
         public void MovePlayer(string direct) {
             Direction parseDirection = Converter.StringToDirection(direct);
-            this.PlayerPosition = this.model.Move(parseDirection);
+            this.model.PlayerPosition = this.model.Move(parseDirection);
             if (this.model.PlayerPosition.Row == this.model.Maze.GoalPos.Row &&
                 this.model.PlayerPosition.Col == this.model.Maze.GoalPos.Col) {
                 GameFinishedEvent.Invoke();
             }
-            this.NotifyPropertyChanged("MazeOrder");
+            this.PlayerPos = this.model.PlayerPosition.Row + "," + this.model.PlayerPosition.Col;
+           
         }
 
         /// <summary>

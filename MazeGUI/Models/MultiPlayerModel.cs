@@ -43,7 +43,7 @@ namespace MazeGUI.Models {
 
         public event RivalMoved RivalMovedEvent;
 
-        public delegate void RivalMoved();
+        public delegate void RivalMoved(Position movedTo);
 
         public delegate void GameStarted();
 
@@ -178,7 +178,8 @@ namespace MazeGUI.Models {
                             JObject jobj = JObject.Parse(answer);
                             this.rivalPosition = Converter.FromDirectionToNewPosition(this.rivalPosition,
                                 Converter.StringToDirection(jobj["Direction"].Value<string>()));
-                            this.RivalMovedEvent.Invoke();
+                                this.RivalMovedEvent.Invoke(this.rivalPosition);
+                        
                         }
                         
                     }
@@ -196,14 +197,14 @@ namespace MazeGUI.Models {
         /// Clients the moved.
         /// </summary>
         /// <param name="direct">The direct.</param>
-        public void ClientMoved(Direction direct) {
+        public Position ClientMoved(Direction direct) {
             try {
                 if (gameLogic.IsLegitMove(this.clientPosition, direct)) {
                     this.clientPosition = this.gameLogic.Move(this.clientPosition, direct);
                     if (this.gameMaze.GoalPos.Row == this.clientPosition.Row &&
                         this.gameMaze.GoalPos.Col == this.clientPosition.Col) {
                         writer.WriteLine(string.Format("Play {0}", direct.ToString()));
-                        Thread.Sleep(20);
+                        Thread.Sleep(5);
                         writer.WriteLine(string.Format("Close {0}", this.gameMaze.Name));
                         this.GameFinishedEvent.Invoke(true);
                     }
@@ -211,6 +212,7 @@ namespace MazeGUI.Models {
                         writer.WriteLine(string.Format("Play {0}", direct.ToString()));
                     }
                 }
+                return this.ClientPosition;
             }
             catch (Exception e) {
                 throw e;

@@ -41,6 +41,7 @@ namespace MazeGUI.MazeUserControl {
         private Dictionary<string, Label> lblDictionary;
         private int rows;
         private int cols;
+        private string pos;
         private BitmapImage wallImg;
         private BitmapImage playerImg;
         private BitmapImage exitImg;
@@ -83,6 +84,7 @@ namespace MazeGUI.MazeUserControl {
         /// </summary>
         public void Initialize(string b) {
             this.maze = b.Split(',');
+             
             this.rows = this.maze.Length - 1;
             this.cols = this.maze[0].Length;
             for (int i = 0; i < rows; i++) {
@@ -163,7 +165,6 @@ namespace MazeGUI.MazeUserControl {
             set { this.maze = value.Split(','); }
         }
 
-
         #endregion
 
 
@@ -175,6 +176,14 @@ namespace MazeGUI.MazeUserControl {
         public static readonly DependencyProperty MazeProperty =
             DependencyProperty.Register("Maze", typeof(string), typeof(MazeBoard), new UIPropertyMetadata(MazeChanged));
 
+        public static readonly DependencyProperty PlayerPositionProperty = DependencyProperty.Register("PlayerPosition",
+            typeof(string), typeof(MazeBoard), new UIPropertyMetadata(PlayerPositionChanged));
+
+        public static void PlayerPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            MazeBoard board = (MazeBoard) d;
+            board.PlayerPositionChangedFunc((string) e.NewValue, (string)e.OldValue);
+        }
+
         /// <summary>
         /// Mazes the changed.
         /// </summary>
@@ -182,8 +191,26 @@ namespace MazeGUI.MazeUserControl {
         /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void MazeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             MazeBoard board = (MazeBoard) d;
-            
-            board.DrawMaze((string)e.NewValue);
+
+            board.DrawMaze((string) e.NewValue);
+        }
+
+        public string PlayerPosition {
+            get { return this.pos; }
+            set { this.pos = value; }
+        }
+
+        public void PlayerPositionChangedFunc(string newLocation, string oldLocation) {
+            Label newPos = lblDictionary[string.Format("({0})", newLocation)];
+            newPos.Background = this.playerBrush;
+            try {
+                Label oldPos = lblDictionary[string.Format("({0})", oldLocation)];
+                oldPos.Background = this.freeSpace;
+            }
+            catch (Exception) {
+                
+            }
+           
         }
 
         /// <summary>
@@ -198,40 +225,33 @@ namespace MazeGUI.MazeUserControl {
                 for (int j = 0; j < this.cols; ++j) {
                     Label rect = lblDictionary[string.Format("({0},{1})", i, j)];
                     switch ((this.maze[i])[j]) {
-                        case '0':
-                        {
+                        case '0': {
                             rect.Background = this.wallBrush;
                         }
                             break;
-                        case '1':
-                        {
+                        case '1': {
                             rect.Background = this.freeSpace;
                         }
                             break;
-                        case '2':
-                        {
+                        case '2': {
                             rect.Background = this.exitBrush;
                         }
                             break;
-                        case '3':
-                        {
+                        case '3': {
                             rect.Background = this.playerBrush;
                         }
                             break;
-                        case '4':
-                        {
+                        case '4': {
                             rect.Background = this.solBrush;
                         }
                             break;
-                        case '5':
-                        {
+                        case '5': {
                             rect.Background = this.initBrush;
                         }
                             break;
                     }
                 }
             }
-           
         }
 
         #endregion
