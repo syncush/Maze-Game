@@ -26,13 +26,10 @@ namespace MazeGUI.ViewModels {
 
         public delegate void GameMovement(Direction p);
 
-        public delegate void MazeChanged();
 
         public delegate void GameFinished(bool iWon);
 
         public event GameFinished GameFinishedEvent;
-
-        public event MazeChanged MazeChangedEvent;
 
         #endregion
 
@@ -40,6 +37,7 @@ namespace MazeGUI.ViewModels {
 
         private MultiPlayerModel mpModel;
         private Boolean isStart;
+        private string[,] mazeRep;
 
         #endregion
 
@@ -53,6 +51,7 @@ namespace MazeGUI.ViewModels {
             this.mpModel = new MultiPlayerModel(gameName, rows, cols);
             this.mpModel.RivalMovedEvent += this.RivalMoved;
             this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
+            this.mazeRep = new string[rows,cols];
         }
 
         /// <summary>
@@ -63,6 +62,7 @@ namespace MazeGUI.ViewModels {
             this.mpModel = new MultiPlayerModel(joinGame);
             this.mpModel.RivalMovedEvent += this.RivalMoved;
             this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
+            this.mazeRep = new string[this.mpModel.Maze.Rows, this.mpModel.Maze.Cols];
         }
 
 
@@ -72,8 +72,8 @@ namespace MazeGUI.ViewModels {
         /// <value>
         /// The client maze.
         /// </value>
-        public int[,] ClientMaze {
-            get { return Converter.MazeToRepresentation(this.mpModel.Maze, this.mpModel.ClientPosition); }
+        public string ClientMaze {
+            get { return Converter.MazeToRepresentation(this.mazeRep, this.mpModel.Maze, null, this.mpModel.ClientPosition); }
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace MazeGUI.ViewModels {
         /// <value>
         /// The rival maze.
         /// </value>
-        public int[,] RivalMaze {
-            get { return Converter.MazeToRepresentation(this.mpModel.Maze, this.mpModel.RivalPosition); }
+        public string RivalMaze {
+            get { return Converter.MazeToRepresentation(this.mazeRep, this.mpModel.Maze, null, this.mpModel.RivalPosition); }
         }
 
 
@@ -105,7 +105,7 @@ namespace MazeGUI.ViewModels {
         public void PlayerMoved(string direction) {
             Direction direct = Converter.StringToDirection(direction);
             this.mpModel.ClientMoved(direct);
-            MazeChangedEvent.Invoke();
+            //MazeChangedEvent.Invoke();
             this.OnPropertyChanged("ClientMaze");
         }
 
@@ -113,7 +113,7 @@ namespace MazeGUI.ViewModels {
         /// Rivals the moved.
         /// </summary>
         public void RivalMoved() {
-            this.MazeChangedEvent.Invoke();
+            //this.MazeChangedEvent.Invoke();
             this.OnPropertyChanged("RivalMaze");
         }
 
@@ -121,7 +121,7 @@ namespace MazeGUI.ViewModels {
         /// Games the started function.
         /// </summary>
         public void GameStartedFunc() {
-           this.MazeChangedEvent.Invoke();
+          //this.MazeChangedEvent.Invoke();
         }
 
         /// <summary>

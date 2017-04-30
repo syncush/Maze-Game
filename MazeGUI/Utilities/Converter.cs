@@ -12,13 +12,12 @@ namespace MazeGUI.Utilities {
     /// Converts premitive type to object
     /// </summary>
     static class Converter {
-
         /// <summary>
         /// Algoes to int.
         /// </summary>
         /// <param name="algo">The algo.</param>
         /// <returns></returns>
-        public static  int AlgoToInt(Algorithm algo) {
+        public static int AlgoToInt(Algorithm algo) {
             switch (algo) {
                 case Algorithm.BFS: {
                     return 1;
@@ -42,7 +41,6 @@ namespace MazeGUI.Utilities {
             switch (direct) {
                 case Direction.Up: {
                     return new Position(pos.Row - 1, pos.Col);
-
                 }
                     break;
                 case Direction.Down: {
@@ -51,12 +49,10 @@ namespace MazeGUI.Utilities {
                     break;
                 case Direction.Right: {
                     return new Position(pos.Row, pos.Col + 1);
-
                 }
                     break;
                 case Direction.Left: {
                     return new Position(pos.Row, pos.Col - 1);
-
                 }
                     break;
                 case Direction.Unknown: {
@@ -110,38 +106,31 @@ namespace MazeGUI.Utilities {
         /// <param name="prev">The previous.</param>
         /// <param name="num">The number.</param>
         /// <returns></returns>
-        public static Position CharToPosition(Position prev,char num) {
+        public static Position CharToPosition(Position prev, char num) {
             Direction direct;
-            switch (num)
-            {
-                
-                case '0':
-                    {
-                        direct = Direction.Left;
-                    }
+            switch (num) {
+                case '0': {
+                    direct = Direction.Left;
+                }
                     break;
-                
-                case '1':
-                    {
-                        direct = Direction.Right;
-                    }
+
+                case '1': {
+                    direct = Direction.Right;
+                }
                     break;
-                
-                case '2':
-                    {
-                        direct = Direction.Up;
-                    }
+
+                case '2': {
+                    direct = Direction.Up;
+                }
                     break;
-                
-                case '3':
-                    {
-                        direct = Direction.Down;
-                    }
+
+                case '3': {
+                    direct = Direction.Down;
+                }
                     break;
-                default:
-                    {
-                        direct = Direction.Unknown;
-                    }
+                default: {
+                    direct = Direction.Unknown;
+                }
                     break;
             }
             return Converter.FromDirectionToNewPosition(prev, direct);
@@ -155,35 +144,32 @@ namespace MazeGUI.Utilities {
         /// <param name="solList">The sol list.</param>
         /// <param name="playerPosition">The player position.</param>
         /// <returns></returns>
-        public static int[,] MazeToRepresentation(int[,] convert, Maze maze, List<Position> solList, Position playerPosition) {
-            for (int i = 0; i <  maze.Rows; i++)
-            {
-                for (int j = 0; j < maze.Cols; j++)
-                {
-                    convert[i, j] = maze[i, j] == CellType.Free ? MazeBoard.FreeSpaceRep : MazeBoard.WallRep;
-                }
-            }
-            if (solList != null)
-            {
-                foreach (Position pos in solList)
-                {
-                    convert[pos.Row, pos.Col] = MazeBoard.SolutionBrickRep;
-                }
-            }
-            convert[playerPosition.Row, playerPosition.Col] = MazeBoard.PlayerRep;
-            convert[maze.GoalPos.Row, maze.GoalPos.Col] = MazeBoard.GoalRep;
-            return convert;
-        }
+        public static string MazeToRepresentation(String[,] array, Maze maze, List<Position> solList, Position playerPosition) {
+            //string[,] stringMaze = array;
 
-        /// <summary>
-        /// Mazes to representation.
-        /// </summary>
-        /// <param name="maze">The maze.</param>
-        /// <param name="playerPosition">The player position.</param>
-        /// <returns></returns>
-        public static int[,] MazeToRepresentation(Maze maze, Position playerPosition) {
-            int[,] temp = new int[maze.Rows, maze.Cols];
-            return MazeToRepresentation(temp, maze, null, playerPosition);
+            for (int i = 0; i < maze.Rows; i++) {
+                for (int j = 0; j < maze.Cols; j++) {
+                    array[i, j] = maze[i, j] == CellType.Free ? MazeBoard.FreeSpaceRep.ToString() : MazeBoard.WallRep.ToString();
+                }
+            }
+            if (solList != null) {
+                foreach (Position pos in solList) {
+                    array[pos.Row, pos.Col] = MazeBoard.SolutionBrickRep.ToString();
+                }
+            }
+            array[playerPosition.Row, playerPosition.Col] = MazeBoard.PlayerRep.ToString();
+            array[maze.GoalPos.Row, maze.GoalPos.Col] = MazeBoard.GoalRep.ToString();
+            string b = "";
+            int rows = array.GetLength(0);
+            int cols = array.GetLength(1);
+            for (int i = 0; i < rows; ++i) {
+                for (int j = 0; j < cols; ++j) {
+                    b += array[i, j];
+                }
+                b += ',';
+            }
+            b = b.Substring(0, b.Length - 1);
+            return b;
         }
     }
 }

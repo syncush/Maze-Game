@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,18 +30,18 @@ namespace MazeGUI {
                 this.mpgVM = new MultiPlayerGameViewModel(gameName);
             }
             this.DataContext = this.mpgVM;
-            this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
+            //this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
             this.mpgVM.GameFinishedEvent += this.GameFinishedHandler;
-            this.MazeChangedFunc();
+            //this.MazeChangedFunc();
         }
 
         public MultiPlayerGameForm(string gameName) {
             InitializeComponent();
             this.mpgVM = new MultiPlayerGameViewModel(gameName);
             this.DataContext = mpgVM;
-            this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
+           // this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
             this.mpgVM.GameFinishedEvent += this.GameFinishedHandler;
-            this.MazeChangedFunc();
+            //this.MazeChangedFunc();
         }
 
         private void window_KeyUp(object sender, KeyEventArgs e) {
@@ -56,15 +57,6 @@ namespace MazeGUI {
             if (e.Key == Key.Down || e.Key == Key.S || e.Key == Key.NumPad3) {
                 this.mpgVM.PlayerMoved("down");
             }
-
-        }
-
-        private void MazeChangedFunc() {
-            this.Dispatcher.Invoke(() => {
-                this.clientBoard.Maze = this.mpgVM.ClientMaze;
-                this.RivalBoard.Maze = this.mpgVM.RivalMaze;
-            });
-
         }
 
         private void GameFinishedHandler(bool iWon) {

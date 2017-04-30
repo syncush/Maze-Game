@@ -96,9 +96,6 @@
     </Compile>
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Test.xaml.cs">
-      <DependentUpon>Test.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\Converter.cs" />
     <Compile Include="ViewModels\MultiPlayerGameViewModel.cs" />
     <Compile Include="ViewModels\MultiPlayerSettingsViewModel.cs" />
@@ -134,10 +131,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SinglePlayerSettingsForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

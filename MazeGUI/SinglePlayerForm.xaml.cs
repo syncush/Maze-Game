@@ -24,7 +24,8 @@ namespace MazeGUI {
             InitializeComponent();
             this.spGameVM = new SinglePlayerGameViewModel(rows, cols, gameName);
             this.DataContext = spGameVM;
-            this.mazeBoard.Maze = spGameVM.MazeOBJ;
+            this.mazeBoard.DataContext = spGameVM;
+            //this.mazeBoard.Maze = spGameVM.MazeOrder;
             this.spGameVM.GameFinishedEvent += this.GameFinished;
         }
 
@@ -41,12 +42,12 @@ namespace MazeGUI {
             if (e.Key == Key.Down || e.Key == Key.S || e.Key == Key.NumPad3) {
                 this.spGameVM.MovePlayer("down");
             }
-            this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
+            //this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
         }
 
         private void btnRestart_Click(object sender, RoutedEventArgs e) {
             this.spGameVM.RestartGame();
-            this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
+           // this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
         }
 
         private void GameFinished() {
@@ -61,7 +62,7 @@ namespace MazeGUI {
 
         private void btnSolve_Click(object sender, RoutedEventArgs e) {
             this.spGameVM.SolveMaze();
-            this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
+            //this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
         }
 
 
