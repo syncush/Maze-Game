@@ -69,24 +69,14 @@ namespace MazeGUI {
 
         private void GameFinishedHandler(bool iWon) {
             this.Dispatcher.Invoke(() => {
-                if (iWon) {
-                    MessageBoxResult result = MessageBox.Show("You Won The Game!", "We Have A Winner!",
+                MessageBoxResult result = MessageBox.Show("Game finished!", "We Have A Winner!",
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
-                    if (result == MessageBoxResult.OK) {
-                        MainMenu form = new MainMenu();
-                        form.Show();
-                        this.Close();
-                    }
-                }
-                else {
-                    MessageBoxResult result = MessageBox.Show("You Are A Loser!", "What A Loser", MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                    if (result == MessageBoxResult.OK) {
-                        MainMenu form = new MainMenu();
-                        form.Show();
-                        this.Close();
-                    }
+                if (result == MessageBoxResult.OK)
+                {
+                    MainMenu form = new MainMenu();
+                    form.Show();
+                    this.Close();
                 }
             });
         }

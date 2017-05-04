@@ -53,8 +53,6 @@ namespace MazeGUI {
             MessageBoxResult result = MessageBox.Show("You Finished The Maze!", "Confirmation", MessageBoxButton.OK,
                 MessageBoxImage.Information);
             if (result == MessageBoxResult.OK) {
-                MainMenu form = new MainMenu();
-                form.Show();
                 this.Close();
             }
         }
@@ -71,7 +69,7 @@ namespace MazeGUI {
         }
 
         private void btnMainMenu_Click(object sender, RoutedEventArgs e) {
-            this.window_Closed(null, null);
+            this.Close();
         }
     }
 }
