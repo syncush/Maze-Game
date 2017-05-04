@@ -170,23 +170,25 @@ namespace MazeGUI.ViewModels {
                 StreamWriter writer = new StreamWriter(client.GetStream());
                 writer.AutoFlush = true;
                 try {
-                    while (!stop) {
+
                         writer.WriteLine("List");
                         string answer = reader.ReadLine();
                         if (answer != "") {
                             this.AvaiableGamesList = JArray.Parse(answer).ToObject<ObservableCollection<string>>();
                         }
 
-                        Thread.Sleep(10000);
-                    }
                 }
                 catch (IOException e) {
                     client.GetStream().Dispose();
                     writer.Dispose();
                     reader.Dispose();
                 }
+                client.GetStream().Dispose();
+                writer.Dispose();
+                reader.Dispose();
             });
             this.t.Start();
+
         }
 
         public int IndexSelected {

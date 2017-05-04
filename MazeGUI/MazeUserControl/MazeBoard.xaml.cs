@@ -37,8 +37,11 @@ namespace MazeGUI.MazeUserControl {
 
         #region DataMembers
 
-        private int[,] maze;
+        private string[] maze;
         private Dictionary<string, Label> lblDictionary;
+        private int rows;
+        private int cols;
+        private string pos;
         private BitmapImage wallImg;
         private BitmapImage playerImg;
         private BitmapImage exitImg;
@@ -60,7 +63,6 @@ namespace MazeGUI.MazeUserControl {
         /// </summary>
         public MazeBoard() {
             InitializeComponent();
-            this.maze = new int[0, 0];
             this.exitImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/exit.png"));
             this.playerImg = new BitmapImage(
                 new Uri(@"pack://application:,,,/MazeGUI;component/Resources/walterWhite.jpeg"));
@@ -80,9 +82,11 @@ namespace MazeGUI.MazeUserControl {
         /// <summary>
         /// Initializes this instance.
         /// </summary>
-        public void Initialize() {
-            int rows = this.maze.GetLength(0);
-            int cols = this.maze.GetLength(1);
+        public void Initialize(string b) {
+            this.maze = b.Split(',');
+             
+            this.rows = this.maze.Length - 1;
+            this.cols = this.maze[0].Length;
             for (int i = 0; i < rows; i++) {
                 RowDefinition row = new RowDefinition();
                 row.Height = GridLength.Auto;
@@ -147,7 +151,7 @@ namespace MazeGUI.MazeUserControl {
         private void RefreshImage(string imgName, ImageBrush brush) {
             brush = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/" +
                                                            imgName)));
-            this.Maze = this.maze;
+            this.DrawMaze(this.maze.ToString());
         }
 
         /// <summary>
@@ -156,14 +160,10 @@ namespace MazeGUI.MazeUserControl {
         /// <value>
         /// The maze.
         /// </value>
-        public int[,] Maze {
-            get { return this.maze; }
-            set {
-                this.maze = value;
-                this.DrawMaze();
-            }
+        public string Maze {
+            get { return this.maze.ToString(); }
+            set { this.maze = value.Split(','); }
         }
-
 
         #endregion
 
@@ -176,6 +176,14 @@ namespace MazeGUI.MazeUserControl {
         public static readonly DependencyProperty MazeProperty =
             DependencyProperty.Register("Maze", typeof(string), typeof(MazeBoard), new UIPropertyMetadata(MazeChanged));
 
+        public static readonly DependencyProperty PlayerPositionProperty = DependencyProperty.Register("PlayerPosition",
+            typeof(string), typeof(MazeBoard), new UIPropertyMetadata(PlayerPositionChanged));
+
+        public static void PlayerPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            MazeBoard board = (MazeBoard) d;
+            board.PlayerPositionChangedFunc((string) e.NewValue, (string)e.OldValue);
+        }
+
         /// <summary>
         /// Mazes the changed.
         /// </summary>
@@ -183,43 +191,61 @@ namespace MazeGUI.MazeUserControl {
         /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void MazeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             MazeBoard board = (MazeBoard) d;
-            board.DrawMaze();
+
+            board.DrawMaze((string) e.NewValue);
+        }
+
+        public string PlayerPosition {
+            get { return this.pos; }
+            set { this.pos = value; }
+        }
+
+        public void PlayerPositionChangedFunc(string newLocation, string oldLocation) {
+            Label newPos = lblDictionary[string.Format("({0})", newLocation)];
+            newPos.Background = this.playerBrush;
+            try {
+                Label oldPos = lblDictionary[string.Format("({0})", oldLocation)];
+                oldPos.Background = this.freeSpace;
+            }
+            catch (Exception) {
+                
+            }
+           
         }
 
         /// <summary>
         /// Draws the maze.
         /// </summary>
-        private void DrawMaze() {
+        private void DrawMaze(string b) {
             if (!isInit) {
-                Initialize();
+                this.Initialize(b);
             }
-            int rows = this.maze.GetLength(0);
-            int cols = this.maze.GetLength(1);
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols; j++) {
+            this.maze = b.Split(',');
+            for (int i = 0; i < this.rows; ++i) {
+                for (int j = 0; j < this.cols; ++j) {
                     Label rect = lblDictionary[string.Format("({0},{1})", i, j)];
-                    switch (this.maze[i, j]) {
-                        case 0: {
+                    switch ((this.maze[i])[j]) {
+                        case '0': {
                             rect.Background = this.wallBrush;
                         }
                             break;
-                        case 1: {
+                        case '1': {
                             rect.Background = this.freeSpace;
                         }
                             break;
-                        case 2: {
+                        case '2': {
                             rect.Background = this.exitBrush;
                         }
                             break;
-                        case 3: {
+                        case '3': {
                             rect.Background = this.playerBrush;
                         }
                             break;
-                        case 4: {
+                        case '4': {
                             rect.Background = this.solBrush;
                         }
                             break;
-                        case 5: {
+                        case '5': {
                             rect.Background = this.initBrush;
                         }
                             break;
