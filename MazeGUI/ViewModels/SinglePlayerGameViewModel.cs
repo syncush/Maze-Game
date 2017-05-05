@@ -121,6 +121,8 @@ namespace MazeGUI.ViewModels {
             this.model.PlayerPosition = this.model.Maze.InitialPos;
             this.solutionPosList = null;
             this.shouldDrawSolution = false;
+            this.NotifyPropertyChanged("PlayerPos");
+
         }
 
         /// <summary>
@@ -148,15 +150,11 @@ namespace MazeGUI.ViewModels {
             StreamWriter writer = new StreamWriter(client.GetStream());
             StreamReader reader = new StreamReader(client.GetStream());
             writer.AutoFlush = true;
-            using (client.GetStream())
-            using (writer)
-            using (reader) {
-                writer.WriteLine(string.Format("Solve {0} {1}", this.model.Maze.Name, this.model.Algorithm));
-                answer = reader.ReadLine();
-            }
+            writer.WriteLine(string.Format("Solve {0} {1}", this.model.Maze.Name, this.model.Algorithm));
+            answer = reader.ReadLine();
             this.DrawSolvedMaze(answer);
         }
-
+        /**
         /// <summary>
         /// Draws the solved maze.
         /// </summary>
@@ -173,6 +171,56 @@ namespace MazeGUI.ViewModels {
             this.shouldDrawSolution = true;
             this.NotifyPropertyChanged("MazeOrder");
 
+        }
+    **/
+        /// <summary>
+        /// Draws the solved maze.
+        /// </summary>
+        /// <param name="solution">The solution.</param>
+        public void DrawSolvedMaze(string solution)
+        {
+            this.RestartGame();
+            JObject obj = JObject.Parse(solution);
+            string list = obj.GetValue("Solution").Value<String>();
+            List<Position> posList = new List<Position>();
+            posList.Add(this.model.Maze.InitialPos);
+            Task t = new Task(() => {
+                foreach (char direction in list) {
+                    switch (direction)
+                    {
+                        case '0':
+                        {
+                            this.MovePlayer("left");
+                            }
+                            break;
+
+                        case '1':
+                        {
+                            this.MovePlayer("right");
+                            }
+                            break;
+
+                        case '2':
+                        {
+                            this.MovePlayer("up");
+                            }
+                            break;
+
+                        case '3':
+                        {
+                            this.MovePlayer("down");
+                            }
+                            break;
+                        default:
+                        {
+                        }
+                            break;
+                    }
+                    Thread.Sleep(1000);
+
+                }
+            });
+            t.Start();
         }
 
         #endregion

@@ -51,11 +51,13 @@ namespace MazeGUI {
         }
 
         private void GameFinished() {
-            MessageBoxResult result = MessageBox.Show("You Finished The Maze!", "Confirmation", MessageBoxButton.OK,
-                MessageBoxImage.Information);
-            if (result == MessageBoxResult.OK) {
-                this.Close();
-            }
+            this.Dispatcher.Invoke(() => {
+                MessageBoxResult result = MessageBox.Show("You Finished The Maze!", "Confirmation", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                }
+            });
         }
 
         private void btnSolve_Click(object sender, RoutedEventArgs e) {

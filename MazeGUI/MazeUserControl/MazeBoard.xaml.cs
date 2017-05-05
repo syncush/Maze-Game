@@ -42,6 +42,7 @@ namespace MazeGUI.MazeUserControl {
         private int rows;
         private int cols;
         private string pos;
+        private string goalPos;
         private BitmapImage wallImg;
         private BitmapImage playerImg;
         private BitmapImage exitImg;
@@ -204,8 +205,14 @@ namespace MazeGUI.MazeUserControl {
             Label newPos = lblDictionary[string.Format("({0})", newLocation)];
             newPos.Background = this.playerBrush;
             try {
-                Label oldPos = lblDictionary[string.Format("({0})", oldLocation)];
-                oldPos.Background = this.freeSpace;
+                string str = string.Format("({0})", oldLocation);
+                Label oldPos = lblDictionary[str];
+                if (str == goalPos) {
+                    oldPos.Background = exitBrush;
+                }
+                else {
+                    oldPos.Background = this.freeSpace;
+                }
             }
             catch (Exception) {
                 
@@ -223,7 +230,8 @@ namespace MazeGUI.MazeUserControl {
             this.maze = b.Split(',');
             for (int i = 0; i < this.rows; ++i) {
                 for (int j = 0; j < this.cols; ++j) {
-                    Label rect = lblDictionary[string.Format("({0},{1})", i, j)];
+                    string str = string.Format("({0},{1})", i, j);
+                    Label rect = lblDictionary[str];
                     switch ((this.maze[i])[j]) {
                         case '0': {
                             rect.Background = this.wallBrush;
@@ -234,6 +242,7 @@ namespace MazeGUI.MazeUserControl {
                         }
                             break;
                         case '2': {
+                            this.goalPos = str;
                             rect.Background = this.exitBrush;
                         }
                             break;
