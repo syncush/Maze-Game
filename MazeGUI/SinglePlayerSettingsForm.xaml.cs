@@ -38,5 +38,23 @@ namespace MazeGUI
             this.Close();
 
         }
+
+        private void btnMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            if (mBox == MessageBoxResult.OK)
+            {
+                
+                this.Close();
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            MainMenu main = new MainMenu();
+            main.Show();
+            this.Close();
+        }
     }
 }

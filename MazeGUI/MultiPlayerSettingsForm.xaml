@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
         mc:Ignorable="d"
-        Title="MultiPlayerSettingsForm" Height="300" Width="300">
+        Title="MultiPlayerSettingsForm" Height="300" Width="300" Closed="Window_Closed">
     <Grid>
         <Grid Margin="0,0,0,20">
             <Label Content="Maze Name" HorizontalAlignment="Left" Margin="20,114,0,0" VerticalAlignment="Top"/>

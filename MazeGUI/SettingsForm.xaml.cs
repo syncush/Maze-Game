@@ -56,9 +56,15 @@ namespace MazeGUI{
         }
 
         private void frmSettings_Closed(object sender, EventArgs e) {
-            MainMenu main = new MainMenu();
-            main.Show();
-            this.Close();
+            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            if (mBox == MessageBoxResult.OK)
+            {
+                MainMenu main = new MainMenu();
+                main.Show();
+                this.Close();
+            }
+           
         }
 
         private void txtbxCols_PreviewTextInput(object sender, TextCompositionEventArgs e)
