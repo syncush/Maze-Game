@@ -11,6 +11,9 @@ namespace MazeGUI.DataSources {
     /// Describes a app config data source.
     /// </summary>
     class AppConfigDataSource : IDataSource {
+        public AppConfigDataSource() {
+            Properties.Settings.Default.Reload();
+        }
         /// <summary>
         /// Gets or sets the server ip.
         /// </summary>

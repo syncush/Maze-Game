@@ -58,7 +58,6 @@ namespace MazeGUI{
         private void frmSettings_Closed(object sender, EventArgs e) {
             MainMenu main = new MainMenu();
             main.Show();
-            this.Close();
         }
 
         private void txtbxCols_PreviewTextInput(object sender, TextCompositionEventArgs e)
