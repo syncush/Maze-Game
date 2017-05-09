@@ -68,5 +68,12 @@ namespace MazeGUI {
                        MessageBoxButton.OK,
                        MessageBoxImage.Error);
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            MainMenu main = new MainMenu();
+            main.Show();
+            this.Close();
+        }
     }
 }

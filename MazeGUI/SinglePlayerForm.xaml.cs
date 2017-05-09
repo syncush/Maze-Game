@@ -20,15 +20,25 @@ namespace MazeGUI {
     public partial class SinglePlayerForm : Window {
         private SinglePlayerGameViewModel spGameVM;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SinglePlayerForm"/> class.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        /// <param name="cols">The cols.</param>
+        /// <param name="gameName">Name of the game.</param>
         public SinglePlayerForm(int rows, int cols, string gameName) {
             InitializeComponent();
             this.spGameVM = new SinglePlayerGameViewModel(rows, cols, gameName);
             this.DataContext = spGameVM;
             this.mazeBoard.DataContext = spGameVM;
-            //this.mazeBoard.Maze = spGameVM.MazeOrder;
             this.spGameVM.GameFinishedEvent += this.GameFinished;
         }
 
+        /// <summary>
+        /// Handles the KeyUp event of the window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void window_KeyUp(object sender, KeyEventArgs e) {
             if (e.Key == Key.Up || e.Key == Key.W || e.Key == Key.NumPad8) {
                 this.spGameVM.MovePlayer("up");
@@ -45,32 +55,68 @@ namespace MazeGUI {
             //this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnRestart control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnRestart_Click(object sender, RoutedEventArgs e) {
-            this.spGameVM.RestartGame();
-           // this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
+            MessageBoxResult mBox = MessageBox.Show("Restart Game ?", "Confirmation", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            if (mBox == MessageBoxResult.OK)
+            {
+                this.spGameVM.RestartGame();
+            }
+
         }
 
+        /// <summary>
+        /// Games the finished.
+        /// </summary>
         private void GameFinished() {
-            MessageBoxResult result = MessageBox.Show("You Finished The Maze!", "Confirmation", MessageBoxButton.OK,
+            this.Dispatcher.Invoke(() => {
+                MessageBoxResult result = MessageBox.Show("You Finished The Maze!", "Confirmation", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK) {
+                }
+            });
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnSolve control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnSolve_Click(object sender, RoutedEventArgs e) {
+            MessageBoxResult mBox = MessageBox.Show("Solve Maze ?", "Confirmation", MessageBoxButton.OK,
                 MessageBoxImage.Information);
-            if (result == MessageBoxResult.OK) {
-                this.Close();
+            if (mBox == MessageBoxResult.OK) {
+                this.spGameVM.SolveMaze();
             }
         }
 
-        private void btnSolve_Click(object sender, RoutedEventArgs e) {
-            this.spGameVM.SolveMaze();
-            //this.mazeBoard.Maze = this.spGameVM.MazeOBJ;
-        }
 
-
+        /// <summary>
+        /// Handles the Closed event of the window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void window_Closed(object sender, EventArgs e) {
             MainMenu form = new MainMenu();
             form.Show();
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnMainMenu control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnMainMenu_Click(object sender, RoutedEventArgs e) {
-            this.Close();
+            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            if (mBox == MessageBoxResult.OK) {
+                this.Close();
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
         mc:Ignorable="d"
-        Title="SinglePlayerSettingsForm" Height="300" Width="300">
+        Title="SinglePlayerSettingsForm" Height="300" Width="300" Closed="Window_Closed">
     <Grid Height="239" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="290" Margin="0,-24,0,22">
         <Label Content="Maze Rows" HorizontalAlignment="Left" Margin="53,100,0,0" VerticalAlignment="Top"/>
         <Label Content="Maze Name" HorizontalAlignment="Left" Margin="48,51,0,0" VerticalAlignment="Top"/>
@@ -14,7 +14,7 @@
         <TextBox Text="{Binding Rows}" Name="txtbxMazeCols" HorizontalAlignment="Left" Height="23" Margin="147,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
         <TextBox Text="{Binding Cols}" Name="txtbxMazeRows" HorizontalAlignment="Left" Height="23" Margin="147,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
         <Button Name="btnStart" Content="OK" HorizontalAlignment="Left" Margin="50,204,0,0" VerticalAlignment="Top" Width="75" Click="btnStart_Click"/>
-        <Button Name="btnMainMenu" Content="Main Menu" HorizontalAlignment="Left" Margin="147,204,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Name="btnMainMenu" Content="Main Menu" HorizontalAlignment="Left" Margin="147,204,0,0" VerticalAlignment="Top" Width="75" Click="btnMainMenu_Click"/>
         
     </Grid>
 
