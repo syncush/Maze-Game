@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,11 +39,15 @@ namespace MazeGUI {
 
         private void CreateMultiGame(Boolean isStart) {
             if (isStart) {
-                MultiPlayerGameForm form = new MultiPlayerGameForm(Convert.ToInt32(this.mpVP.Rows),
+               
+                    MultiPlayerGameForm form = new MultiPlayerGameForm(Convert.ToInt32(this.mpVP.Rows),
                     Convert.ToInt32(this.mpVP.Cols), true, this.mpVP.GameName);
-                form.Show();
-                this.mpVP.Stop = true;
-                this.Close();
+                    form.Show();
+                    this.mpVP.Stop = true;
+                    this.Close();
+      
+                this.IsEnabled = false;
+
 
             }
             else {

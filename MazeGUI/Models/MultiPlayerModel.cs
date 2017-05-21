@@ -77,22 +77,25 @@ namespace MazeGUI.Models {
         /// <param name="cols">The cols.</param>
         /// <param name="rows">The rows.</param>
         public MultiPlayerModel(string gameName, int cols, int rows) : this() {
-            try {
-                writer.WriteLine(string.Format("Start {0} {1} {2}", gameName, rows, cols));
-                string answer = reader.ReadLine();
-                Maze maze = Maze.FromJSON(answer);
-                this.gameMaze = maze;
-                this.clientPosition = maze.InitialPos;
-                this.rivalPosition = maze.InitialPos;
-                this.gameLogic = new MazeGameLogic(maze);
-                Action listenerAction = new Action(() => this.ListenToRivalMovement());
-                t = new Task(listenerAction);
-                t.Start();
+            
+                try
+                {
+                    writer.WriteLine(string.Format("Start {0} {1} {2}", gameName, rows, cols));
+                    string answer = reader.ReadLine();
+                    Maze maze = Maze.FromJSON(answer);
+                    this.gameMaze = maze;
+                    this.clientPosition = maze.InitialPos;
+                    this.rivalPosition = maze.InitialPos;
+                    this.gameLogic = new MazeGameLogic(maze);
+                    Action listenerAction = new Action(() => this.ListenToRivalMovement());
+                    t = new Task(listenerAction);
+                    t.Start();
 
-            }
-            catch (Exception) {
-                
-            }
+                }
+                catch (Exception)
+                {
+
+                }
            
         }
 
