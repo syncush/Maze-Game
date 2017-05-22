@@ -44,9 +44,9 @@ namespace ServerLib {
                 else { //opreation succeeded
                     //Create Jobj with details and send it to the players, close their connection.
                     JObject emptyJObject = new JObject();
-                    client.SendMessage(emptyJObject.ToString());
+                    //client.SendMessage(emptyJObject.ToString());
                     enemy.SendMessage(emptyJObject.ToString());
-                    client.CloseConnection();
+                    //client.CloseConnection();
                     enemy.CloseConnection();
                     return "Shutdown";
                 }
