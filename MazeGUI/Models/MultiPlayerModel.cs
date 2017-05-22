@@ -47,11 +47,15 @@ namespace MazeGUI.Models {
 
         public delegate void GameStarted();
 
-        public delegate void GameFinished(bool iWon);
+        public delegate void GameFinished(string message);
+
+        public delegate void BadArguments(string mess);
 
         public event GameFinished GameFinishedEvent;
 
         public event GameStarted GameStartedEvent;
+
+        public event BadArguments BadArgumentsEvent;
 
 
 
@@ -77,22 +81,25 @@ namespace MazeGUI.Models {
         /// <param name="cols">The cols.</param>
         /// <param name="rows">The rows.</param>
         public MultiPlayerModel(string gameName, int cols, int rows) : this() {
-            try {
-                writer.WriteLine(string.Format("Start {0} {1} {2}", gameName, rows, cols));
-                string answer = reader.ReadLine();
-                Maze maze = Maze.FromJSON(answer);
-                this.gameMaze = maze;
-                this.clientPosition = maze.InitialPos;
-                this.rivalPosition = maze.InitialPos;
-                this.gameLogic = new MazeGameLogic(maze);
-                Action listenerAction = new Action(() => this.ListenToRivalMovement());
-                t = new Task(listenerAction);
-                t.Start();
+            
+                try
+                {
+                    writer.WriteLine(string.Format("Start {0} {1} {2}", gameName, rows, cols));
+                    string answer = reader.ReadLine();
+                    Maze maze = Maze.FromJSON(answer);
+                    this.gameMaze = maze;
+                    this.clientPosition = maze.InitialPos;
+                    this.rivalPosition = maze.InitialPos;
+                    this.gameLogic = new MazeGameLogic(maze);
+                    Action listenerAction = new Action(() => this.ListenToRivalMovement());
+                    t = new Task(listenerAction);
+                    t.Start();
 
-            }
-            catch (Exception) {
-                
-            }
+                }
+                catch (Exception)
+                {
+
+                }
            
         }
 
@@ -172,16 +179,14 @@ namespace MazeGUI.Models {
                     string answer = reader.ReadLine();
                     if (answer != null) {
                         if (answer.Contains("{}")) {
-                            this.GameFinishedEvent.Invoke(false);
+                            this.GameFinishedEvent.Invoke("Game was closed by server, thank you for playing!");
                         }
                         else {
                             JObject jobj = JObject.Parse(answer);
                             this.rivalPosition = Converter.FromDirectionToNewPosition(this.rivalPosition,
                                 Converter.StringToDirection(jobj["Direction"].Value<string>()));
                                 this.RivalMovedEvent.Invoke(this.rivalPosition);
-                        
                         }
-                        
                     }
                     else {
                         break;
@@ -206,7 +211,7 @@ namespace MazeGUI.Models {
                         writer.WriteLine(string.Format("Play {0}", direct.ToString()));
                         Thread.Sleep(5);
                         writer.WriteLine(string.Format("Close {0}", this.gameMaze.Name));
-                        this.GameFinishedEvent.Invoke(true);
+                        this.GameFinishedEvent.Invoke("Congratz you are a winner !");
                     }
                     else {
                         writer.WriteLine(string.Format("Play {0}", direct.ToString()));
@@ -218,7 +223,5 @@ namespace MazeGUI.Models {
                 throw e;
             }
         }
-
-        public event MultiPlayerSettingsViewModel.BadArguments BadArgumentsEvent;
     }
 }

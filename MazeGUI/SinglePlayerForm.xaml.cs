@@ -32,8 +32,28 @@ namespace MazeGUI {
             this.DataContext = spGameVM;
             this.mazeBoard.DataContext = spGameVM;
             this.spGameVM.GameFinishedEvent += this.GameFinished;
-        }
+            this.spGameVM.AnimationStartedEvent += () => {
+                this.Dispatcher.Invoke(() => {
+                    this.IsEnabled = false;
+                });
 
+            };
+            this.spGameVM.AnimationFinishedEvent += () => {
+                this.Dispatcher.Invoke(() => {
+                    this.IsEnabled = true;
+                });
+            };
+            this.spGameVM.ConnectionToServerFailedEvent += HandleConnectionLost;
+        }
+        private void HandleConnectionLost(string message)
+        {
+            MessageBoxResult mBox = MessageBox.Show(message + " Form will now shutdown", "Error", MessageBoxButton.OK,
+               MessageBoxImage.Error);
+            if (mBox == MessageBoxResult.OK)
+            {
+                this.Close();
+            }
+        }
         /// <summary>
         /// Handles the KeyUp event of the window control.
         /// </summary>

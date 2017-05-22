@@ -20,6 +20,7 @@ namespace MazeGUI
     /// </summary>
     public partial class SinglePlayerSettingsForm : Window {
         private SinglePlayerSettingsViewModel settingsVM;
+        Boolean isBackToMain;
         public SinglePlayerSettingsForm()
         {
             InitializeComponent();
@@ -27,7 +28,9 @@ namespace MazeGUI
             this.DataContext = settingsVM;
             this.txtbxMazeCols.DataContext = settingsVM;
             this.txtbxMazeRows.DataContext = settingsVM;
+            
         }
+       
 
         private void btnStart_Click(object sender, RoutedEventArgs e) {
             int rows = int.Parse(this.txtbxMazeRows.Text);
@@ -35,6 +38,7 @@ namespace MazeGUI
             string gameName = this.txtbxMazeName.Text;
             SinglePlayerForm form = new SinglePlayerForm(rows, cols, gameName);
             form.Show();
+            isBackToMain = false;
             this.Close();
 
         }
@@ -52,8 +56,11 @@ namespace MazeGUI
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            MainMenu main = new MainMenu();
-            main.Show();
+            if(isBackToMain)
+            {
+                MainMenu main = new MainMenu();
+                main.Show();
+            }
             this.Close();
         }
     }

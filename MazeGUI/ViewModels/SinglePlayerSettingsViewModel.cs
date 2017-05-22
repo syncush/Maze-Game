@@ -19,16 +19,29 @@ namespace MazeGUI.ViewModels
     /// 
     /// </summary>
     /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
-    class SinglePlayerSettingsViewModel : INotifyPropertyChanged {
+    class SinglePlayerSettingsViewModel : ViewModel {
         #region DataMembers
         private IDataSource dataSource;
         private string gameName;
         #endregion DataMembers
 
+        #region Events
+
+        public event GameMovement GameClientMovement;
+
+        public delegate void GameMovement(MazeLib.Direction p);
+
+
+        public delegate void GameFinished(bool iWon);
+
+        public event GameFinished GameFinishedEvent;
+
+        #endregion
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SinglePlayerSettingsViewModel"/> class.
         /// </summary>
-        public SinglePlayerSettingsViewModel() {
+        public SinglePlayerSettingsViewModel() : base() {
             dataSource = new SettingsModel();
         }
 
@@ -54,29 +67,7 @@ namespace MazeGUI.ViewModels
             set { this.dataSource.Cols = value; }
         }
 
-        /// <summary>
-        /// Generates the maze.
-        /// </summary>
-        /// <returns></returns>
-        public Maze GenerateMaze() {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(this.dataSource.ServerIP), Convert.ToInt32(this.dataSource.ServerPort));
-            TcpClient client = new TcpClient();
-            Maze maze;
-            client.Connect(ep);
-            NetworkStream stream = client.GetStream();
-            StreamReader reader = new StreamReader(stream);
-            StreamWriter writer = new StreamWriter(stream);
-            using (stream)
-            using (reader)
-            using (writer) {
-                writer.AutoFlush = true;
-                writer.WriteLine(string.Format("Generate {0} {1} {2}", this.gameName, this.Rows, this.Cols));
-                string answer = reader.ReadLine();
-                maze = Maze.FromJSON(answer);
-            }
-            maze.Name = this.gameName;
-            return maze;
-        }
+       
 
         /// <summary>
         /// Gets or sets the name of the game.
@@ -90,16 +81,6 @@ namespace MazeGUI.ViewModels
                 this.gameName = value;
                 NotifyPropertyChanged("GameName");
             }
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Notifies the property changed.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        [NotifyPropertyChangedInvocator]
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -18,20 +18,9 @@ namespace MazeGUI.ViewModels {
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
-    class MultiPlayerGameViewModel : INotifyPropertyChanged {
-        #region Events
+    /// <seealso cref="MazeGUI.ViewModels.GameViewModel" />
+    class MultiPlayerGameViewModel : ViewModel {
 
-        public event GameMovement GameClientMovement;
-
-        public delegate void GameMovement(Direction p);
-
-
-        public delegate void GameFinished(bool iWon);
-
-        public event GameFinished GameFinishedEvent;
-
-        #endregion
 
         #region DataMembers
 
@@ -41,13 +30,33 @@ namespace MazeGUI.ViewModels {
 
         #endregion
 
+
+        #region Events
+
+        public event GameMovement GameClientMovement;
+
+        public delegate void GameMovement(MazeLib.Direction p);
+
+
+        public delegate void GameFinished(bool iWon);
+
+        public event GameFinished GameFinishedEvent;
+
+        #endregion
+
+
+
+
+
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPlayerGameViewModel"/> class.
         /// </summary>
         /// <param name="gameName">Name of the game.</param>
         /// <param name="rows">The rows.</param>
         /// <param name="cols">The cols.</param>
-        public MultiPlayerGameViewModel(string gameName, int rows, int cols) {
+        public MultiPlayerGameViewModel(string gameName, int rows, int cols) : base() {
             this.mpModel = new MultiPlayerModel(gameName, rows, cols);
             this.mpModel.RivalMovedEvent += this.RivalMoved;
             this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
@@ -58,7 +67,7 @@ namespace MazeGUI.ViewModels {
         /// Initializes a new instance of the <see cref="MultiPlayerGameViewModel"/> class.
         /// </summary>
         /// <param name="joinGame">The join game.</param>
-        public MultiPlayerGameViewModel(string joinGame) {
+        public MultiPlayerGameViewModel(string joinGame) : base() {
             this.mpModel = new MultiPlayerModel(joinGame);
             this.mpModel.RivalMovedEvent += this.RivalMoved;
             this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
@@ -86,24 +95,12 @@ namespace MazeGUI.ViewModels {
             get { return Converter.MazeToRepresentation(this.mazeRep, this.mpModel.Maze, null, this.mpModel.RivalPosition); }
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Called when [property changed].
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public string ClientPos {
             get { return this.mpModel.ClientPosition.Row+","+this.mpModel.ClientPosition.Col; }
             set {
                 string[] args = value.Split(',');
                 this.mpModel.ClientPosition = new Position(Convert.ToInt32(args[0]), Convert.ToInt32(args[1]));
-                this.OnPropertyChanged("ClientPos");
+                this.NotifyPropertyChanged("ClientPos");
             }
             
         }
@@ -113,7 +110,7 @@ namespace MazeGUI.ViewModels {
             set {
                 string[] args = value.Split(',');
                 this.mpModel.RivalPosition = new Position(Convert.ToInt32(args[0]), Convert.ToInt32(args[1]));
-                this.OnPropertyChanged("RivalPos");
+                this.NotifyPropertyChanged("RivalPos");
             }
 
         }
@@ -149,7 +146,7 @@ namespace MazeGUI.ViewModels {
         /// </summary>
         /// <param name="iWon">if set to <c>true</c> [i won].</param>
         public void GameFinishedFunc(bool iWon) {
-            this.GameFinishedEvent.Invoke(iWon);
+            this.GameFinishedEvent?.Invoke(iWon);
         }
     }
 }
