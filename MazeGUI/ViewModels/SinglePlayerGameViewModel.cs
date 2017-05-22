@@ -20,20 +20,33 @@ namespace MazeGUI.ViewModels {
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
-    class SinglePlayerGameViewModel : INotifyPropertyChanged {
+    /// <seealso cref="MazeGUI.ViewModels.GameViewModel" />
+    class SinglePlayerGameViewModel : ViewModel {
         #region DataMembers
 
         private string[,] mazeString;
         private SinglePlayerGameModel model;
         private List<Position> solutionPosList;
         private Boolean shouldDrawSolution;
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event GameFinishAction GameFinishedEvent;
-
-        public delegate void GameFinishAction();
 
         #endregion
+
+        #region Events
+
+
+
+        public delegate void GameFinished();
+        public delegate void AnimationInvoke();
+        public delegate void ConnectionFailed(string message);
+
+
+        public event GameFinished GameFinishedEvent;
+        public event AnimationInvoke AnimationFinishedEvent;
+        public event AnimationInvoke AnimationStartedEvent;
+        public event ConnectionFailed ConnectionToServerFailedEvent;
+
+        #endregion
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SinglePlayerGameViewModel"/> class.
@@ -42,27 +55,12 @@ namespace MazeGUI.ViewModels {
         /// <param name="cols">The cols.</param>
         /// <param name="mazeName">Name of the maze.</param>
         public SinglePlayerGameViewModel(int rows, int cols, string mazeName) {
-            this.model = new SinglePlayerGameModel();
+            this.model = new SinglePlayerGameModel(mazeName, rows, cols);
+            this.model.GameFinishedEvent += AnnounceGameFinished;
             this.shouldDrawSolution = false;
             this.solutionPosList = new List<Position>();
-            this.mazeString = new string[rows, cols];
-            TcpClient client = new TcpClient();
-            client.Connect(this.model.EndPoint);
-            StreamWriter writer = new StreamWriter(client.GetStream());
-            StreamReader reader = new StreamReader(client.GetStream());
-            writer.AutoFlush = true;
-            string answer;
-            using (client.GetStream())
-            using (writer)
-            using (reader) {
-                writer.WriteLine(string.Format("Generate {0} {1} {2}", mazeName, rows, cols));
-                answer = reader.ReadLine();
-            }
-            Maze maze = Maze.FromJSON(answer);
-            maze.Name = mazeName;
-            this.model.Maze = maze;
-            this.model.PlayerPosition = maze.InitialPos;
             this.mazeString = new String[rows, cols];
+
         }
 
         /// <summary>
@@ -97,30 +95,23 @@ namespace MazeGUI.ViewModels {
         {
             get { return this.model.PlayerPosition.Row + "," + this.model.PlayerPosition.Col; }
             set {
-                this.model.PlayerPosition = new Position(Convert.ToInt32(value.Split(',')[0]), Convert.ToInt32(value.Split(',')[1]));
+               
                 this.NotifyPropertyChanged("PlayerPos");
             }
         }
 
         #region Funcs
 
-        /// <summary>
-        /// Notifies the property changed.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        [NotifyPropertyChangedInvocator]
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
 
         /// <summary>
         /// Restarts the game.
         /// </summary>
         public void RestartGame() {
-            this.model.PlayerPosition = this.model.Maze.InitialPos;
+            this.model.Restart();
             this.solutionPosList = null;
             this.shouldDrawSolution = false;
+            this.PlayerPos = "yolo";
             this.NotifyPropertyChanged("PlayerPos");
 
         }
@@ -131,12 +122,8 @@ namespace MazeGUI.ViewModels {
         /// <param name="direct">The direct.</param>
         public void MovePlayer(string direct) {
             Direction parseDirection = Converter.StringToDirection(direct);
-            this.model.PlayerPosition = this.model.Move(parseDirection);
-            if (this.model.PlayerPosition.Row == this.model.Maze.GoalPos.Row &&
-                this.model.PlayerPosition.Col == this.model.Maze.GoalPos.Col) {
-                GameFinishedEvent.Invoke();
-            }
-            this.PlayerPos = this.model.PlayerPosition.Row + "," + this.model.PlayerPosition.Col;
+            this.model.Move(parseDirection);
+            NotifyPropertyChanged("PlayerPos");
            
         }
 
@@ -144,35 +131,20 @@ namespace MazeGUI.ViewModels {
         /// Solves the maze.
         /// </summary>
         public void SolveMaze() {
-            TcpClient client = new TcpClient();
-            string answer;
-            client.Connect(this.model.EndPoint);
-            StreamWriter writer = new StreamWriter(client.GetStream());
-            StreamReader reader = new StreamReader(client.GetStream());
-            writer.AutoFlush = true;
-            writer.WriteLine(string.Format("Solve {0} {1}", this.model.Maze.Name, this.model.Algorithm));
-            answer = reader.ReadLine();
-            this.DrawSolvedMaze(answer);
-        }
-        /**
-        /// <summary>
-        /// Draws the solved maze.
-        /// </summary>
-        /// <param name="solution">The solution.</param>
-        public void DrawSolvedMaze(string solution) {
-            JObject obj = JObject.Parse(solution);
-            string list = obj.GetValue("Solution").Value<String>();
-            List<Position> posList = new List<Position>();
-            posList.Add(this.model.Maze.InitialPos);
-            foreach (char direction in list) {
-                posList.Add(Converter.CharToPosition(posList[posList.Count - 1], direction));
+           
+            try
+            {
+                this.DrawSolvedMaze(this.model.GenerateSolution());
+            } catch(Exception e)
+            {
+                this.ConnectionToServerFailedEvent?.Invoke("Failed generating a solution , check connection to Server !");
             }
-            this.solutionPosList = posList;
-            this.shouldDrawSolution = true;
-            this.NotifyPropertyChanged("MazeOrder");
-
+            
         }
-    **/
+        public void AnnounceGameFinished()
+        {
+            this.GameFinishedEvent?.Invoke();
+        }
         /// <summary>
         /// Draws the solved maze.
         /// </summary>
@@ -180,12 +152,9 @@ namespace MazeGUI.ViewModels {
         public void DrawSolvedMaze(string solution)
         {
             this.RestartGame();
-            JObject obj = JObject.Parse(solution);
-            string list = obj.GetValue("Solution").Value<String>();
-            List<Position> posList = new List<Position>();
-            posList.Add(this.model.Maze.InitialPos);
+            this.AnimationStartedEvent?.Invoke();
             Task t = new Task(() => {
-                foreach (char direction in list) {
+                foreach (char direction in solution) {
                     switch (direction)
                     {
                         case '0':
@@ -216,9 +185,10 @@ namespace MazeGUI.ViewModels {
                         }
                             break;
                     }
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
 
                 }
+                this.AnimationFinishedEvent?.Invoke();
             });
             t.Start();
         }

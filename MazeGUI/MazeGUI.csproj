@@ -106,6 +106,7 @@
     </Compile>
     <Compile Include="ViewModels\SinglePlayerGameViewModel.cs" />
     <Compile Include="ViewModels\SinglePlayerSettingsViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

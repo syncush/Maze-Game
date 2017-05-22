@@ -24,18 +24,17 @@ namespace MazeGUI.ViewModels {
     /// 
     /// </summary>
     /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
-    class MultiPlayerSettingsViewModel : INotifyPropertyChanged {
+    class MultiPlayerSettingsViewModel : ViewModel {
         private IDataSource dataSource;
         private IPEndPoint ep;
         private ObservableCollection<string> avaiableGames;
         private string gameName;
-        public event PropertyChangedEventHandler PropertyChanged;
+
         private bool stop;
         private Task t;
         private int selectedIndex;
 
         public delegate void BadArguments(string message);
-
         public event BadArguments BadArgumentsEvent;
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPlayerSettingsViewModel"/> class.
@@ -126,8 +125,10 @@ namespace MazeGUI.ViewModels {
         /// Joins the maze.
         /// </summary>
         /// <returns></returns>
-        public Maze JoinMaze() {
-            if (!string.IsNullOrEmpty(this.gameName)) {
+        public Maze JoinMaze()
+        {
+            if (!string.IsNullOrEmpty(this.gameName))
+            {
                 Maze maze;
                 TcpClient joinClient = new TcpClient();
                 joinClient.Connect(ep);
@@ -135,7 +136,8 @@ namespace MazeGUI.ViewModels {
                 StreamReader reader = new StreamReader(joinClient.GetStream());
                 writer.AutoFlush = true;
                 using (writer)
-                using (reader) {
+                using (reader)
+                {
                     writer.WriteLine(String.Format("Start {0} {1} {2}", GameName, this.dataSource.Rows,
                         this.dataSource.Cols));
                     string answer = reader.ReadLine();
@@ -143,20 +145,12 @@ namespace MazeGUI.ViewModels {
                 }
                 return maze;
             }
-            else {
+            else
+            {
                 this.BadArgumentsEvent.Invoke("No game name was given! Please enter a maze name.");
                 return null;
             }
-            
-        }
 
-        /// <summary>
-        /// Notifies the property changed.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        [NotifyPropertyChangedInvocator]
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
