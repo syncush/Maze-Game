@@ -69,9 +69,6 @@
     </ApplicationDefinition>
     <Compile Include="DataSources\AppConfigDataSource.cs" />
     <Compile Include="DataSources\IDataSource.cs" />
-    <Compile Include="Forms\Loading.xaml.cs">
-      <DependentUpon>Loading.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GameLogic\IGameLogic.cs" />
     <Compile Include="GameLogic\MazeGameLogic.cs" />
     <Compile Include="MainMenu.xaml.cs">
@@ -110,10 +107,6 @@
     <Compile Include="ViewModels\SinglePlayerGameViewModel.cs" />
     <Compile Include="ViewModels\SinglePlayerSettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Page Include="Forms\Loading.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +150,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\animal.gif" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -178,7 +172,9 @@
   <ItemGroup>
     <Resource Include="Resources\mazeGame.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Forms\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\exit.png" />
     <Resource Include="Resources\Player.jpg" />

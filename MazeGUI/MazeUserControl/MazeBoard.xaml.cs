@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MazeGUI.Utilities;
 using MazeLib;
-using Image = System.Drawing.Image;
 
 /// <summary>
 /// 

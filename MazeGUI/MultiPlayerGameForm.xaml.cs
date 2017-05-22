@@ -63,7 +63,7 @@ namespace MazeGUI {
             }
         }
 
-        private void GameFinishedHandler(bool iWon) {
+        private void GameFinishedHandler(string mess) {
             this.Dispatcher.Invoke(() => {
                 MessageBoxResult result = MessageBox.Show("Game finished!", "We Have A Winner!",
                         MessageBoxButton.OK,

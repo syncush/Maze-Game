@@ -38,7 +38,7 @@ namespace MazeGUI.ViewModels {
         public delegate void GameMovement(MazeLib.Direction p);
 
 
-        public delegate void GameFinished(bool iWon);
+        public delegate void GameFinished(string mess);
 
         public event GameFinished GameFinishedEvent;
 
@@ -145,8 +145,8 @@ namespace MazeGUI.ViewModels {
         /// Games the finished function.
         /// </summary>
         /// <param name="iWon">if set to <c>true</c> [i won].</param>
-        public void GameFinishedFunc(bool iWon) {
-            this.GameFinishedEvent?.Invoke(iWon);
+        public void GameFinishedFunc(string mess) {
+            this.GameFinishedEvent?.Invoke(mess);
         }
     }
 }
