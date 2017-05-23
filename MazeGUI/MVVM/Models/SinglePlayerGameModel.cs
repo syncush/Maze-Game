@@ -88,11 +88,20 @@ namespace MazeGUI.Models {
                 this.GameFinishedEvent?.Invoke();
             }
         }
+        /// <summary>
+        /// Gets the maze.
+        /// </summary>
+        /// <value>
+        /// The maze.
+        /// </value>
         public Maze Maze {
             get {
                 return this.maze;
             }
         }
+        /// <summary>
+        /// Restarts this instance.
+        /// </summary>
         public void Restart()
         {
             this.playerPosition = this.maze.InitialPos;
@@ -119,6 +128,10 @@ namespace MazeGUI.Models {
            get { return Convert.ToInt32(this.dataSource.Algorithm); }
         }
 
+        /// <summary>
+        /// Generates the solution.
+        /// </summary>
+        /// <returns></returns>
         public string GenerateSolution()
         {
             try

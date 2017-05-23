@@ -71,6 +71,7 @@
     <Compile Include="MVVM\Models\DataSources\IDataSource.cs" />
     <Compile Include="MVVM\Models\GameLogic\IGameLogic.cs" />
     <Compile Include="MVVM\Models\GameLogic\MazeGameLogic.cs" />
+    <Compile Include="MVVM\Models\MultiPlayerSettingsModel.cs" />
     <Compile Include="MVVM\View\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>

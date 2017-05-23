@@ -21,6 +21,13 @@ namespace MazeGUI {
     public partial class MultiPlayerGameForm : Window {
         private MultiPlayerGameViewModel mpgVM;
         private Boolean shouldAsk = true;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultiPlayerGameForm"/> class.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        /// <param name="cols">The cols.</param>
+        /// <param name="isStart">if set to <c>true</c> [is start].</param>
+        /// <param name="gameName">Name of the game.</param>
         public MultiPlayerGameForm(int rows, int cols, Boolean isStart, string gameName) {
             InitializeComponent();
             if (isStart) {
@@ -38,6 +45,10 @@ namespace MazeGUI {
             //this.MazeChangedFunc();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultiPlayerGameForm"/> class.
+        /// </summary>
+        /// <param name="gameName">Name of the game.</param>
         public MultiPlayerGameForm(string gameName) {
             InitializeComponent();
             this.mpgVM = new MultiPlayerGameViewModel(gameName);
@@ -50,6 +61,11 @@ namespace MazeGUI {
             //this.MazeChangedFunc();
         }
 
+        /// <summary>
+        /// Handles the KeyUp event of the window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void window_KeyUp(object sender, KeyEventArgs e) {
             if (e.Key == Key.Up || e.Key == Key.W || e.Key == Key.NumPad8) {
                 this.mpgVM.PlayerMoved("up");
@@ -65,6 +81,10 @@ namespace MazeGUI {
             }
         }
 
+        /// <summary>
+        /// Games the finished handler.
+        /// </summary>
+        /// <param name="mess">The mess.</param>
         private void GameFinishedHandler(string mess) {
             this.Dispatcher.Invoke(() => {
                 MessageBoxResult result = MessageBox.Show("Game finished!", "Game is done , thank you for playing.!",
@@ -80,6 +100,11 @@ namespace MazeGUI {
             });
         }
 
+        /// <summary>
+        /// Handles the Closing event of the window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if(shouldAsk)
@@ -97,6 +122,10 @@ namespace MazeGUI {
             
         }
 
+        /// <summary>
+        /// Handles the critical error.
+        /// </summary>
+        /// <param name="mess">The mess.</param>
         public void HandleCriticalError(string mess)
         {
             this.Dispatcher.Invoke(() =>

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace MazeGUI.ViewModels
 {
+    /// <summary>
+    /// Father class of view models
+    /// </summary>
+    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     public abstract class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

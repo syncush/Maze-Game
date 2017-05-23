@@ -233,6 +233,9 @@ namespace MazeGUI.Models {
             }
         }
 
+        /// <summary>
+        /// Games the closed.
+        /// </summary>
         public void GameClosed()
         {
             try
@@ -246,8 +249,6 @@ namespace MazeGUI.Models {
             {
                 this.ConnectionFailureEvent?.Invoke("Server connection lost, sorry !");
             }
-
-
         }
     }
 }

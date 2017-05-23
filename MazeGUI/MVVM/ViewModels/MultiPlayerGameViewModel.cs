@@ -47,6 +47,9 @@ namespace MazeGUI.ViewModels {
 
         #endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultiPlayerGameViewModel"/> class.
+        /// </summary>
         public MultiPlayerGameViewModel() : base()
         {
             
@@ -64,6 +67,7 @@ namespace MazeGUI.ViewModels {
             this.mpModel.RivalMovedEvent += this.RivalMoved;
             this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
             this.mazeRep = new string[rows, cols];
+            this.mpModel.ConnectionFailureEvent += this.InvokeCriticError;
 
         }
 
@@ -76,6 +80,7 @@ namespace MazeGUI.ViewModels {
             this.mazeRep = new string[this.mpModel.Maze.Rows, this.mpModel.Maze.Cols];
             this.mpModel.RivalMovedEvent += this.RivalMoved;
             this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
+            this.mpModel.ConnectionFailureEvent += this.InvokeCriticError;
         }
 
 
@@ -108,6 +113,12 @@ namespace MazeGUI.ViewModels {
             }
             
         }
+        /// <summary>
+        /// Gets or sets the rival position.
+        /// </summary>
+        /// <value>
+        /// The rival position.
+        /// </value>
         public string RivalPos
         {
             get { return this.mpModel.RivalPosition.Row + "," + this.mpModel.RivalPosition.Col; }
@@ -158,12 +169,19 @@ namespace MazeGUI.ViewModels {
         public void GameFinishedFunc(string mess) {
             this.GameFinishedEvent?.Invoke(mess);
         }
+        /// <summary>
+        /// Games the closed.
+        /// </summary>
         public void GameClosed()
         {
             this.mpModel.GameClosed();
         }
 
-        public void invokeCriticError(string mess)
+        /// <summary>
+        /// Invokes the critic error.
+        /// </summary>
+        /// <param name="mess">The mess.</param>
+        public void InvokeCriticError(string mess)
         {
             this.SomethingWentWrongEvent?.Invoke(mess);
         }

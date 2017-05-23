@@ -12,7 +12,7 @@
         <Button x:Name="btnSolve" Content="Solve" HorizontalAlignment="Left" Margin="181,10,0,0" VerticalAlignment="Top" Width="75" Click="btnSolve_Click"  Height="20"/>
         <Button x:Name="btnMainMenu" Content="MainMenu" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="75" Click="btnMainMenu_Click"  Height="20"/>
 
-        <MazeUserControl:MazeBoard x:Name="mazeBoard" Maze="{Binding Path=MazeOrder}" PlayerPosition="{Binding Path=PlayerPos}" Margin="0,35,10,0" HorizontalAlignment="Right" Width="638" Height="593" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <MazeUserControl:MazeBoard x:Name="mazeBoard" Maze="{Binding Path=MazeOrder}" PlayerPosition="{Binding Path=PlayerPos}" Margin="0,35,6,0" HorizontalAlignment="Right" Width="638" Height="593" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
