@@ -26,6 +26,9 @@ namespace MazeGUI.Models
         public event ConnectionLost ConnectionLostEvent;
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultiPlayerSettingsModel"/> class.
+        /// </summary>
         public MultiPlayerSettingsModel()
         {
             this.dataSource = new AppConfigDataSource();
@@ -33,6 +36,9 @@ namespace MazeGUI.Models
             endPoint = new IPEndPoint(IPAddress.Parse(this.dataSource.ServerIP), Convert.ToInt32(this.dataSource.ServerPort));
             this.ListenToGames();
         }
+        /// <summary>
+        /// Listens to games.
+        /// </summary>
         private void ListenToGames()
         {
             Task t = new Task(() =>
@@ -129,10 +135,20 @@ namespace MazeGUI.Models
                 this.NotifyPropertyChanged("AvaiableGamesList");
             }
         }
+        /// <summary>
+        /// Sets a value indicating whether this <see cref="MultiPlayerSettingsModel"/> is stop.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if stop; otherwise, <c>false</c>.
+        /// </value>
         public Boolean Stop
         {
             set { this.shouldStop = true; }
         }
+        /// <summary>
+        /// Joins the maze.
+        /// </summary>
+        /// <returns></returns>
         public Maze JoinMaze()
         {
             if (!string.IsNullOrEmpty(this.gameName))

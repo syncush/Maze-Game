@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
         mc:Ignorable="d"
-        Title="MainMenu" Height="202.675" Width="284.226" Loaded="windows_Loaded">
+        Title="MainMenu" Height="202.675" Width="284.226" Loaded="windows_Loaded" Closing="windows_Closing">
     <Grid Margin="0,0,22,21">
         <Button x:Name="btnSingle" Content="Singleplayer" Margin="21,13,135,105" Click="btnSingle_Click"/>
         <Button x:Name="btnSettings" Content="Settings" Margin="21,85,135,33" Click="btnSettings_Click"/>

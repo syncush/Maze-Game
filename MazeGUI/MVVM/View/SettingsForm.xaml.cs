@@ -19,6 +19,9 @@ namespace MazeGUI{
     /// Interaction logic for SettingsForm.xaml
     /// </summary>
     public partial class SettingsForm : Window {
+        /// <summary>
+        /// The settings vm
+        /// </summary>
         private SettingsViewModel settingsVM;
         public SettingsForm() {
             InitializeComponent();
@@ -46,15 +49,30 @@ namespace MazeGUI{
             return -1;
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnSaveSettings control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnSaveSettings_Click(object sender, RoutedEventArgs e) {
             this.settingsVM.SaveSettings();
         }
 
 
+        /// <summary>
+        /// Handles the Click event of the btnCancel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e) {
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Closed event of the frmSettings control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void frmSettings_Closed(object sender, EventArgs e) {
             MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
                 MessageBoxImage.Information);
@@ -67,12 +85,22 @@ namespace MazeGUI{
            
         }
 
+        /// <summary>
+        /// Handles the PreviewTextInput event of the txtbxCols control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextCompositionEventArgs"/> instance containing the event data.</param>
         private void txtbxCols_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!char.IsDigit(e.Text, e.Text.Length - 1))
                 e.Handled = true;
         }
 
+        /// <summary>
+        /// Handles the PreviewTextInput event of the txtbxServerIP control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextCompositionEventArgs"/> instance containing the event data.</param>
         private void txtbxServerIP_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!char.IsDigit(e.Text, e.Text.Length - 1) && e.Text != ".")

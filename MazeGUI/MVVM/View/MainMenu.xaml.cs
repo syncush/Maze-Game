@@ -61,9 +61,20 @@ namespace MazeGUI
             MoveForm(new SettingsForm());
         }
 
+        /// <summary>
+        /// Handles the Loaded event of the windows control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void windows_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void windows_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult mBox = MessageBox.Show("This will end the app!", "Confirmation", MessageBoxButton.OK,
+                MessageBoxImage.Information);
         }
     }
 }

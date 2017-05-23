@@ -195,11 +195,22 @@ namespace MazeGUI.MazeUserControl {
             board.DrawMaze((string) e.NewValue);
         }
 
+        /// <summary>
+        /// Gets or sets the player position.
+        /// </summary>
+        /// <value>
+        /// The player position.
+        /// </value>
         public string PlayerPosition {
             get { return this.pos; }
             set { this.pos = value; }
         }
 
+        /// <summary>
+        /// Players the position changed function.
+        /// </summary>
+        /// <param name="newLocation">The new location.</param>
+        /// <param name="oldLocation">The old location.</param>
         public void PlayerPositionChangedFunc(string newLocation, string oldLocation) {
             Label newPos = lblDictionary[string.Format("({0})", newLocation)];
             newPos.Background = this.playerBrush;

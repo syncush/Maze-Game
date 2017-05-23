@@ -21,6 +21,9 @@ namespace MazeGUI
     public partial class SinglePlayerSettingsForm : Window {
         private SinglePlayerSettingsViewModel settingsVM;
         Boolean isBackToMain;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SinglePlayerSettingsForm"/> class.
+        /// </summary>
         public SinglePlayerSettingsForm()
         {
             InitializeComponent();
@@ -30,8 +33,13 @@ namespace MazeGUI
             this.txtbxMazeRows.DataContext = settingsVM;
             
         }
-       
 
+
+        /// <summary>
+        /// Handles the Click event of the btnStart control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnStart_Click(object sender, RoutedEventArgs e) {
             int rows = int.Parse(this.txtbxMazeRows.Text);
             int cols = int.Parse(this.txtbxMazeCols.Text);
@@ -43,6 +51,11 @@ namespace MazeGUI
 
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnMainMenu control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnMainMenu_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
@@ -54,6 +67,11 @@ namespace MazeGUI
             }
         }
 
+        /// <summary>
+        /// Handles the Closed event of the Window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Window_Closed(object sender, EventArgs e)
         {
             if(isBackToMain)

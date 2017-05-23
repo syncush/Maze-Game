@@ -22,6 +22,7 @@ namespace MazeGUI {
     public partial class MultiPlayerSettingsForm : Window {
         private Boolean backToMM;
         private MultiPlayerSettingsViewModel mpVP;
+        private Task t;
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPlayerSettingsForm"/> class.
         /// </summary>
@@ -31,6 +32,9 @@ namespace MazeGUI {
             this.DataContext = mpVP;
             this.mpVP.BadArgumentsEvent += this.BadArgsHandler;
             this.backToMM = true;
+            this.imgPleaseWait.Source = new BitmapImage(
+                new Uri(@"pack://application:,,,/MazeGUI;component/Resources/keepCalm.jpg"));
+            this.imgPleaseWait.Visibility = Visibility.Hidden;
 
 
 
@@ -53,15 +57,18 @@ namespace MazeGUI {
         /// <param name="isStart">if set to <c>true</c> [is start].</param>
         private void CreateMultiGame(Boolean isStart) {
             if (isStart) {
-               
-                    MultiPlayerGameForm form = new MultiPlayerGameForm(Convert.ToInt32(this.mpVP.VM_Rows),
-                    Convert.ToInt32(this.mpVP.VM_Cols), true, this.mpVP.VM_GameName);
-                    form.Show();
+                this.imgPleaseWait.Visibility = Visibility.Visible;
+                MainMenu main = new MainMenu();
+                main.Show();
+                main.Close();
                 this.mpVP.Stop = true;
                 this.backToMM = false;
+                MultiPlayerGameForm form;
+                this.IsEnabled = false; 
+                form = new MultiPlayerGameForm(Convert.ToInt32(this.mpVP.VM_Rows),
+                            Convert.ToInt32(this.mpVP.VM_Cols), true, this.mpVP.VM_GameName);
+                form.Show();
                 this.Close();
-
-                    this.IsEnabled = false;
             }
             else {
 
@@ -108,13 +115,16 @@ namespace MazeGUI {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            if(backToMM)
-            {
-                MainMenu main = new MainMenu();
-                main.Show();
-            }
+        private void Window_Closed(object sender, EventArgs e) {
+            this.Dispatcher.Invoke(() => {
+                if (backToMM)
+                {
+                    MainMenu main = new MainMenu();
+                    main.Show();
+                }
+                
+            });
+           
            // this.Close();
         }
 
@@ -136,7 +146,7 @@ namespace MazeGUI {
         /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+
         }
     }
 }

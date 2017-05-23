@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MazeGUI.ViewModels;
 
+/// <summary>
+/// 
+/// </summary>
 namespace MazeGUI {
     /// <summary>
     /// Interaction logic for SinglePlayerForm.xaml
@@ -45,6 +48,10 @@ namespace MazeGUI {
             };
             this.spGameVM.ConnectionToServerFailedEvent += HandleConnectionLost;
         }
+        /// <summary>
+        /// Handles the connection lost.
+        /// </summary>
+        /// <param name="message">The message.</param>
         private void HandleConnectionLost(string message)
         {
             MessageBoxResult mBox = MessageBox.Show(message + " Form will now shutdown", "Error", MessageBoxButton.OK,
@@ -139,6 +146,11 @@ namespace MazeGUI {
             }
         }
 
+        /// <summary>
+        /// Handles the Closing event of the window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult mBox = MessageBox.Show("Windows will now close ", "Confirmation", MessageBoxButton.OK,
