@@ -138,5 +138,15 @@ namespace MazeGUI {
                 this.Close();
             }
         }
+
+        private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult mBox = MessageBox.Show("Windows will now close ", "Confirmation", MessageBoxButton.OK,
+               MessageBoxImage.Question);
+            if (mBox == MessageBoxResult.OK)
+            {
+                this.Close();
+            }
+        }
     }
 }

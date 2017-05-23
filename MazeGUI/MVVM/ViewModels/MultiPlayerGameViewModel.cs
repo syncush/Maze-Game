@@ -42,13 +42,16 @@ namespace MazeGUI.ViewModels {
 
         public event GameFinished GameFinishedEvent;
 
+        public delegate void SomethingWentWrong(string mess);
+        public event SomethingWentWrong SomethingWentWrongEvent;
+
         #endregion
 
+        public MultiPlayerGameViewModel() : base()
+        {
+            
 
-
-
-
-
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPlayerGameViewModel"/> class.
@@ -56,22 +59,23 @@ namespace MazeGUI.ViewModels {
         /// <param name="gameName">Name of the game.</param>
         /// <param name="rows">The rows.</param>
         /// <param name="cols">The cols.</param>
-        public MultiPlayerGameViewModel(string gameName, int rows, int cols) : base() {
+        public MultiPlayerGameViewModel(string gameName, int rows, int cols) : this()   {
             this.mpModel = new MultiPlayerModel(gameName, rows, cols);
             this.mpModel.RivalMovedEvent += this.RivalMoved;
             this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
-            this.mazeRep = new string[rows,cols];
+            this.mazeRep = new string[rows, cols];
+
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPlayerGameViewModel"/> class.
         /// </summary>
         /// <param name="joinGame">The join game.</param>
-        public MultiPlayerGameViewModel(string joinGame) : base() {
+        public MultiPlayerGameViewModel(string joinGame) : this() {
             this.mpModel = new MultiPlayerModel(joinGame);
+            this.mazeRep = new string[this.mpModel.Maze.Rows, this.mpModel.Maze.Cols];
             this.mpModel.RivalMovedEvent += this.RivalMoved;
             this.mpModel.GameFinishedEvent += this.GameFinishedFunc;
-            this.mazeRep = new string[this.mpModel.Maze.Rows, this.mpModel.Maze.Cols];
         }
 
 
@@ -120,10 +124,16 @@ namespace MazeGUI.ViewModels {
         /// </summary>
         /// <param name="direction">The direction.</param>
         public void PlayerMoved(string direction) {
-            Direction direct = Converter.StringToDirection(direction);
-            Position clientPos = this.mpModel.ClientMoved(direct);
-            this.ClientPos = clientPos.Row + "," + clientPos.Col;
-
+            try
+            {
+                Direction direct = Converter.StringToDirection(direction);
+                Position clientPos = this.mpModel.ClientMoved(direct);
+                this.ClientPos = clientPos.Row + "," + clientPos.Col;
+            }
+            catch(Exception e)
+            {
+                this.SomethingWentWrongEvent?.Invoke("Could not notify movement");
+            }
         }
 
         /// <summary>
@@ -151,6 +161,11 @@ namespace MazeGUI.ViewModels {
         public void GameClosed()
         {
             this.mpModel.GameClosed();
+        }
+
+        public void invokeCriticError(string mess)
+        {
+            this.SomethingWentWrongEvent?.Invoke(mess);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace MazeGUI {
             this.RivalBoard.DataContext = this.mpgVM;
             //this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
             this.mpgVM.GameFinishedEvent += this.GameFinishedHandler;
+            this.mpgVM.SomethingWentWrongEvent += this.HandleCriticalError;
             //this.MazeChangedFunc();
         }
 
@@ -45,6 +46,7 @@ namespace MazeGUI {
             this.RivalBoard.DataContext = this.mpgVM;
             // this.mpgVM.MazeChangedEvent += this.MazeChangedFunc;
             this.mpgVM.GameFinishedEvent += this.GameFinishedHandler;
+            this.mpgVM.SomethingWentWrongEvent += this.HandleCriticalError;
             //this.MazeChangedFunc();
         }
 
@@ -93,6 +95,23 @@ namespace MazeGUI {
                 }
             }
             
+        }
+
+        public void HandleCriticalError(string mess)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                MessageBoxResult result = MessageBox.Show("Server Connection Failure!", "Server Failure !",
+                  MessageBoxButton.OK,
+                  MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    MainMenu main = new MainMenu();
+                    main.Show();
+                    this.shouldAsk = false;
+                    this.Close();
+                }
+            });
         }
     }
 }

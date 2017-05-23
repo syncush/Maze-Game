@@ -58,6 +58,10 @@ namespace MazeGUI.Models {
 
         public event BadArguments BadArgumentsEvent;
 
+        public delegate void ConnectionFailure(string mess);
+
+        public event ConnectionFailure ConnectionFailureEvent;
+
 
 
         #endregion
@@ -199,6 +203,7 @@ namespace MazeGUI.Models {
                 }
             }
             catch (Exception e) {
+                this.ConnectionFailureEvent?.Invoke("Connection to server failed");
             }
         }
 
@@ -239,7 +244,7 @@ namespace MazeGUI.Models {
                 this.reader.Dispose();
             } catch(Exception e)
             {
-               
+                this.ConnectionFailureEvent?.Invoke("Server connection lost, sorry !");
             }
 
 
