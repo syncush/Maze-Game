@@ -148,5 +148,9 @@ namespace MazeGUI.ViewModels {
         public void GameFinishedFunc(string mess) {
             this.GameFinishedEvent?.Invoke(mess);
         }
+        public void GameClosed()
+        {
+            this.mpModel.GameClosed();
+        }
     }
 }

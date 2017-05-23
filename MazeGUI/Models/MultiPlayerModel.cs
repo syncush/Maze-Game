@@ -27,6 +27,7 @@ namespace MazeGUI.Models {
         private Position clientPosition;
         private Position rivalPosition;
         private IGameLogic gameLogic;
+        private Boolean shouldStop;
 
         #endregion
 
@@ -71,6 +72,7 @@ namespace MazeGUI.Models {
             this.writer = new StreamWriter(client.GetStream());
             this.reader = new StreamReader(client.GetStream());
             this.writer.AutoFlush = true;
+            this.shouldStop = false;
 
         }
 
@@ -175,17 +177,20 @@ namespace MazeGUI.Models {
         /// </summary>
         private void ListenToRivalMovement() {
             try {
-                while (true) {
+                while (!this.shouldStop) {
                     string answer = reader.ReadLine();
                     if (answer != null) {
                         if (answer.Contains("{}")) {
-                            this.GameFinishedEvent.Invoke("Game was closed by server, thank you for playing!");
+                            this.GameFinishedEvent?.Invoke("Game was closed by server, thank you for playing!");
+                            this.client.GetStream().Dispose();
+                            this.writer.Dispose();
+                            this.reader.Dispose();
                         }
                         else {
                             JObject jobj = JObject.Parse(answer);
                             this.rivalPosition = Converter.FromDirectionToNewPosition(this.rivalPosition,
                                 Converter.StringToDirection(jobj["Direction"].Value<string>()));
-                                this.RivalMovedEvent.Invoke(this.rivalPosition);
+                                this.RivalMovedEvent?.Invoke(this.rivalPosition);
                         }
                     }
                     else {
@@ -194,7 +199,6 @@ namespace MazeGUI.Models {
                 }
             }
             catch (Exception e) {
-                throw e;
             }
         }
 
@@ -211,7 +215,7 @@ namespace MazeGUI.Models {
                         writer.WriteLine(string.Format("Play {0}", direct.ToString()));
                         Thread.Sleep(5);
                         writer.WriteLine(string.Format("Close {0}", this.gameMaze.Name));
-                        this.GameFinishedEvent.Invoke("Congratz you are a winner !");
+                        this.GameFinishedEvent?.Invoke("Congratz you are a winner !");
                     }
                     else {
                         writer.WriteLine(string.Format("Play {0}", direct.ToString()));
@@ -222,6 +226,23 @@ namespace MazeGUI.Models {
             catch (Exception e) {
                 throw e;
             }
+        }
+
+        public void GameClosed()
+        {
+            try
+            {
+                this.shouldStop = false;
+                this.writer.WriteLine(String.Format("Close {0}", this.Maze.Name));
+                this.client.GetStream().Dispose();
+                this.writer.Dispose();
+                this.reader.Dispose();
+            } catch(Exception e)
+            {
+               
+            }
+
+
         }
     }
 }

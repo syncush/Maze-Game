@@ -76,5 +76,10 @@ namespace MazeGUI {
                 }
             });
         }
+
+        private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.mpgVM.GameClosed();
+        }
     }
 }

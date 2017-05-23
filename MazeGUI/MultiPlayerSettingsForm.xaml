@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
         mc:Ignorable="d"
-        Title="MultiPlayerSettingsForm" Height="300" Width="300" Closed="Window_Closed">
+        Title="MultiPlayerSettingsForm" Height="300" Width="300" Closed="Window_Closed" Closing="Window_Closing">
     <Grid>
-        <Grid Margin="0,0,0,20">
+        <Grid x:Name="pane" Margin="-19,0,19,20">
             <Label Content="Maze Name" HorizontalAlignment="Left" Margin="20,114,0,0" VerticalAlignment="Top"/>
-            <Label Content="Games:" HorizontalAlignment="Left" Margin="35,30,0,0" VerticalAlignment="Top"/>
+            <Label Content="Games:" HorizontalAlignment="Left" Margin="20,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.122,0.5"/>
             <Label Content="Maze Rows" HorizontalAlignment="Left" Margin="20,149,0,0" VerticalAlignment="Top"/>
             <Label Content="Maze Cols" HorizontalAlignment="Left" Margin="20,180,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="txtbxMazeName" Text ="{Binding GameName}"  HorizontalAlignment="Left" Height="23" Margin="117,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -18,6 +18,7 @@
             <Button Content="Join Game" HorizontalAlignment="Left" Margin="117,79,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.145,0.508" Click="Button_Click"/>
             <TextBox Text="{Binding Cols}" x:Name="txtbxMazeCols" HorizontalAlignment="Left" Height="23" Margin="117,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" PreviewTextInput="NumericTxtBox"/>
             <Button x:Name="btnStartGame" Content="Start" HorizontalAlignment="Left" Margin="117,224,0,0" VerticalAlignment="Top" Width="64" RenderTransformOrigin="0.145,0.508" Click="btnStartGame_Click"/>
+            <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="207,224,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
 
         </Grid>
     </Grid>

@@ -18,7 +18,10 @@ namespace MazeGUI {
     /// <summary>
     /// Interaction logic for MultiPlayerSettingsForm.xaml
     /// </summary>
+    /// 
+   
     public partial class MultiPlayerSettingsForm : Window {
+        private Boolean backToMM;
         private MultiPlayerSettingsViewModel mpVP;
         public MultiPlayerSettingsForm() {
             InitializeComponent();
@@ -26,6 +29,7 @@ namespace MazeGUI {
             mpVP.Intialize();
             this.DataContext = mpVP;
             this.mpVP.BadArgumentsEvent += this.BadArgsHandler;
+            this.backToMM = true;
 
 
 
@@ -44,15 +48,15 @@ namespace MazeGUI {
                     Convert.ToInt32(this.mpVP.Cols), true, this.mpVP.GameName);
                     form.Show();
                     this.mpVP.Stop = true;
-                    this.Close();
-      
-                this.IsEnabled = false;
+                this.backToMM = false;
+                this.Close();
 
-
+                    this.IsEnabled = false;
             }
             else {
                 MultiPlayerGameForm form = new MultiPlayerGameForm(this.cmbxGames.SelectedValue.ToString());
                 form.Show();
+                this.backToMM = false;
                 this.mpVP.Stop = true;
                 this.Close();
             }
@@ -76,9 +80,23 @@ namespace MazeGUI {
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            MainMenu main = new MainMenu();
-            main.Show();
+            if(backToMM)
+            {
+                MainMenu main = new MainMenu();
+                main.Show();
+            }
+           // this.Close();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.backToMM = true;
             this.Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            
         }
     }
 }

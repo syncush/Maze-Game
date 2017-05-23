@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MazeGUI"
         xmlns:MazeUserControl="clr-namespace:MazeGUI.MazeUserControl" x:Name="window" x:Class="MazeGUI.MultiPlayerGameForm"
         mc:Ignorable="d"
-        Title="MultiPlayerGameForm" Height="462.495" Width="1288.617" KeyUp="window_KeyUp">
+        Title="MultiPlayerGameForm" Height="462.495" Width="1288.617" KeyUp="window_KeyUp" Closing="window_Closing">
     <Canvas HorizontalAlignment="Left" Height="430" VerticalAlignment="Top" Width="1279">
         <StackPanel Height="357" Orientation="Horizontal"  Canvas.Left="10" Canvas.Top="63" Width="1259">
             <MazeUserControl:MazeBoard x:Name="ClientBoard" Maze="{Binding ClientMaze}" PlayerPosition="{Binding ClientPos}" Width="631"/>
