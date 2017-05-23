@@ -67,47 +67,47 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataSources\AppConfigDataSource.cs" />
-    <Compile Include="DataSources\IDataSource.cs" />
-    <Compile Include="GameLogic\IGameLogic.cs" />
-    <Compile Include="GameLogic\MazeGameLogic.cs" />
-    <Compile Include="MainMenu.xaml.cs">
+    <Compile Include="MVVM\Models\DataSources\AppConfigDataSource.cs" />
+    <Compile Include="MVVM\Models\DataSources\IDataSource.cs" />
+    <Compile Include="MVVM\Models\GameLogic\IGameLogic.cs" />
+    <Compile Include="MVVM\Models\GameLogic\MazeGameLogic.cs" />
+    <Compile Include="MVVM\View\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="MazeUserControl\MazeBoard.xaml.cs">
       <DependentUpon>MazeBoard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\MultiPlayerModel.cs" />
-    <Compile Include="Models\SinglePlayerGameModel.cs" />
-    <Compile Include="MultiPlayerGameForm.xaml.cs">
+    <Compile Include="MVVM\Models\MultiPlayerModel.cs" />
+    <Compile Include="MVVM\Models\SinglePlayerGameModel.cs" />
+    <Compile Include="MVVM\View\MultiPlayerGameForm.xaml.cs">
       <DependentUpon>MultiPlayerGameForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MultiPlayerSettingsForm.xaml.cs">
+    <Compile Include="MVVM\View\MultiPlayerSettingsForm.xaml.cs">
       <DependentUpon>MultiPlayerSettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SettingsForm.xaml.cs">
+    <Compile Include="MVVM\View\SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SinglePlayerForm.xaml.cs">
+    <Compile Include="MVVM\View\SinglePlayerForm.xaml.cs">
       <DependentUpon>SinglePlayerForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SinglePlayerSettingsForm.xaml.cs">
+    <Compile Include="MVVM\View\SinglePlayerSettingsForm.xaml.cs">
       <DependentUpon>SinglePlayerSettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\SettingsModel.cs" />
+    <Compile Include="MVVM\Models\SettingsModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\Converter.cs" />
-    <Compile Include="ViewModels\MultiPlayerGameViewModel.cs" />
-    <Compile Include="ViewModels\MultiPlayerSettingsViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\MultiPlayerGameViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\MultiPlayerSettingsViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\SettingsViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\SinglePlayerGameViewModel.cs" />
-    <Compile Include="ViewModels\SinglePlayerSettingsViewModel.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
-    <Page Include="MainMenu.xaml">
+    <Compile Include="MVVM\ViewModels\SinglePlayerGameViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\SinglePlayerSettingsViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\ViewModel.cs" />
+    <Page Include="MVVM\View\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,23 +115,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MultiPlayerGameForm.xaml">
+    <Page Include="MVVM\View\MultiPlayerGameForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MultiPlayerSettingsForm.xaml">
+    <Page Include="MVVM\View\MultiPlayerSettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsForm.xaml">
+    <Page Include="MVVM\View\SettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SinglePlayerForm.xaml">
+    <Page Include="MVVM\View\SinglePlayerForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SinglePlayerSettingsForm.xaml">
+    <Page Include="MVVM\View\SinglePlayerSettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,11 +155,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -173,7 +168,7 @@
     <Resource Include="Resources\mazeGame.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\" />
+    <Resource Include="Resources\coc.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\exit.png" />
@@ -193,9 +188,7 @@
     <Resource Include="Resources\start.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Resource Include="Resources\bluemeth.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

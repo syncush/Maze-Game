@@ -63,7 +63,7 @@ namespace MazeGUI.MazeUserControl {
         /// </summary>
         public MazeBoard() {
             InitializeComponent();
-            this.exitImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/exit.png"));
+            this.exitImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/bluemeth.jpg"));
             this.playerImg = new BitmapImage(
                 new Uri(@"pack://application:,,,/MazeGUI;component/Resources/walterWhite.jpeg"));
             this.wallImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/wall.png"));

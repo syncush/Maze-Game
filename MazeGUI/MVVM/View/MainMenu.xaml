@@ -10,7 +10,7 @@
         <Button x:Name="btnSingle" Content="Singleplayer" Margin="21,13,135,105" Click="btnSingle_Click"/>
         <Button x:Name="btnSettings" Content="Settings" Margin="21,85,135,33" Click="btnSettings_Click"/>
         <Button x:Name="btnMultiplayer" Content="Multiplayer" Margin="21,49,135,69" Click="btnMultiplayer_Click"/>
-        <Image Source="Resources/mazeGame.png" Margin="115,13,10,10"/>
+        <Image Source="../../Resources/mazeGame.png" Margin="115,13,-43,10"/>
 
     </Grid>
 </Window>
