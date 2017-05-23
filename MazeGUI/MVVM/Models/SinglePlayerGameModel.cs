@@ -24,40 +24,52 @@ namespace MazeGUI.Models {
         public delegate void GameFinished();
         public event GameFinished GameFinishedEvent;
 
+        public delegate void ConnectionFailure();
+
+        public event ConnectionFailure ConnectionFailureEvent;
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SinglePlayerGameModel"/> class.
         /// </summary>
         public SinglePlayerGameModel(string mazeName, int rows, int cols) { 
-            
             this.dataSource = new DataSources.AppConfigDataSource();
-            this.maze = this.GenerateMaze(mazeName, rows, cols);
-            this.gameLogic = new MazeGameLogic(maze);
-            this.playerPosition = this.maze.InitialPos;
-            
+            this.GenerateMaze(mazeName, rows, cols);
+            this.gameLogic = new MazeGameLogic(maze);            
         }
         /// <summary>
         /// Generates the maze.
         /// </summary>
         /// <returns></returns>
-        public Maze GenerateMaze(string mazeName, int rows, int cols)
+        private void GenerateMaze(string mazeName, int rows, int cols)
         {
             TcpClient client = new TcpClient();
             client.Connect(this.EndPoint);
             NetworkStream stream = client.GetStream();
             StreamReader reader = new StreamReader(stream);
             StreamWriter writer = new StreamWriter(stream);
-            Maze maze;
+            Maze maze = null;
             using (stream)
             using (reader)
             using (writer)
             {
+                try
+                {
                 writer.AutoFlush = true;
                 writer.WriteLine(string.Format("Generate {0} {1} {2}", mazeName, rows, cols));
                 string answer = reader.ReadLine();
-                maze = Maze.FromJSON(answer);
+               
+                    maze = Maze.FromJSON(answer);
+                    this.maze = maze;
+                    this.maze.Name = mazeName;
+                    this.playerPosition = this.maze.InitialPos;
+                }
+                catch (Exception e) {
+                   this.ConnectionFailureEvent?.Invoke();
+                }
+               
             }
-            maze.Name = mazeName;
-            return maze;
+            
         }
 
         /// <summary>

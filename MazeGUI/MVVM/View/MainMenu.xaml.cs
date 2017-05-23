@@ -17,8 +17,8 @@ namespace MazeGUI
     /// <summary>
     /// Interaction logic for MainMenu.xaml
     /// </summary>
-    public partial class MainMenu : Window
-    {
+    public partial class MainMenu : Window {
+        private Boolean shouldAsk = true;
         /// <summary>
         /// Initializes a new instance of the <see cref="MainMenu"/> class.
         /// </summary>
@@ -42,6 +42,7 @@ namespace MazeGUI
         /// </summary>
         /// <param name="w">The w.</param>
         private void MoveForm(Window w) {
+            shouldAsk = false;
             w.Show();
             this.Close();
         }
@@ -73,8 +74,10 @@ namespace MazeGUI
 
         private void windows_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult mBox = MessageBox.Show("This will end the app!", "Confirmation", MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            if (shouldAsk) {
+                MessageBoxResult mBox = MessageBox.Show("This will end the app!", "Confirmation", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
         }
     }
 }

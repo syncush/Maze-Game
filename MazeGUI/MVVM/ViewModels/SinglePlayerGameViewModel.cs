@@ -57,6 +57,9 @@ namespace MazeGUI.ViewModels {
         public SinglePlayerGameViewModel(int rows, int cols, string mazeName) {
             this.model = new SinglePlayerGameModel(mazeName, rows, cols);
             this.model.GameFinishedEvent += AnnounceGameFinished;
+            this.model.ConnectionFailureEvent += delegate() {
+                this.ConnectionToServerFailedEvent?.Invoke("Failed Generating maze, check server connection");
+            };
             this.shouldDrawSolution = false;
             this.solutionPosList = new List<Position>();
             this.mazeString = new String[rows, cols];

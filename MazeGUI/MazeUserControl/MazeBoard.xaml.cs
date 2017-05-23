@@ -50,7 +50,7 @@ namespace MazeGUI.MazeUserControl {
         private ImageBrush initBrush;
         private ImageBrush exitBrush;
         private ImageBrush playerBrush;
-        private ImageBrush wallBrush;
+        private SolidColorBrush wallBrush;
         private ImageBrush solBrush;
         private SolidColorBrush freeSpace;
         private Boolean isInit;
@@ -66,15 +66,15 @@ namespace MazeGUI.MazeUserControl {
             this.exitImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/bluemeth.jpg"));
             this.playerImg = new BitmapImage(
                 new Uri(@"pack://application:,,,/MazeGUI;component/Resources/walterWhite.jpeg"));
-            this.wallImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/wall.png"));
+            //this.wallImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/wall.png"));
             this.initImg = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/start.png"));
             this.solImage = new BitmapImage(new Uri(@"pack://application:,,,/MazeGUI;component/Resources/thisWay.png"));
             this.initBrush = new ImageBrush(this.initImg);
             this.solBrush = new ImageBrush(this.solImage);
             this.exitBrush = new ImageBrush(this.exitImg);
             this.playerBrush = new ImageBrush(this.playerImg);
-            this.wallBrush = new ImageBrush(this.wallImg);
-            this.freeSpace = new SolidColorBrush(Color.FromRgb(150, 213, 150));
+            this.wallBrush = new SolidColorBrush(Color.FromRgb(0,0,0));
+            this.freeSpace = new SolidColorBrush(Color.FromRgb(200, 200, 200));
             lblDictionary = new Dictionary<string, Label>();
             this.isInit = false;
         }
@@ -129,9 +129,9 @@ namespace MazeGUI.MazeUserControl {
         /// <value>
         /// The wall image.
         /// </value>
-        public string WallImage {
-            set { this.RefreshImage(value, this.wallBrush); }
-        }
+       // public string WallImage {
+         //   set { this.RefreshImage(value, this.wallBrush); }
+       // }
 
         /// <summary>
         /// Sets the exit image.

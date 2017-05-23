@@ -52,14 +52,15 @@ namespace MazeGUI {
         /// Handles the connection lost.
         /// </summary>
         /// <param name="message">The message.</param>
-        private void HandleConnectionLost(string message)
-        {
-            MessageBoxResult mBox = MessageBox.Show(message + " Form will now shutdown", "Error", MessageBoxButton.OK,
-               MessageBoxImage.Error);
-            if (mBox == MessageBoxResult.OK)
-            {
-                this.Close();
-            }
+        private void HandleConnectionLost(string message) {
+            this.Dispatcher.Invoke(() => {
+                MessageBoxResult mBox = MessageBox.Show(message + " Form will now shutdown", "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                if (mBox == MessageBoxResult.OK)
+                {
+                    this.Close();
+                }
+            });
         }
         /// <summary>
         /// Handles the KeyUp event of the window control.
@@ -157,7 +158,7 @@ namespace MazeGUI {
                MessageBoxImage.Question);
             if (mBox == MessageBoxResult.OK)
             {
-                this.Close();
+                
             }
         }
     }
