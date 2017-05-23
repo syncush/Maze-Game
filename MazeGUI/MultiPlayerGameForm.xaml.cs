@@ -20,7 +20,7 @@ namespace MazeGUI {
     /// </summary>
     public partial class MultiPlayerGameForm : Window {
         private MultiPlayerGameViewModel mpgVM;
-
+        private Boolean shouldAsk = true;
         public MultiPlayerGameForm(int rows, int cols, Boolean isStart, string gameName) {
             InitializeComponent();
             if (isStart) {
@@ -65,13 +65,14 @@ namespace MazeGUI {
 
         private void GameFinishedHandler(string mess) {
             this.Dispatcher.Invoke(() => {
-                MessageBoxResult result = MessageBox.Show("Game finished!", "We Have A Winner!",
+                MessageBoxResult result = MessageBox.Show("Game finished!", "Game is done , thank you for playing.!",
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
                     MainMenu form = new MainMenu();
                     form.Show();
+                    this.shouldAsk = false;
                     this.Close();
                 }
             });
@@ -79,7 +80,19 @@ namespace MazeGUI {
 
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.mpgVM.GameClosed();
+            if(shouldAsk)
+            {
+                MessageBoxResult result = MessageBox.Show("Exiting game!", "Sure you want to quit ?",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    this.mpgVM.GameClosed();
+                    MainMenu main = new MainMenu();
+                    main.Show();
+                }
+            }
+            
         }
     }
 }
