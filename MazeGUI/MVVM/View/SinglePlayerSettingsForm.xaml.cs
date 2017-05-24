@@ -31,6 +31,7 @@ namespace MazeGUI
             this.DataContext = settingsVM;
             this.txtbxMazeCols.DataContext = settingsVM;
             this.txtbxMazeRows.DataContext = settingsVM;
+           
             
         }
 
@@ -78,6 +79,13 @@ namespace MazeGUI
                 MainMenu main = new MainMenu();
                 main.Show();
             }
+            this.Close();
+        }
+        public void HandleConnectionLost()
+        {
+            MessageBoxResult mBox = MessageBox.Show("Connection to server has been lost !", "Connection lost", MessageBoxButton.OK,
+               MessageBoxImage.Information);
+            this.isBackToMain = true;
             this.Close();
         }
     }

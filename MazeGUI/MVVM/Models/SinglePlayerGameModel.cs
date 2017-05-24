@@ -43,32 +43,41 @@ namespace MazeGUI.Models {
         /// <returns></returns>
         private void GenerateMaze(string mazeName, int rows, int cols)
         {
-            TcpClient client = new TcpClient();
-            client.Connect(this.EndPoint);
-            NetworkStream stream = client.GetStream();
-            StreamReader reader = new StreamReader(stream);
-            StreamWriter writer = new StreamWriter(stream);
-            Maze maze = null;
-            using (stream)
-            using (reader)
-            using (writer)
+            try
             {
-                try
+                TcpClient client = new TcpClient();
+                client.Connect(this.EndPoint);
+                NetworkStream stream = client.GetStream();
+                StreamReader reader = new StreamReader(stream);
+                StreamWriter writer = new StreamWriter(stream);
+                Maze maze = null;
+                using (stream)
+                using (reader)
+                using (writer)
                 {
-                writer.AutoFlush = true;
-                writer.WriteLine(string.Format("Generate {0} {1} {2}", mazeName, rows, cols));
-                string answer = reader.ReadLine();
-               
-                    maze = Maze.FromJSON(answer);
-                    this.maze = maze;
-                    this.maze.Name = mazeName;
-                    this.playerPosition = this.maze.InitialPos;
+                    try
+                    {
+                        writer.AutoFlush = true;
+                        writer.WriteLine(string.Format("Generate {0} {1} {2}", mazeName, rows, cols));
+                        string answer = reader.ReadLine();
+
+                        maze = Maze.FromJSON(answer);
+                        this.maze = maze;
+                        this.maze.Name = mazeName;
+                        this.playerPosition = this.maze.InitialPos;
+                    }
+                    catch (Exception e)
+                    {
+                        this.ConnectionFailureEvent?.Invoke();
+                    }
+
                 }
-                catch (Exception e) {
-                   this.ConnectionFailureEvent?.Invoke();
-                }
-               
+
+            } catch(SocketException e)
+            {
+                this.ConnectionFailureEvent?.Invoke();
             }
+            
             
         }
 
