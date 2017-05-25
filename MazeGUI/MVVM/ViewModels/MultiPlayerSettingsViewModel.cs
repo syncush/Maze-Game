@@ -29,15 +29,24 @@ namespace MazeGUI.ViewModels {
         private MultiPlayerSettingsModel model;
         public delegate void BadArguments(string message);
         public event BadArguments BadArgumentsEvent;
+
+        public delegate void ConnectionLost(string mess);
+
+        public event ConnectionLost ConnectionLostEvent;
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPlayerSettingsViewModel"/> class.
         /// </summary>
         public MultiPlayerSettingsViewModel() : base() {
             this.model = new MultiPlayerSettingsModel();
+            this.model.ConnectionLostEvent += HandleConnection;
             this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
                 this.NotifyPropertyChanged("VM_" + e.PropertyName);
             };
+        }
+
+        private void HandleConnection(string mess) {
+            this.ConnectionLostEvent?.Invoke(mess);
         }
         /// <summary>
         /// Handles the bad arguments.

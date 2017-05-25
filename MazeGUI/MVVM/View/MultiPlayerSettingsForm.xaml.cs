@@ -31,6 +31,7 @@ namespace MazeGUI {
             mpVP = new MultiPlayerSettingsViewModel();
             this.DataContext = mpVP;
             this.mpVP.BadArgumentsEvent += this.BadArgsHandler;
+            this.mpVP.ConnectionLostEvent += HanndleBadConnection;
             this.backToMM = true;
             this.imgPleaseWait.Source = new BitmapImage(
                 new Uri(@"pack://application:,,,/MazeGUI;component/Resources/keepCalm.jpg"));
@@ -126,6 +127,22 @@ namespace MazeGUI {
             });
            
            // this.Close();
+        }
+
+        /// <summary>
+        /// Handles the Closed event of the Window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void HanndleBadConnection(string e)
+        {
+            this.Dispatcher.Invoke(() => {
+                MessageBoxResult result = MessageBox.Show("Connection to server lost", "Connection to server lost",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                this.backToMM = true;
+                this.Close();
+            });
         }
 
         /// <summary>
