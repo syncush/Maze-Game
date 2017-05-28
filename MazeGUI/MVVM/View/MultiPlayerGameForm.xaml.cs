@@ -21,6 +21,7 @@ namespace MazeGUI {
     public partial class MultiPlayerGameForm : Window {
         private MultiPlayerGameViewModel mpgVM;
         private Boolean shouldAsk = true;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPlayerGameForm"/> class.
         /// </summary>
@@ -88,10 +89,9 @@ namespace MazeGUI {
         private void GameFinishedHandler(string mess) {
             this.Dispatcher.Invoke(() => {
                 MessageBoxResult result = MessageBox.Show("Game finished!", "Game is done , thank you for playing.!",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                if (result == MessageBoxResult.OK)
-                {
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK) {
                     this.shouldAsk = false;
                     this.Close();
                 }
@@ -103,8 +103,7 @@ namespace MazeGUI {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
-        private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
+        private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
             if (shouldAsk) {
                 MessageBoxResult result = MessageBox.Show("Exiting game!", "Sure you want to quit ?",
                     MessageBoxButton.OKCancel,
@@ -119,31 +118,32 @@ namespace MazeGUI {
                 MainMenu main = new MainMenu();
                 main.Show();
             }
-            
+
         }
 
         /// <summary>
         /// Handles the critical error.
         /// </summary>
         /// <param name="mess">The mess.</param>
-        public void HandleCriticalError(string mess)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
+        public void HandleCriticalError(string mess) {
+            this.Dispatcher.Invoke(() => {
                 MessageBoxResult result = MessageBox.Show("Server Connection Failure!", "Server Failure !",
-                  MessageBoxButton.OK,
-                  MessageBoxImage.Information);
-                if (result == MessageBoxResult.OK)
-                {
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK) {
                     this.shouldAsk = false;
                     this.Close();
                 }
             });
         }
 
-        private void btnMainMenu_Click(object sender, RoutedEventArgs e)
-        {
-
+        private void btnMainMenu_Click(object sender, RoutedEventArgs e) {
+            MessageBoxResult result = MessageBox.Show("Exiting game!", "Sure you want to quit?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Information);
+            if (result == MessageBoxResult.Yes) {
+                this.mpgVM.GameClosed();
+            }
         }
     }
 }

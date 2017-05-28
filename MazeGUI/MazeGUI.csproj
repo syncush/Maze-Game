@@ -38,7 +38,7 @@
       <HintPath>C:\Users\sync\Source\Repos\Maze\MazeGeneratorLib.dll</HintPath>
     </Reference>
     <Reference Include="MazeLib">
-      <HintPath>..\..\Maze3.0\Console\MazeLib.dll</HintPath>
+      <HintPath>C:\Users\sync\Source\Repos\Maze\MazeLib.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
