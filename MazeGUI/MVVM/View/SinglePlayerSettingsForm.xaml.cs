@@ -68,7 +68,9 @@ namespace MazeGUI
             MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.YesNo,
                 MessageBoxImage.Information);
             if (mBox == MessageBoxResult.Yes) {
-                this.isBackToMain = true;
+                MainMenu main = new MainMenu();
+                main.Show();
+                this.isBackToMain = false;
                 this.Close();
             }
         }

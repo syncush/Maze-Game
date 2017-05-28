@@ -163,7 +163,10 @@ namespace MazeGUI {
                 MessageBoxImage.Information);
             if (mBox == MessageBoxResult.Yes)
             {
-                this.backToMM = true;
+                MainMenu main = new MainMenu();
+                main.Show();
+                this.mpVP.Stop = true;
+                this.backToMM = false;
                 this.Close();
             }
            
