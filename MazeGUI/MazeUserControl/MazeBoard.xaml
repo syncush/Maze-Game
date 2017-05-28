@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MazeGUI.MazeUserControl"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Viewbox Name="Viewbox">
+    <Viewbox Name="Viewbox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" Height="auto">
         <Grid Name="grid"></Grid>
         
     </Viewbox>

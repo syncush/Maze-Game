@@ -26,6 +26,11 @@ namespace MazeGUI
         {
             InitializeComponent();
         }
+        public MainMenu(bool a)
+        {
+            InitializeComponent();
+            this.shouldAsk = a;
+        }
 
         /// <summary>
         /// Handles the Click event of the btnSingle control.

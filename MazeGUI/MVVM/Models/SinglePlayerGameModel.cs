@@ -76,6 +76,7 @@ namespace MazeGUI.Models {
             } catch(SocketException e)
             {
                 this.ConnectionFailureEvent?.Invoke();
+                throw e;
             }
             
             

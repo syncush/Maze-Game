@@ -57,28 +57,36 @@ namespace MazeGUI {
         /// </summary>
         /// <param name="isStart">if set to <c>true</c> [is start].</param>
         private void CreateMultiGame(Boolean isStart) {
-            if (isStart) {
-                this.imgPleaseWait.Visibility = Visibility.Visible;
-                MainMenu main = new MainMenu();
-                main.Show();
-                main.Close();
-                this.mpVP.Stop = true;
-                this.backToMM = false;
-                MultiPlayerGameForm form;
-                this.IsEnabled = false; 
-                form = new MultiPlayerGameForm(Convert.ToInt32(this.mpVP.VM_Rows),
-                            Convert.ToInt32(this.mpVP.VM_Cols), true, this.mpVP.VM_GameName);
-                form.Show();
-                this.Close();
-            }
-            else {
+            try {
+                if (isStart)
+                {
+                    this.imgPleaseWait.Visibility = Visibility.Visible;
+                    MainMenu main = new MainMenu(false);
+                    main.Show();
+                    main.Close();
+                    this.mpVP.Stop = true;
+                    this.backToMM = false;
+                    MultiPlayerGameForm form;
+                    this.IsEnabled = false;
+                    form = new MultiPlayerGameForm(Convert.ToInt32(this.mpVP.VM_Rows),
+                        Convert.ToInt32(this.mpVP.VM_Cols), true, this.mpVP.VM_GameName);
+                    form.Show();
+                    this.Close();
+                }
+                else
+                {
 
-                MultiPlayerGameForm form = new MultiPlayerGameForm(this.cmbxGames.SelectedValue.ToString());
-                form.Show();
-                this.backToMM = false;
-                this.mpVP.Stop = true;
-                this.Close();
+                    MultiPlayerGameForm form = new MultiPlayerGameForm(this.cmbxGames.SelectedValue.ToString());
+                    form.Show();
+                    this.backToMM = false;
+                    this.mpVP.Stop = true;
+                    this.Close();
+                }
             }
+            catch (Exception e) {
+                this.HanndleBadConnection("Bad connection");
+            }
+           
         }
 
         /// <summary>
@@ -118,7 +126,7 @@ namespace MazeGUI {
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Window_Closed(object sender, EventArgs e) {
             this.Dispatcher.Invoke(() => {
-                if (backToMM)
+                if (this.backToMM)
                 {
                     MainMenu main = new MainMenu();
                     main.Show();
@@ -126,7 +134,6 @@ namespace MazeGUI {
                 
             });
            
-           // this.Close();
         }
 
         /// <summary>

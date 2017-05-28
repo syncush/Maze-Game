@@ -92,8 +92,6 @@ namespace MazeGUI {
                         MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    MainMenu form = new MainMenu();
-                    form.Show();
                     this.shouldAsk = false;
                     this.Close();
                 }
@@ -107,17 +105,19 @@ namespace MazeGUI {
         /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(shouldAsk)
-            {
+            if (shouldAsk) {
                 MessageBoxResult result = MessageBox.Show("Exiting game!", "Sure you want to quit ?",
                     MessageBoxButton.OKCancel,
                     MessageBoxImage.Information);
-                if (result == MessageBoxResult.OK)
-                {
+                if (result == MessageBoxResult.OK) {
                     this.mpgVM.GameClosed();
                     MainMenu main = new MainMenu();
                     main.Show();
                 }
+            }
+            else {
+                MainMenu main = new MainMenu();
+                main.Show();
             }
             
         }
@@ -135,8 +135,6 @@ namespace MazeGUI {
                   MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    MainMenu main = new MainMenu();
-                    main.Show();
                     this.shouldAsk = false;
                     this.Close();
                 }

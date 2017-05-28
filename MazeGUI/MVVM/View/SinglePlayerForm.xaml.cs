@@ -22,6 +22,7 @@ namespace MazeGUI {
     /// </summary>
     public partial class SinglePlayerForm : Window {
         private SinglePlayerGameViewModel spGameVM;
+        private Boolean shouldAsk = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SinglePlayerForm"/> class.
@@ -130,8 +131,8 @@ namespace MazeGUI {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void window_Closed(object sender, EventArgs e) {
-            MainMenu form = new MainMenu();
-            form.Show();
+            
+           
         }
 
         /// <summary>
@@ -143,6 +144,7 @@ namespace MazeGUI {
             MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
                 MessageBoxImage.Information);
             if (mBox == MessageBoxResult.OK) {
+                this.shouldAsk = false;
                 this.Close();
             }
         }
@@ -154,12 +156,19 @@ namespace MazeGUI {
         /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult mBox = MessageBox.Show("Windows will now close ", "Confirmation", MessageBoxButton.OK,
-               MessageBoxImage.Question);
-            if (mBox == MessageBoxResult.OK)
-            {
-                
+            if (shouldAsk) {
+                MessageBoxResult mBox = MessageBox.Show("Windows will now close ", "Confirmation", MessageBoxButton.OK,
+                    MessageBoxImage.Question);
+                if (mBox == MessageBoxResult.OK) {
+                    MainMenu form = new MainMenu();
+                    form.Show();
+                }
             }
+            else {
+                MainMenu form = new MainMenu();
+                form.Show();
+            }
+           
         }
     }
 }

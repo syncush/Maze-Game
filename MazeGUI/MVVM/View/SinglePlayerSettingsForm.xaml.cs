@@ -42,13 +42,19 @@ namespace MazeGUI
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnStart_Click(object sender, RoutedEventArgs e) {
-            int rows = int.Parse(this.txtbxMazeRows.Text);
-            int cols = int.Parse(this.txtbxMazeCols.Text);
-            string gameName = this.txtbxMazeName.Text;
-            SinglePlayerForm form = new SinglePlayerForm(rows, cols, gameName);
-            form.Show();
-            isBackToMain = false;
-            this.Close();
+            try {
+                int rows = int.Parse(this.txtbxMazeRows.Text);
+                int cols = int.Parse(this.txtbxMazeCols.Text);
+                string gameName = this.txtbxMazeName.Text;
+                SinglePlayerForm form = new SinglePlayerForm(rows, cols, gameName);
+                form.Show();
+                isBackToMain = false;
+                this.Close();
+            }
+            catch (Exception ee2) {
+                this.HandleConnectionLost();
+            }
+            
 
         }
 

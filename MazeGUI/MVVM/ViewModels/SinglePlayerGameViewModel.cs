@@ -114,7 +114,7 @@ namespace MazeGUI.ViewModels {
             this.model.Restart();
             this.solutionPosList = null;
             this.shouldDrawSolution = false;
-            this.PlayerPos = "yolo";
+            //this.PlayerPos = "yolo";
             this.NotifyPropertyChanged("PlayerPos");
 
         }

@@ -106,7 +106,6 @@ namespace MazeGUI{
         {
             MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
                 MessageBoxImage.Information);
-            
                 MainMenu main = new MainMenu();
                 main.Show();
             
