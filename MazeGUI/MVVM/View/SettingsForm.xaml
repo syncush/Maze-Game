@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeGUI"
         mc:Ignorable="d"
-        Title="Settings" Height="320" Width="261.053" Closed="frmSettings_Closed" >
+        Title="Settings" Height="320" Width="261.053" Closed="frmSettings_Closed" Closing="frmSettings_Closing" >
     <Grid Margin="0,0,33,7">
         <Button x:Name="btnSaveSettings" Content="Save" HorizontalAlignment="Left" Margin="38,225,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveSettings_Click"/>
         <TextBox x:Name="txtbxServerIP" Text="{Binding ServerAddress}" HorizontalAlignment="Left" Height="23" Margin="86,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="txtbxServerIP_PreviewTextInput"/>

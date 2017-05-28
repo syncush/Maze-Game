@@ -56,6 +56,8 @@ namespace MazeGUI{
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnSaveSettings_Click(object sender, RoutedEventArgs e) {
             this.settingsVM.SaveSettings();
+            MessageBoxResult mBox = MessageBox.Show("Settings Saved ", "Confirmation", MessageBoxButton.OK,
+                MessageBoxImage.Information);
         }
 
 
@@ -74,14 +76,7 @@ namespace MazeGUI{
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void frmSettings_Closed(object sender, EventArgs e) {
-            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
-                MessageBoxImage.Information);
-            if (mBox == MessageBoxResult.OK)
-            {
-                MainMenu main = new MainMenu();
-                main.Show();
-                this.Close();
-            }
+           
            
         }
 
@@ -105,6 +100,16 @@ namespace MazeGUI{
         {
             if (!char.IsDigit(e.Text, e.Text.Length - 1) && e.Text != ".")
                 e.Handled = true;
+        }
+
+        private void frmSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            
+                MainMenu main = new MainMenu();
+                main.Show();
+            
         }
     }
 }
