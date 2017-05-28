@@ -159,8 +159,14 @@ namespace MazeGUI {
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.backToMM = true;
-            this.Close();
+            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.YesNo,
+                MessageBoxImage.Information);
+            if (mBox == MessageBoxResult.Yes)
+            {
+                this.backToMM = true;
+                this.Close();
+            }
+           
         }
 
         /// <summary>

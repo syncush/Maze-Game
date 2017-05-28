@@ -22,32 +22,20 @@ namespace MazeGUI{
         /// <summary>
         /// The settings vm
         /// </summary>
+        ///
         private SettingsViewModel settingsVM;
+
+        private Boolean shouldAsk = true;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingsForm"/> class.
+        /// </summary>
         public SettingsForm() {
             InitializeComponent();
             this.settingsVM = new SettingsViewModel();
             this.DataContext = settingsVM;
         }
 
-        private int GetIndexOfAlgoValue(string value) {
-            try {
-                switch (value.ToLower()) {
-                    case "dfs": {
-                        return 0;
-                    }
-                        break;
-                    case "bfs": {
-                        return 1;
-                    }
-                        break;
-                }
-            }
-            catch (Exception) {
-                return -1;
-            }
-
-            return -1;
-        }
+       
 
         /// <summary>
         /// Handles the Click event of the btnSaveSettings control.
@@ -58,6 +46,8 @@ namespace MazeGUI{
             this.settingsVM.SaveSettings();
             MessageBoxResult mBox = MessageBox.Show("Settings Saved ", "Confirmation", MessageBoxButton.OK,
                 MessageBoxImage.Information);
+            this.shouldAsk = false;
+            this.Close();
         }
 
 
@@ -67,7 +57,13 @@ namespace MazeGUI{
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e) {
-            this.Close();
+            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.YesNo,
+                MessageBoxImage.Information);
+            if (mBox == MessageBoxResult.Yes) {
+                this.shouldAsk = false;
+                this.Close();
+            }
+           
         }
 
         /// <summary>
@@ -104,10 +100,18 @@ namespace MazeGUI{
 
         private void frmSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            if (shouldAsk) {
+
+                MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
                 MainMenu main = new MainMenu();
                 main.Show();
+            }
+            else {
+                MainMenu main = new MainMenu();
+                main.Show();
+            }
+           
             
         }
     }

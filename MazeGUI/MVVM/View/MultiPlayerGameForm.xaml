@@ -15,8 +15,9 @@
             </StackPanel>
             <Label Content="My board" Canvas.Left="34" Canvas.Top="32" RenderTransformOrigin="0.361,0.045"/>
             <Label Content="Rival board" Canvas.Left="978" Canvas.Top="37" RenderTransformOrigin="0.361,0.045"/>
+            <Button x:Name="btnMainMenu" Content="Main Menu" Canvas.Left="558" Canvas.Top="17" Width="75" Click="btnMainMenu_Click"/>
         </Canvas>
 
     </Viewbox>
-    
+
 </Window>

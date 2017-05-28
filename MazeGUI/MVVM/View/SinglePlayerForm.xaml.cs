@@ -90,9 +90,9 @@ namespace MazeGUI {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnRestart_Click(object sender, RoutedEventArgs e) {
-            MessageBoxResult mBox = MessageBox.Show("Restart Game ?", "Confirmation", MessageBoxButton.OK,
+            MessageBoxResult mBox = MessageBox.Show("Restart Game?", "Confirmation", MessageBoxButton.YesNo,
                 MessageBoxImage.Information);
-            if (mBox == MessageBoxResult.OK)
+            if (mBox == MessageBoxResult.Yes)
             {
                 this.spGameVM.RestartGame();
             }
@@ -117,9 +117,9 @@ namespace MazeGUI {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnSolve_Click(object sender, RoutedEventArgs e) {
-            MessageBoxResult mBox = MessageBox.Show("Solve Maze ?", "Confirmation", MessageBoxButton.OK,
+            MessageBoxResult mBox = MessageBox.Show("Solve Maze ?", "Confirmation", MessageBoxButton.YesNo,
                 MessageBoxImage.Information);
-            if (mBox == MessageBoxResult.OK) {
+            if (mBox == MessageBoxResult.Yes) {
                 this.spGameVM.SolveMaze();
             }
         }
@@ -141,9 +141,9 @@ namespace MazeGUI {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnMainMenu_Click(object sender, RoutedEventArgs e) {
-            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
+            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.YesNo,
                 MessageBoxImage.Information);
-            if (mBox == MessageBoxResult.OK) {
+            if (mBox == MessageBoxResult.Yes) {
                 this.shouldAsk = false;
                 this.Close();
             }

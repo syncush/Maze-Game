@@ -20,7 +20,7 @@ namespace MazeGUI
     /// </summary>
     public partial class SinglePlayerSettingsForm : Window {
         private SinglePlayerSettingsViewModel settingsVM;
-        Boolean isBackToMain;
+        Boolean isBackToMain = true;
         /// <summary>
         /// Initializes a new instance of the <see cref="SinglePlayerSettingsForm"/> class.
         /// </summary>
@@ -65,9 +65,9 @@ namespace MazeGUI
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnMainMenu_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.OK,
+            MessageBoxResult mBox = MessageBox.Show("Go Back To MainMenu ?", "Confirmation", MessageBoxButton.YesNo,
                 MessageBoxImage.Information);
-            if (mBox == MessageBoxResult.OK) {
+            if (mBox == MessageBoxResult.Yes) {
                 this.isBackToMain = true;
                 this.Close();
             }
@@ -85,7 +85,7 @@ namespace MazeGUI
                 MainMenu main = new MainMenu();
                 main.Show();
             }
-            this.Close();
+            
         }
         public void HandleConnectionLost()
         {
